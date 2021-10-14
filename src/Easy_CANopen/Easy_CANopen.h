@@ -8,7 +8,7 @@
 #ifndef EASY_CANOPEN_EASY_CANOPEN_H_
 #define EASY_CANOPEN_EASY_CANOPEN_H_
 
-/* Layers */
+/* Enums and structs */
 #include "Structs.h"
 
 #ifdef __cplusplus

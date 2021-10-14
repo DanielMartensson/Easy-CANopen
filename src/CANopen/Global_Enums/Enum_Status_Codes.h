@@ -1,0 +1,17 @@
+/*
+ * Enum_Error_Codes.h
+ *
+ *  Created on: 9 okt. 2021
+ *      Author: Daniel Mårtensson
+ */
+
+#ifndef CANOPEN_GLOBAL_ENUMS_ENUM_STATUS_CODES_H_
+#define CANOPEN_GLOBAL_ENUMS_ENUM_STATUS_CODES_H_
+
+typedef enum {
+	STATUS_CODE_SUCCESSFUL = 0x0,
+	STATUS_CODE_INVALID_PARAMETER = 0x1,
+	STATUS_CODE_ERROR_DURING_OPERATION = 0x2
+}STATUS_CODE;
+
+#endif /* CANOPEN_GLOBAL_ENUMS_ENUM_STATUS_CODES_H_ */

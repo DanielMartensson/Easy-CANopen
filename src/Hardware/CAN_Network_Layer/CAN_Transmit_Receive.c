@@ -26,7 +26,7 @@ static uint8_t buffer_index_transmit = 0;
 static uint8_t buffer_index_receive = 0;
 
 /* Internal functions */
-static ENUM_J1939_STATUS_CODES Internal_Transmit(uint32_t COB_ID, uint8_t data[], uint8_t DLC) {
+static STATUS_CODE Internal_Transmit(uint32_t COB_ID, uint8_t data[], uint8_t DLC) {
 	internal_COB_ID[buffer_index_transmit] = COB_ID;
 	internal_DLC[buffer_index_transmit] = DLC;
 	for(uint8_t i = 0; i < 8; i++)
@@ -36,7 +36,7 @@ static ENUM_J1939_STATUS_CODES Internal_Transmit(uint32_t COB_ID, uint8_t data[]
 			internal_data[buffer_index_transmit*8 + i] = 0x0;
 	internal_new_message[buffer_index_transmit] = true;
 	buffer_index_transmit++;									/* When this is 256, then it will be come 0 again */
-	return STATUS_SEND_OK;
+	return STATUS_CODE_SUCCESSFUL;
 }
 
 static void Internal_Receive(uint32_t *COB_ID, uint8_t data[], bool *is_new_message) {
@@ -46,7 +46,7 @@ static void Internal_Receive(uint32_t *COB_ID, uint8_t data[], bool *is_new_mess
 		return;
 	}
 
-	*COB_ID = internal_ID[buffer_index_receive];
+	*COB_ID = internal_DLC[buffer_index_receive];
 	for(uint8_t i = 0; i < 8; i++)
 		if(i < internal_DLC[buffer_index_receive])
 			data[i] = internal_data[buffer_index_receive*8 + i];
@@ -58,8 +58,8 @@ static void Internal_Receive(uint32_t *COB_ID, uint8_t data[], bool *is_new_mess
 }
 #endif
 
-ENUM_J1939_STATUS_CODES CAN_Send_Message(uint32_t COB_ID, uint8_t data[]) {
-	ENUM_J1939_STATUS_CODES status;
+STATUS_CODE CAN_Send_Message(uint32_t COB_ID, uint8_t data[]) {
+	STATUS_CODE status;
 	#if PROCESSOR_CHOICE == STM32
 	CAN_TxHeaderTypeDef TxHeader;
 	TxHeader.DLC = 8;											/* Here we are sending 8 bytes */
@@ -87,8 +87,8 @@ ENUM_J1939_STATUS_CODES CAN_Send_Message(uint32_t COB_ID, uint8_t data[]) {
 /* Send a PGN request
  * PGN: 0x00EA00 (59904)
  */
-ENUM_J1939_STATUS_CODES CAN_Send_Request(uint32_t ID, uint8_t PGN[]) {
-	ENUM_J1939_STATUS_CODES status;
+STATUS_CODE CAN_Send_Request(uint32_t ID, uint8_t PGN[]) {
+	STATUS_CODE status;
 	#if PROCESSOR_CHOICE == STM32
 	CAN_TxHeaderTypeDef TxHeader;
 	TxHeader.DLC = 3;											/* Here we are only sending 3 bytes */

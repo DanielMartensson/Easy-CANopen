@@ -5,9 +5,142 @@
  *      Author: Daniel Mårtensson
  */
 
+#include "../CANopen/OD/OD.h"
 #include "Easy_CANopen.h"
 
-/* Every time you startup your node, then this function must be run, or else, all settings will be zero */
+/* Layers */
+
+/* Private functions */
+static void create_object_dictionary(CANopen *canopen);
+
+/* Every time you startup your node, then this function must be run only once, or else, all settings will be zero */
 bool Easy_CANopen_Startup_Node(CANopen *canopen){
+	create_object_dictionary(canopen);
 	return 0;
+}
+
+static void create_object_dictionary(CANopen *canopen){
+	/* First create the zero-length struct */
+	canopen->length_object_dictionaries = 0;
+	canopen->object_dictionaries = (struct Object_dictionary*)calloc(0, sizeof(struct Object_dictionary));
+
+	/* This MUST be in a linear sorted descending order - That's because we are using binary search */
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_DEVICE_TYPE_INDEX, OD_SUB_INDEX_0, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_ERROR_REGISTER, OD_SUB_INDEX_0, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_CALIBRATION_DATE, OD_SUB_INDEX_0, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_EMERGENCY_HISTORY, OD_SUB_INDEX_0, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_EMERGENCY_HISTORY, OD_SUB_INDEX_1, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_EMERGENCY_HISTORY, OD_SUB_INDEX_2, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_EMERGENCY_HISTORY, OD_SUB_INDEX_3, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_EMERGENCY_HISTORY, OD_SUB_INDEX_4, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_EMERGENCY_HISTORY, OD_SUB_INDEX_5, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_EMERGENCY_HISTORY, OD_SUB_INDEX_6, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_EMERGENCY_HISTORY, OD_SUB_INDEX_7, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_EMERGENCY_HISTORY, OD_SUB_INDEX_8, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_EMERGENCY_HISTORY, OD_SUB_INDEX_9, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_EMERGENCY_HISTORY, OD_SUB_INDEX_10, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_EMERGENCY_HISTORY, OD_SUB_INDEX_11, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_EMERGENCY_HISTORY, OD_SUB_INDEX_12, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_EMERGENCY_HISTORY, OD_SUB_INDEX_13, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_EMERGENCY_HISTORY, OD_SUB_INDEX_14, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_EMERGENCY_HISTORY, OD_SUB_INDEX_15, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_COB_ID_SYNC, OD_SUB_INDEX_0, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_DEVICE_NAME, OD_SUB_INDEX_0, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_HARDWARE_VERSION, OD_SUB_INDEX_0, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_SOFTWARE_VERSION, OD_SUB_INDEX_0, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_GUARD_TIME_MS, OD_SUB_INDEX_0, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_LIFE_FACTOR, OD_SUB_INDEX_0, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_SAVE_PARAMETERS, OD_SUB_INDEX_0, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_SAVE_PARAMETERS, OD_SUB_INDEX_1, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_SAVE_PARAMETERS, OD_SUB_INDEX_2, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_SAVE_PARAMETERS, OD_SUB_INDEX_3, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_SAVE_PARAMETERS, OD_SUB_INDEX_4, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_SAVE_PARAMETERS, OD_SUB_INDEX_0, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_RESTORE_PARAMETERS, OD_SUB_INDEX_0, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_RESTORE_PARAMETERS, OD_SUB_INDEX_1, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_RESTORE_PARAMETERS, OD_SUB_INDEX_2, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_RESTORE_PARAMETERS, OD_SUB_INDEX_3, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_RESTORE_PARAMETERS, OD_SUB_INDEX_4, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_COB_ID_EMERGENCY_MESSAGE, OD_SUB_INDEX_0, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_INHIBIT_TIME_MS_BETWEEN_TWO_EMCY_MESSAGES, OD_SUB_INDEX_0, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_HEARTBEAT_INTERVAL_MS, OD_SUB_INDEX_0, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_IDENTITY_OBJECT, OD_SUB_INDEX_0, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_IDENTITY_OBJECT, OD_SUB_INDEX_1, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_IDENTITY_OBJECT, OD_SUB_INDEX_2, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_IDENTITY_OBJECT, OD_SUB_INDEX_3, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_IDENTITY_OBJECT, OD_SUB_INDEX_4, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_IDENTITY_OBJECT, OD_SUB_INDEX_5, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_SERVER_SOD_PARAMETERS, OD_SUB_INDEX_0, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_SERVER_SOD_PARAMETERS, OD_SUB_INDEX_1, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_SERVER_SOD_PARAMETERS, OD_SUB_INDEX_2, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO1_COMMUNICATION, OD_SUB_INDEX_0, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO1_COMMUNICATION, OD_SUB_INDEX_1, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO1_COMMUNICATION, OD_SUB_INDEX_2, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO1_COMMUNICATION, OD_SUB_INDEX_3, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO1_COMMUNICATION, OD_SUB_INDEX_4, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO1_COMMUNICATION, OD_SUB_INDEX_5, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO2_COMMUNICATION, OD_SUB_INDEX_0, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO2_COMMUNICATION, OD_SUB_INDEX_1, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO2_COMMUNICATION, OD_SUB_INDEX_2, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO2_COMMUNICATION, OD_SUB_INDEX_3, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO2_COMMUNICATION, OD_SUB_INDEX_4, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO2_COMMUNICATION, OD_SUB_INDEX_5, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO3_COMMUNICATION, OD_SUB_INDEX_0, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO3_COMMUNICATION, OD_SUB_INDEX_1, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO3_COMMUNICATION, OD_SUB_INDEX_2, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO3_COMMUNICATION, OD_SUB_INDEX_3, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO3_COMMUNICATION, OD_SUB_INDEX_4, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO3_COMMUNICATION, OD_SUB_INDEX_5, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO4_COMMUNICATION, OD_SUB_INDEX_0, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO4_COMMUNICATION, OD_SUB_INDEX_1, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO4_COMMUNICATION, OD_SUB_INDEX_2, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO4_COMMUNICATION, OD_SUB_INDEX_3, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO4_COMMUNICATION, OD_SUB_INDEX_4, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO4_COMMUNICATION, OD_SUB_INDEX_5, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO1_MAPPING_PARAMETERS, OD_SUB_INDEX_0, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO1_MAPPING_PARAMETERS, OD_SUB_INDEX_1, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO1_MAPPING_PARAMETERS, OD_SUB_INDEX_2, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO1_MAPPING_PARAMETERS, OD_SUB_INDEX_3, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO1_MAPPING_PARAMETERS, OD_SUB_INDEX_4, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO1_MAPPING_PARAMETERS, OD_SUB_INDEX_5, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO1_MAPPING_PARAMETERS, OD_SUB_INDEX_6, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO1_MAPPING_PARAMETERS, OD_SUB_INDEX_7, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO1_MAPPING_PARAMETERS, OD_SUB_INDEX_8, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO2_MAPPING_PARAMETERS, OD_SUB_INDEX_0, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO2_MAPPING_PARAMETERS, OD_SUB_INDEX_1, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO2_MAPPING_PARAMETERS, OD_SUB_INDEX_2, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO2_MAPPING_PARAMETERS, OD_SUB_INDEX_3, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO2_MAPPING_PARAMETERS, OD_SUB_INDEX_4, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO2_MAPPING_PARAMETERS, OD_SUB_INDEX_5, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO2_MAPPING_PARAMETERS, OD_SUB_INDEX_6, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO2_MAPPING_PARAMETERS, OD_SUB_INDEX_7, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO2_MAPPING_PARAMETERS, OD_SUB_INDEX_8, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO3_MAPPING_PARAMETERS, OD_SUB_INDEX_0, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO3_MAPPING_PARAMETERS, OD_SUB_INDEX_1, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO3_MAPPING_PARAMETERS, OD_SUB_INDEX_2, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO3_MAPPING_PARAMETERS, OD_SUB_INDEX_3, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO3_MAPPING_PARAMETERS, OD_SUB_INDEX_4, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO3_MAPPING_PARAMETERS, OD_SUB_INDEX_5, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO3_MAPPING_PARAMETERS, OD_SUB_INDEX_6, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO3_MAPPING_PARAMETERS, OD_SUB_INDEX_7, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO3_MAPPING_PARAMETERS, OD_SUB_INDEX_8, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO4_MAPPING_PARAMETERS, OD_SUB_INDEX_0, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO4_MAPPING_PARAMETERS, OD_SUB_INDEX_1, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO4_MAPPING_PARAMETERS, OD_SUB_INDEX_2, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO4_MAPPING_PARAMETERS, OD_SUB_INDEX_3, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO4_MAPPING_PARAMETERS, OD_SUB_INDEX_4, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO4_MAPPING_PARAMETERS, OD_SUB_INDEX_5, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO4_MAPPING_PARAMETERS, OD_SUB_INDEX_6, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO4_MAPPING_PARAMETERS, OD_SUB_INDEX_7, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_TRANSMIT_PDO4_MAPPING_PARAMETERS, OD_SUB_INDEX_8, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_PROGRAM_DATA_WRITE, OD_SUB_INDEX_0, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_PROGRAM_DATA_WRITE, OD_SUB_INDEX_1, OD_ACCESS_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_PROGRAM_DATA_WRITE, OD_SUB_INDEX_2, OD_ACCESS_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_PROGRAM_DATA_WRITE, OD_SUB_INDEX_3, OD_ACCESS_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_PROGRAM_DATA_WRITE, OD_SUB_INDEX_4, OD_ACCESS_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_PROGRAM_DATA_CONTROL, OD_SUB_INDEX_0, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_PROGRAM_DATA_CONTROL, OD_SUB_INDEX_1, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_PROGRAM_DATA_CONTROL, OD_SUB_INDEX_2, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_PROGRAM_DATA_CONTROL, OD_SUB_INDEX_3, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_PROGRAM_DATA_CONTROL, OD_SUB_INDEX_4, OD_ACCESS_READ_WRITE);
 }
