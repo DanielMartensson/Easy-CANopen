@@ -17,12 +17,43 @@
 /* Enums */
 #include "../CANopen/Global_Enums/Enum_Object_Dictionary_Codes.h"
 
+/**********************************************************************************************************/
+
 /* Our dictionary object */
 struct Object_dictionary{
     uint32_t key;                                                       /* Key value = index << 16 | sub_index */
     OD_ACCESS access;													/* Read, Write, Read-Write */
     uint32_t value;                                                     /* Unsigned value - If I had use a pointer, it would take more memory */
 };
+
+struct Heartbeat{
+	uint8_t toggle_heartbeat;											/* Toggle variable for heartbeat */
+	uint8_t from_node_ID;												/* Message where it came from */
+	uint8_t status_operational;											/* The status of the node */
+	uint16_t time_count_threshold;										/* Used for heartbeat producing interval */
+	bool heartbeat_is_enabled;											/* If this is false, then heartbeat stops */
+};
+
+struct NMT{
+
+};
+
+/**********************************************************************************************************/
+
+struct Producer {
+	struct Heartbeat heartbeat;											/* Heartbreat container */
+
+};
+
+struct Consumer {
+	struct Heartbeat heartbeat;											/* Heartbreat container */
+
+};
+
+struct Master{
+	struct NMT nmt;
+};
+
 
 typedef struct {
 	/* Latest CAN message */
@@ -34,8 +65,13 @@ typedef struct {
 	uint16_t length_object_dictionaries;								/* How many index the pointer struct contains */
 	struct Object_dictionary* object_dictionaries;						/* This is a dynamic map that holds object dictionaries of CANopen */
 
-	/* Toggle variables */
-	uint8_t toggle_heartbeat;											/* Toggle variable for heartbeat */
+	/* Consumer & Producer */
+	struct Consumer consumer;											/* Store values from the producer */
+	struct Producer producer;											/* Values are going to be sent to the consumers */
+
+	/* Master & slave */
+	struct Master master;												/* Master values */
+
 } CANopen;
 
 #endif /* EASY_CANOPEN_STRUCTS_H_ */

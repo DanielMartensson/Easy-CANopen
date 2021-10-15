@@ -25,13 +25,13 @@ bool Easy_CANopen_Listen_For_Messages(CANopen *canopen) {
 
 		/* Read the COB ID */
 		uint8_t function_code = COB_ID >> 7;											/* What service should we use */
-		uint16_t node_id = 0x7F & COB_ID;												/* Node ID = 0 for masters. Node ID 1 to 127 for slaves */
+		uint16_t node_ID = 0x7F & COB_ID;												/* Node ID = 0 for masters. Node ID 1 to 127 for slaves */
 
 		if(function_code == FUNCTION_CODE_NMT){
 
-		}else if(function_code == FUNCTION_CODE_SYNC && node_id == 0x0){
+		}else if(function_code == FUNCTION_CODE_SYNC && node_ID == 0x0){
 
-		}else if(function_code == FUNCTION_CODE_EMCY && node_id > 0x0){
+		}else if(function_code == FUNCTION_CODE_EMCY && node_ID > 0x0){
 
 		}else if(function_code == FUNCTION_CODE_TIME){
 
@@ -56,7 +56,7 @@ bool Easy_CANopen_Listen_For_Messages(CANopen *canopen) {
 		}else if(function_code == FUNCTION_CODE_SDO_RECEIVE){
 
 		}else if(function_code == FUNCTION_CODE_HEARTBEAT){
-
+			CANopen_Consumer_HEARTBEAT_Receive_Status_Operation(canopen, node_ID, data);
 		}else if(function_code == FUNCTION_CODE_LSS_TRANSMIT){
 
 		}else if(function_code == FUNCTION_CODE_LSS_RECEIVE){
