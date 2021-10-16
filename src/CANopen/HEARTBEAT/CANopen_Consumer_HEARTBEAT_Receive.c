@@ -7,10 +7,19 @@
 
 #include "HEARTBEAT.h"
 
-void CANopen_Consumer_HEARTBEAT_Receive_Status_Operation(CANopen *canopen, uint8_t node_ID, uint8_t data[]){
+/* Enums */
+#include "../Global_Enums/Enum_Status_Codes.h"
+
+STATUS_CODE CANopen_Consumer_HEARTBEAT_Receive_Heartbeat(CANopen *canopen, uint8_t node_ID, uint8_t data[]){
+	/* Check if heartbeat is enabled */
+	if(!canopen->consumer.heartbeat.is_enabled)
+		return STATUS_CODE_SERVICE_NOT_ENABLED;
+
+	/* Save the heartbeat message from the producer node */
 	canopen->consumer.heartbeat.from_node_ID = node_ID;
 	canopen->consumer.heartbeat.status_operational = data[0] & 0x7F;
-	canopen->consumer.heartbeat.toggle_heartbeat = data[0] >> 7;
+	canopen->consumer.heartbeat.toggle = data[0] >> 7;
+	return STATUS_CODE_SUCCESSFUL;
 }
 
 

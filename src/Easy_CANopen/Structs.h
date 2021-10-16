@@ -26,32 +26,46 @@ struct Object_dictionary{
     uint32_t value;                                                     /* Unsigned value - If I had use a pointer, it would take more memory */
 };
 
-struct Heartbeat{
-	uint8_t toggle_heartbeat;											/* Toggle variable for heartbeat */
-	uint8_t from_node_ID;												/* Message where it came from */
+struct Node_status_operation{
+	uint8_t toggle;														/* Toggle 1 or 0 to see if the process is alive */
 	uint8_t status_operational;											/* The status of the node */
-	uint16_t time_count_threshold;										/* Used for heartbeat producing interval */
-	bool heartbeat_is_enabled;											/* If this is false, then heartbeat stops */
+	uint16_t count_tick;												/* Used for time counting */
+	uint8_t from_node_ID;												/* From where this message came from */
+	bool is_enabled;													/* Check if this process is enabled */
 };
 
 struct NMT{
 
 };
 
+struct EMCY{
+	uint16_t error_code;												/* What type of error do we have */
+	uint8_t error_register;												/* What have caused this error */
+	uint8_t vendor_specific_data[5];									/* Manufactured specified */
+	uint8_t from_node_ID;												/* From where this message came from */
+	bool is_enabled;													/* Check if this process is enabled */
+};
+
 /**********************************************************************************************************/
 
 struct Producer {
-	struct Heartbeat heartbeat;											/* Heartbreat container */
+	struct Node_status_operation heartbeat;								/* Heartbreat container */
 
 };
 
 struct Consumer {
-	struct Heartbeat heartbeat;											/* Heartbreat container */
+	struct EMCY emcy;
+	struct Node_status_operation heartbeat;								/* Heartbreat container */
 
 };
 
-struct Master{
+struct Server{
 	struct NMT nmt;
+	struct Node_status_operation guard;									/* Guard container */
+};
+
+struct Client{
+	struct Node_status_operation guard;									/* Guard container */
 };
 
 
@@ -69,8 +83,9 @@ typedef struct {
 	struct Consumer consumer;											/* Store values from the producer */
 	struct Producer producer;											/* Values are going to be sent to the consumers */
 
-	/* Master & slave */
-	struct Master master;												/* Master values */
+	/* Server & Client */
+	struct Server server;												/* Server values */
+	struct Client client;												/* Client values */
 
 } CANopen;
 

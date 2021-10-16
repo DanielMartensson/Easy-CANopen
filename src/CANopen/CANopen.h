@@ -11,5 +11,6 @@
 #include "LSS/LSS.h"
 #include "HEARTBEAT/HEARTBEAT.h"
 #include "OD/OD.h"
+#include "GUARD/GUARD.h"
 
 #endif /* CANOPEN_CANOPEN_H_ */
