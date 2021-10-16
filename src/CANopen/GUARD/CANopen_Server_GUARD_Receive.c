@@ -7,9 +7,6 @@
 
 #include "GUARD.h"
 
-/* Enums */
-#include "../Global_Enums/Enum_Status_Codes.h"
-
 STATUS_CODE CANopen_Server_GUARD_Receive_Response_Guard(CANopen *canopen, uint8_t node_ID, uint8_t data[]){
 	/* Check if guard is enabled */
 	if(!canopen->server.guard.is_enabled)
@@ -29,7 +26,7 @@ STATUS_CODE CANopen_Server_GUARD_Receive_Response_Guard(CANopen *canopen, uint8_
 
 	/* If the time difference is too large, send out an EMCY */
 	if(life_factor * guard_time_ms < canopen->server.guard.count_tick)
-		return CANopen_Producer_EMCY_Transmit_Error_Message(canopen, ERROR_CODE_GUARD_HARTBEAT);
+		return CANopen_Producer_EMCY_Transmit_Error_Message(canopen, ERROR_CODE_GUARD_HARTBEAT, ERROR_REGISTER_COMMUNICATION_ERROR, (uint8_t*){0,0,0,0,0});
 	else
 		return STATUS_CODE_SUCCESSFUL;
 }

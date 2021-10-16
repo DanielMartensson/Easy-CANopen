@@ -12,5 +12,6 @@
 #include "HEARTBEAT/HEARTBEAT.h"
 #include "OD/OD.h"
 #include "GUARD/GUARD.h"
+#include "EMCY/EMCY.h"
 
 #endif /* CANOPEN_CANOPEN_H_ */

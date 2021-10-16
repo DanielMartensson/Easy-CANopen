@@ -15,7 +15,7 @@
 #include <string.h>
 
 /* Enums */
-#include "../CANopen/Global_Enums/Enum_Object_Dictionary_Codes.h"
+#include "../CANopen/Global_Enums/Global_Enums.h"
 
 /**********************************************************************************************************/
 
@@ -34,39 +34,25 @@ struct Node_status_operation{
 	bool is_enabled;													/* Check if this process is enabled */
 };
 
-struct NMT{
-
-};
-
-struct EMCY{
-	uint16_t error_code;												/* What type of error do we have */
-	uint8_t error_register;												/* What have caused this error */
-	uint8_t vendor_specific_data[5];									/* Manufactured specified */
-	uint8_t from_node_ID;												/* From where this message came from */
-	bool is_enabled;													/* Check if this process is enabled */
-};
 
 /**********************************************************************************************************/
 
 struct Producer {
 	struct Node_status_operation heartbeat;								/* Heartbreat container */
-
 };
 
 struct Consumer {
-	struct EMCY emcy;
 	struct Node_status_operation heartbeat;								/* Heartbreat container */
-
 };
 
 struct Server{
-	struct NMT nmt;
 	struct Node_status_operation guard;									/* Guard container */
 };
 
 struct Client{
 	struct Node_status_operation guard;									/* Guard container */
 };
+
 
 
 typedef struct {
