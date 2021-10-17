@@ -71,7 +71,7 @@ bool Easy_CANopen_Listen_For_Messages(CANopen *canopen) {
 		}else if(COB_ID == FUNCTION_CODE_LSS_TRANSMIT){
 			CANopen_Slave_LSS_Receive(canopen, data);														/* Master -> Slave */
 		}else if(COB_ID == FUNCTION_CODE_LSS_RECEIVE){
-			CANopen_Master_LSS_Receive(canopen, node_ID, data);												/* Slave -> Master */
+			CANopen_Master_LSS_Receive(canopen, data);														/* Slave -> Master */
 		}
 	}
 
