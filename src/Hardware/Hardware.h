@@ -33,6 +33,7 @@ extern "C" {
 STATUS_CODE CAN_Send_Message(uint32_t COB_ID, uint8_t data[]);
 STATUS_CODE CAN_Send_Request(uint32_t COB_ID, uint8_t PGN[]);
 bool CAN_Read_Message(uint32_t *ID, uint8_t data[]);
+bool CAN_Set_Baud_Rate(uint8_t table_index);
 
 /* Save and load data */
 bool Save_Data_Bytes(uint8_t data[], uint32_t data_length, char file_name[]);

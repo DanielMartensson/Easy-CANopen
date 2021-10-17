@@ -10,70 +10,70 @@
 /* Layers */
 #include "../../Hardware/Hardware.h"
 
-STATUS_CODE CANopen_Master_LSS_Transmit_Switch_Mode_Global_Protocol(uint8_t mode){
+void CANopen_Master_LSS_Transmit_Request_Switch_Mode_Global_Protocol(uint8_t mode){
 	uint8_t data[8] = {0};
 	data[0] = CS_SWITCH_MODE_GLOBAL_PROTOCOL;
 	data[1] = mode;
-	return CAN_Send_Message(FUNCTION_CODE_LSS_TRANSMIT, data);
+	CAN_Send_Message(FUNCTION_CODE_LSS_TRANSMIT, data);
 }
 
-STATUS_CODE CANopen_Master_LSS_Transmit_Switch_Mode_Selective_Protocol_Value(CANopen *canopen, uint8_t cs, uint32_t value){
+void CANopen_Master_LSS_Transmit_Request_Switch_Mode_Selective_Protocol_Value(uint8_t cs, uint32_t value){
 	uint8_t data[8] = {0};
 	data[0] = cs;
 	data[1] = value;
 	data[2] = value >> 8;
 	data[3] = value >> 16;
 	data[4] = value >> 24;
-	return CAN_Send_Message(FUNCTION_CODE_LSS_TRANSMIT, data);
+	CAN_Send_Message(FUNCTION_CODE_LSS_TRANSMIT, data);
 }
 
-STATUS_CODE CANopen_Master_LSS_Transmit_Configure_Protocol_Node_ID(CANopen *canopen, uint8_t node_ID){
+void CANopen_Master_LSS_Transmit_Request_Configure_Protocol_Node_ID(uint8_t node_ID){
 	uint8_t data[8] = {0};
 	data[0] = CS_CONFIGURE_PROTOCOL_NODE_ID;
 	data[1] = node_ID;
-	return CAN_Send_Message(FUNCTION_CODE_LSS_TRANSMIT, data);
+	CAN_Send_Message(FUNCTION_CODE_LSS_TRANSMIT, data);
 }
 
-STATUS_CODE CANopen_Master_LSS_Transmit_Configure_Protocol_Bit_Timing_Parameters(CANopen *canopen, uint8_t table_index){
+void CANopen_Master_LSS_Transmit_Request_Configure_Protocol_Bit_Timing_Parameters(uint8_t table_index){
 	uint8_t data[8] = {0};
 	data[0] = CS_CONFIGURE_PROTOCOL_BIT_TIMING_PARAMETERS;
 	data[1] = TABLE_SELECTOR_0;																	/* The table for the baud rate from the CiA 301 standard is used */
 	data[2] = table_index;																		/* What baud rate we should use */
-	return CAN_Send_Message(FUNCTION_CODE_LSS_TRANSMIT, data);
+	CAN_Send_Message(FUNCTION_CODE_LSS_TRANSMIT, data);
 }
 
-STATUS_CODE CANopen_Master_LSS_Transmit_Active_Protocol_Bit_Timing_Parameters(CANopen *canopen, uint16_t delay){
+void CANopen_Master_LSS_Transmit_Request_Active_Protocol_Bit_Timing_Parameters(uint16_t delay){
 	uint8_t data[8] = {0};
 	data[0] = CS_ACTIVATE_PROTOCOL_BIT_TIMING_PARAMETERS;
 	data[1] = delay;																			/* LSB */
 	data[2] = delay >> 8;																		/* MSB */
-	return CAN_Send_Message(FUNCTION_CODE_LSS_TRANSMIT, data);
+	CAN_Send_Message(FUNCTION_CODE_LSS_TRANSMIT, data);
 }
 
-STATUS_CODE CANopen_Master_LSS_Transmit_Store_Configuration_Protocol(CANopen *canopen){
+void CANopen_Master_LSS_Transmit_Request_Store_Configuration_Protocol(){
 	uint8_t data[8] = {0};
 	data[0] = CS_STORE_CONFIGURATION_PROTOCOL;
-	return CAN_Send_Message(FUNCTION_CODE_LSS_TRANSMIT, data);
+	CAN_Send_Message(FUNCTION_CODE_LSS_TRANSMIT, data);
 }
 
-STATUS_CODE CANopen_Master_LSS_Transmit_Inquire_Identity_Value(CANopen *canopen, uint8_t cs){
+void CANopen_Master_LSS_Transmit_Request_Inquire_Identity_Protocol_Value(uint8_t cs){
 	uint8_t data[8] = {0};
 	data[0] = cs;
-	return CAN_Send_Message(FUNCTION_CODE_LSS_TRANSMIT, data);
+	CAN_Send_Message(FUNCTION_CODE_LSS_TRANSMIT, data);
 }
 
-STATUS_CODE CANopen_Master_LSS_Transmit_Identity_Remote_Slave_Protocol_Value(CANopen *canopen, uint8_t cs, uint32_t value){
+void CANopen_Master_LSS_Transmit_Request_Identity_Remote_Slave_Protocol_Value(uint8_t cs, uint32_t value){
 	uint8_t data[8] = {0};
 	data[0] = cs;
 	data[1] = value;
 	data[2] = value >> 8;
 	data[3] = value >> 16;
 	data[4] = value >> 24;
-	return CAN_Send_Message(FUNCTION_CODE_LSS_TRANSMIT, data);
+	CAN_Send_Message(FUNCTION_CODE_LSS_TRANSMIT, data);
 }
 
-STATUS_CODE CANopen_Master_LSS_Transmit_Identify_Non_Configured_Remote_Slave_Protocol(CANopen *canopen){
+void CANopen_Master_LSS_Transmit_Request_Identify_Non_Configured_Remote_Slave_Protocol(){
 	uint8_t data[8] = {0};
 	data[0] = CS_IDENTIFY_REMOTE_SLAVE_PROTOCOL_NON_CONFIGURED;
-	return CAN_Send_Message(FUNCTION_CODE_LSS_TRANSMIT, data);
+	CAN_Send_Message(FUNCTION_CODE_LSS_TRANSMIT, data);
 }

@@ -132,3 +132,21 @@ bool CAN_Read_Message(uint32_t *COB_ID, uint8_t data[]) {
 #endif
 	return is_new_message;
 }
+
+bool CAN_Set_Baud_Rate(uint8_t table_index){
+	bool is_set;
+	#if PROCESSOR_CHOICE == STM32
+
+#elif PROCESSOR_CHOICE == ARDUINO
+	/* Implement your CAN function to get ID, data[] and the flag is_new_message here for the Arduino platform */
+#elif PROCESSOR_CHOICE == PIC
+	/* Implement your CAN function to get ID, data[] and the flag is_new_message here for the PIC platform */
+#elif PROCESSOR_CHOICE == AVR
+	/* Implement your CAN function to get ID, data[] and the flag is_new_message here for the AVR platform */
+#elif PROCESSOR_CHOICE == QT_USB
+    QT_USB_Get_ID_Data(ID, data, &is_new_message);
+#else
+
+#endif
+	return is_set;
+}
