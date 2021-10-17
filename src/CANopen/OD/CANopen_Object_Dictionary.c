@@ -82,7 +82,7 @@ static struct Object_dictionary* iterative_binary_search(CANopen* canopen, uint3
    uint16_t end_index = canopen->length_object_dictionaries - 1;
    while (start_index <= end_index){
        /* Go to beginning */
-	   canopen = beginning;
+	   canopen->object_dictionaries = beginning;
 
       /* Find the middle index */
       uint16_t middle = start_index + (end_index - start_index ) / 2;

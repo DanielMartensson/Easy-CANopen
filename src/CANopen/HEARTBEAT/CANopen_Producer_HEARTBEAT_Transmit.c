@@ -9,6 +9,7 @@
 
 /* Layers */
 #include "../../Hardware/Hardware.h"
+#include "../OD/OD.h"
 
 STATUS_CODE CANopen_Producer_HEARTBEAT_Transmit_Heartbeat(CANopen *canopen){
 	/* Check if heartbeat is enabled */

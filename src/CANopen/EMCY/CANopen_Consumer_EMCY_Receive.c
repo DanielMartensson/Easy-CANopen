@@ -7,6 +7,9 @@
 
 #include "EMCY.h"
 
+/* Layers */
+#include "../OD/OD.h"
+
 STATUS_CODE CANopen_Consumer_EMCY_Receive_Error_Message(CANopen *canopen, uint8_t node_ID, uint8_t data[]) {
 
 	/* Get the data */
