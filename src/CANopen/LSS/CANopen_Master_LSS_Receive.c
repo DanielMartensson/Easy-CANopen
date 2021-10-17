@@ -18,7 +18,7 @@ void CANopen_Master_LSS_Receive(CANopen *canopen, uint8_t data[]){
 		CANopen_Master_LSS_Receive_Response_Switch_Mode_Selective_Protocol(canopen, data);
 	}else if(data[0] == CS_CONFIGURE_PROTOCOL_NODE_ID){
 		CANopen_Master_LSS_Receive_Response_Status_Message(canopen, data);
-	}else if(data[0] == CS_INQUIRE_IDENTITY_PROTOCOL_VENDOR_ID | CS_INQUIRE_IDENTITY_PROTOCOL_PRODUCT_CODE | CS_INQUIRE_IDENTITY_PROTOCOL_REVISION_NUMBER | CS_INQUIRE_IDENTITY_PROTOCOL_SERIAL_NUMBER | CS_INQUIRE_IDENTITY_PROTOCOL_NODE_ID){
+	}else if(data[0] == CS_INQUIRE_IDENTITY_PROTOCOL){
 		CANopen_Master_LSS_Receive_Response_Inquire_Identity_Protocol_Value(canopen, data);
 	}else if(data[0] == CS_IDENTIFY_REMOTE_SLAVE_PROTOCOL_CONFIGURED_RESPONSE){
 		CANopen_Master_LSS_Receive_Response_Identity_Remote_Slave_Protocol(canopen, data);

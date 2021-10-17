@@ -9,6 +9,7 @@
 
 /* Layers */
 #include "../../Hardware/Hardware.h"
+#include "../OD/OD.h"
 
 STATUS_CODE CANopen_Producer_EMCY_Transmit_Error_Message(CANopen *canopen, uint16_t error_code, uint8_t error_register, uint8_t vendor_specific_data[]){
 	/* Get the node ID from this node */

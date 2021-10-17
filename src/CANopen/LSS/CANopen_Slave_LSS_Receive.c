@@ -24,7 +24,7 @@ static void CANopen_Slave_LSS_Receive_Request_Identify_Non_Configured_Remote_Sla
 void CANopen_Slave_LSS_Receive(CANopen *canopen, uint8_t data[]){
 	if(data[0] == CS_SWITCH_MODE_GLOBAL_PROTOCOL){
 		return CANopen_Slave_LSS_Receive_Request_Switch_Mode_Global_Protocol(canopen, data);
-	}else if(data[0] == CS_SWITCH_MODE_SELECTIVE_PROTOCOL_VENDOR_ID | CS_SWITCH_MODE_SELECTIVE_PROTOCOL_PRODUCT_CODE | CS_SWITCH_MODE_SELECTIVE_PROTOCOL_REVISION_NUMBER | CS_SWITCH_MODE_SELECTIVE_PROTOCOL_SERIAL_NUMBER){
+	}else if(data[0] == CS_SWITCH_MODE_SELECTIVE_PROTOCOL){
 		CANopen_Slave_LSS_Receive_Request_Switch_Mode_Selective_Protocol_Value(canopen, data);
 	}else if(data[0] == CS_CONFIGURE_PROTOCOL_NODE_ID){
 		CANopen_Slave_LSS_Receive_Request_Configure_Protocol_Node_ID(canopen, data);
@@ -34,9 +34,9 @@ void CANopen_Slave_LSS_Receive(CANopen *canopen, uint8_t data[]){
 		CANopen_Slave_LSS_Receive_Request_Activate_Protocol_Bit_Timing_Parameters(canopen, data);
 	}else if(data[0] == CS_STORE_CONFIGURATION_PROTOCOL){
 		CANopen_Slave_LSS_Receive_Request_Store_Configuration_Protocol(canopen, data);
-	}else if(data[0] == CS_INQUIRE_IDENTITY_PROTOCOL_VENDOR_ID | CS_INQUIRE_IDENTITY_PROTOCOL_PRODUCT_CODE | CS_INQUIRE_IDENTITY_PROTOCOL_REVISION_NUMBER | CS_INQUIRE_IDENTITY_PROTOCOL_SERIAL_NUMBER | CS_INQUIRE_IDENTITY_PROTOCOL_NODE_ID){
+	}else if(data[0] == CS_INQUIRE_IDENTITY_PROTOCOL){
 		CANopen_Slave_LSS_Receive_Request_Inquire_Identity_Protocol_Value(canopen, data);
-	}else if(data[0] == CS_IDENTIFY_REMOTE_SLAVE_PROTOCOL_VENDOR_ID | CS_IDENTIFY_REMOTE_SLAVE_PROTOCOL_PRODUCT_CODE | CS_IDENTIFY_REMOTE_SLAVE_PROTOCOL_REVISION_NUMBER_LOW | CS_IDENTIFY_REMOTE_SLAVE_PROTOCOL_REVISION_NUMBER_HIGH | CS_IDENTIFY_REMOTE_SLAVE_PROTOCOL_SERIAL_NUMBER_LOW | CS_IDENTIFY_REMOTE_SLAVE_PROTOCOL_SERIAL_NUMBER_HIGH){
+	}else if(data[0] == CS_IDENTIFY_REMOTE_SLAVE_PROTOCOL){
 		CANopen_Slave_LSS_Receive_Request_Identity_Remote_Slave_Protocol_Value(canopen, data);
 	}else if(data[0] == CS_IDENTIFY_REMOTE_SLAVE_PROTOCOL_NON_CONFIGURED){
 		CANopen_Slave_LSS_Receive_Request_Identify_Non_Configured_Remote_Slave_Protocol(canopen, data);
