@@ -34,6 +34,15 @@ struct Node_status_operation{
 	bool is_enabled;													/* Check if this process is enabled */
 };
 
+struct LSS{
+	uint8_t switch_mode_global_protocol;								/* Disable or enable the LSS service */
+	uint8_t status_code;												/* Status code */
+	uint8_t status_code_specific;										/* Status code specific */
+	uint8_t cs;															/* Command specifier */
+	uint8_t node_ID;													/* Node ID address of this device */
+	uint8_t table_index;												/* Baud rate table index */
+};
+
 
 /**********************************************************************************************************/
 
@@ -51,6 +60,14 @@ struct Server{
 
 struct Client{
 	struct Node_status_operation guard;									/* Guard container */
+};
+
+struct Master{
+	struct LSS lss;														/* LSS container */
+};
+
+struct Slave{
+	struct LSS lss;														/* LSS container */
 };
 
 
@@ -72,6 +89,10 @@ typedef struct {
 	/* Server & Client */
 	struct Server server;												/* Server values */
 	struct Client client;												/* Client values */
+
+	/* Master & Slave */
+	struct Master master;												/* Master values */
+	struct Slave slave;													/* Slave values */
 
 } CANopen;
 

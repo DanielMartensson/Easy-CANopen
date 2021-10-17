@@ -69,12 +69,9 @@ bool Easy_CANopen_Listen_For_Messages(CANopen *canopen) {
 				CANopen_Server_GUARD_Receive_Response_Guard(canopen, node_ID, data);
 			}
 		}else if(COB_ID == FUNCTION_CODE_LSS_TRANSMIT){
-			if(data[0] == CS_SWITCH_MODE_GLOBAL_PROTOCOL){
-				CANopen_Slave_LSS_Receive_Switch_Mode_Global_Protocol(canopen, data);
-			}
-
+			CANopen_Slave_LSS_Receive(canopen, data);														/* Master -> Slave */
 		}else if(COB_ID == FUNCTION_CODE_LSS_RECEIVE){
-
+			CANopen_Master_LSS_Receive(canopen, node_ID, data);												/* Slave -> Master */
 		}
 	}
 
