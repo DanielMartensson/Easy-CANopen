@@ -5,7 +5,7 @@
  *      Author: Daniel Mårtensson
  */
 
-#include "CAN_Memory_Layer.h"
+#include "Hardware.h"
 
 uint32_t Hardware_Get_Time_Tick(){
 #if PROCESSOR_CHOICE == STM32

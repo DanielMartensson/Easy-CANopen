@@ -5,10 +5,10 @@
  *      Author: Daniel Mårtensson
  */
 
-#include "HEARTBEAT.h"
+#include "GUARD.h"
 
 /* Layers */
-#include "../../Hardware/CAN_Network_Layer/CAN_Network_Layer.h"
+#include "../../Hardware/Hardware.h"
 
 STATUS_CODE CANopen_Client_GUARD_Transmit_Response_Guard(CANopen *canopen, uint8_t node_ID){
 	/* Check if guard is enabled */

@@ -7,6 +7,11 @@
 
 #include "GUARD.h"
 
+/* Layers */
+#include "../OD/OD.h"
+#include "../EMCY/EMCY.h"
+#include "../../Hardware/Hardware.h"
+
 STATUS_CODE CANopen_Server_GUARD_Receive_Response_Guard(CANopen *canopen, uint8_t node_ID, uint8_t data[]){
 	/* Check if guard is enabled */
 	if(!canopen->server.guard.is_enabled)
@@ -25,8 +30,9 @@ STATUS_CODE CANopen_Server_GUARD_Receive_Response_Guard(CANopen *canopen, uint8_
 	canopen->server.guard.count_tick = Hardware_Get_Time_Tick() - canopen->server.guard.count_tick;	/* Time difference from request to response */
 
 	/* If the time difference is too large, send out an EMCY */
+	uint8_t vendor_specific_data[5] = {0};
 	if(life_factor * guard_time_ms < canopen->server.guard.count_tick)
-		return CANopen_Producer_EMCY_Transmit_Error_Message(canopen, ERROR_CODE_GUARD_HARTBEAT, ERROR_REGISTER_COMMUNICATION_ERROR, (uint8_t*){0,0,0,0,0});
+		return CANopen_Producer_EMCY_Transmit_Error_Message(canopen, ERROR_CODE_GUARD_HARTBEAT, ERROR_REGISTER_COMMUNICATION_ERROR, vendor_specific_data);
 	else
 		return STATUS_CODE_SUCCESSFUL;
 }

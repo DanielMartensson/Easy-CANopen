@@ -7,6 +7,9 @@
 
 #include "LSS.h"
 
+/* Layers */
+#include "../../Hardware/Hardware.h"
+
 STATUS_CODE CANopen_Slave_LSS_Transmit_Switch_Mode_Selective_Protocol_Value_Response(uint8_t cs){
 	uint8_t data[8] = {0};
 	data[0] = cs;

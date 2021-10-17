@@ -5,13 +5,10 @@
  *      Author: Daniel Mårtensson
  */
 
-#include "../CANopen/Global_Enums/Enum_Function_Codes.h"
 #include "Easy_CANopen.h"
 
 /* Layers */
-#include "../Hardware/CAN_Network_Layer/CAN_Network_Layer.h"
-
-/* Enums */
+#include "../Hardware/Hardware.h"
 
 bool Easy_CANopen_Listen_For_Messages(CANopen *canopen) {
 	uint32_t COB_ID = 0;

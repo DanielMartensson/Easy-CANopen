@@ -1,12 +1,12 @@
 /*
- * CAN_Functions.c
+ * CAN_Transmit_Receive.c
  *
  *  Created on: 11 juli 2021
  *      Author: Daniel Mårtensson
  */
 
-/* Layer */
-#include "../CAN_Network_Layer/CAN_Network_Layer.h"
+
+#include "Hardware.h"
 
 /* Platform independent library headers for CAN */
 #if PROCESSOR_CHOICE == STM32
@@ -60,7 +60,7 @@ static void Internal_Receive(uint32_t *COB_ID, uint8_t data[], bool *is_new_mess
 
 STATUS_CODE CAN_Send_Message(uint32_t COB_ID, uint8_t data[]) {
 	STATUS_CODE status;
-	#if PROCESSOR_CHOICE == STM32
+#if PROCESSOR_CHOICE == STM32
 	CAN_TxHeaderTypeDef TxHeader;
 	TxHeader.DLC = 8;											/* Here we are sending 8 bytes */
 	TxHeader.RTR = CAN_RTR_DATA;								/* Data frame */
@@ -69,18 +69,18 @@ STATUS_CODE CAN_Send_Message(uint32_t COB_ID, uint8_t data[]) {
 	TxHeader.ExtId = ID;
 	TxHeader.StdId = 0x00; 										/* Not used */
 	status = STM32_PLC_CAN_Transmit(data, &TxHeader);
-	#elif PROCESSOR_CHOICE == ARDUINO
+#elif PROCESSOR_CHOICE == ARDUINO
 	/* Implement your CAN send 8 bytes message function for the Arduino platform */
-	#elif PROCESSOR_CHOICE == PIC
+#elif PROCESSOR_CHOICE == PIC
 	/* Implement your CAN send 8 bytes message function for the PIC platform */
-	#elif PROCESSOR_CHOICE == AVR
+#elif PROCESSOR_CHOICE == AVR
 	/* Implement your CAN send 8 bytes message function for the AVR platform */
-    #elif PROCESSOR_CHOICE == QT_USB
+#elif PROCESSOR_CHOICE == QT_USB
     status = QT_USB_Transmit(ID, data, 8);
-	#else
+#else
 	/* If no processor are used, use internal feedback for debugging */
 	status = Internal_Transmit(COB_ID, data, 8);
-	#endif
+#endif
 	return status;
 }
 
@@ -89,7 +89,7 @@ STATUS_CODE CAN_Send_Message(uint32_t COB_ID, uint8_t data[]) {
  */
 STATUS_CODE CAN_Send_Request(uint32_t ID, uint8_t PGN[]) {
 	STATUS_CODE status;
-	#if PROCESSOR_CHOICE == STM32
+#if PROCESSOR_CHOICE == STM32
 	CAN_TxHeaderTypeDef TxHeader;
 	TxHeader.DLC = 3;											/* Here we are only sending 3 bytes */
 	TxHeader.RTR = CAN_RTR_DATA;								/* Data frame */
@@ -98,18 +98,18 @@ STATUS_CODE CAN_Send_Request(uint32_t ID, uint8_t PGN[]) {
 	TxHeader.ExtId = ID;
 	TxHeader.StdId = 0x00; 										/* Not used */
 	status = STM32_PLC_CAN_Transmit(PGN, &TxHeader);
-	#elif PROCESSOR_CHOICE == ARDUINO
+#elif PROCESSOR_CHOICE == ARDUINO
 	/* Implement your CAN send 3 bytes message function for the Arduino platform */
-	#elif PROCESSOR_CHOICE == PIC
+#elif PROCESSOR_CHOICE == PIC
 	/* Implement your CAN send 3 bytes message function for the PIC platform */
-	#elif PROCESSOR_CHOICE == AVR
+#elif PROCESSOR_CHOICE == AVR
 	/* Implement your CAN send 3 bytes message function for the AVR platform */
-    #elif PROCESSOR_CHOICE == QT_USB
+#elif PROCESSOR_CHOICE == QT_USB
     status = QT_USB_Transmit(ID, PGN, 3);                       /* PGN is always 3 bytes */
-	#else
+#else
 	/* If no processor are used, use internal feedback for debugging */
 	status = Internal_Transmit(ID, PGN, 3);
-	#endif
+#endif
 	return status;
 }
 
@@ -118,17 +118,17 @@ bool CAN_Read_Message(uint32_t *COB_ID, uint8_t data[]) {
 	bool is_new_message;
 	#if PROCESSOR_CHOICE == STM32
 	STM32_PLC_CAN_Get_ID_Data(ID, data, &is_new_message);
-	#elif PROCESSOR_CHOICE == ARDUINO
+#elif PROCESSOR_CHOICE == ARDUINO
 	/* Implement your CAN function to get ID, data[] and the flag is_new_message here for the Arduino platform */
-	#elif PROCESSOR_CHOICE == PIC
+#elif PROCESSOR_CHOICE == PIC
 	/* Implement your CAN function to get ID, data[] and the flag is_new_message here for the PIC platform */
-	#elif PROCESSOR_CHOICE == AVR
+#elif PROCESSOR_CHOICE == AVR
 	/* Implement your CAN function to get ID, data[] and the flag is_new_message here for the AVR platform */
-    #elif PROCESSOR_CHOICE == QT_USB
+#elif PROCESSOR_CHOICE == QT_USB
     QT_USB_Get_ID_Data(ID, data, &is_new_message);
-	#else
+#else
 	/* If no processor are used, use internal feedback for debugging */
 	Internal_Receive(COB_ID, data, &is_new_message);
-	#endif
+#endif
 	return is_new_message;
 }

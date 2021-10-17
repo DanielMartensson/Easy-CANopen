@@ -1,13 +1,13 @@
 /*
- * Save_Load_J1939_Struct.c
+ * Save_Load_Data_Bytes.c
  *
  *  Created on: 22 sep. 2021
  *      Author: Daniel Mårtensson
  */
 
-#include "CAN_Memory_Layer.h"
+#include "Hardware.h"
 
-bool Save_Struct(uint8_t data[], uint32_t data_length, char file_name[]){
+bool Save_Data_Bytes(uint8_t data[], uint32_t data_length, char file_name[]){
 #if PROCESSOR_CHOICE == STM32
 	/* Save it to SD card */
 	if(STM32_PLC_SD_Mont_Card() != FR_OK)
@@ -26,7 +26,7 @@ bool Save_Struct(uint8_t data[], uint32_t data_length, char file_name[]){
 	return true;
 }
 
-bool Load_Struct(uint8_t data[], uint32_t data_length, char file_name[]){
+bool Load_Data_Bytes(uint8_t data[], uint32_t data_length, char file_name[]){
 #if PROCESSOR_CHOICE == STM32
 	/* Load it from SD card */
 	if(STM32_PLC_SD_Mont_Card() != FR_OK)

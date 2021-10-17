@@ -8,7 +8,7 @@
 #include "LSS.h"
 
 /* Layers */
-#include "../../Hardware/CAN_Network_Layer/CAN_Network_Layer.h"
+#include "../../Hardware/Hardware.h"
 
 STATUS_CODE CANopen_Master_LSS_Transmit_Switch_Mode_Global_Protocol(uint8_t mode){
 	uint8_t data[8] = {0};
