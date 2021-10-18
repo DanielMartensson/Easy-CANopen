@@ -27,6 +27,7 @@ struct Object_dictionary{
 };
 
 struct Node_status_operation{
+	bool error_activated;												/* If error is activated at this device */
 	uint8_t toggle;														/* Toggle 1 or 0 to see if the process is alive */
 	uint8_t status_operational;											/* The status of the node */
 	uint16_t count_tick;												/* Used for time counting */

@@ -10,10 +10,10 @@
 /* Layers */
 #include "../../Hardware/Hardware.h"
 
-STATUS_CODE CANopen_Client_GUARD_Transmit_Response_Guard(CANopen *canopen, uint8_t node_ID){
+void CANopen_Client_GUARD_Transmit_Response_Guard(CANopen *canopen, uint8_t node_ID){
 	/* Check if guard is enabled */
 	if(!canopen->client.guard.is_enabled)
-		return STATUS_CODE_SERVICE_NOT_ENABLED;
+		return;
 
 	/* Create the COB ID */
 	uint32_t COB_ID = FUNCTION_CODE_HEARTBEAT_GUARD << 7 | node_ID;
@@ -21,9 +21,9 @@ STATUS_CODE CANopen_Client_GUARD_Transmit_Response_Guard(CANopen *canopen, uint8
 	/* Get toggle */
 	canopen->client.guard.toggle = canopen->client.guard.toggle == TOGGLE_HEARTBEAT_0 ? TOGGLE_HEARTBEAT_1 : TOGGLE_HEARTBEAT_0;
 
-	/* Send the heartbeat message */
+	/* Send the guard message */
 	uint8_t data[8] = {0};
 	data[0] = (canopen->client.guard.toggle << 7) | canopen->client.guard.status_operational;
-	return CAN_Send_Message(COB_ID, data);
+	CAN_Send_Message(COB_ID, data);
 }
 

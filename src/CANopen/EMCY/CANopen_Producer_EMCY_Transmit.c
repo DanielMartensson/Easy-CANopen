@@ -11,10 +11,10 @@
 #include "../../Hardware/Hardware.h"
 #include "../OD/OD.h"
 
-STATUS_CODE CANopen_Producer_EMCY_Transmit_Error_Message(CANopen *canopen, uint16_t error_code, uint8_t error_register, uint8_t vendor_specific_data[]){
+void CANopen_Producer_EMCY_Transmit_Error_Message(CANopen *canopen, uint16_t error_code, uint8_t error_register, uint8_t vendor_specific_data[]){
 	/* Get the node ID from this node */
 	uint32_t node_ID = 0;
-	CANopen_OD_get_dictionary_object_value(canopen, OD_INDEX_IDENTITY_OBJECT, OD_SUB_INDEX_5, &node_ID);
+	CANopen_OD_get_dictionary_object_value(canopen, OD_INDEX_NODE_ID, OD_SUB_INDEX_0, &node_ID);
 
 	/* Create the COB ID */
 	uint32_t COB_ID = FUNCTION_CODE_SYNC_EMCY << 7 | node_ID;
@@ -29,7 +29,9 @@ STATUS_CODE CANopen_Producer_EMCY_Transmit_Error_Message(CANopen *canopen, uint1
 	data[5] = vendor_specific_data[2];
 	data[6] = vendor_specific_data[3];
 	data[7] = vendor_specific_data[4];
-	return CAN_Send_Message(COB_ID, data);
+	CAN_Send_Message(COB_ID, data);
+	CANopen_Consumer_EMCY_Receive_Error_Message(canopen, node_ID, data); /* This saves the error message in this device too */
+
 }
 
 

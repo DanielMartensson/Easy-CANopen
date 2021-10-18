@@ -10,7 +10,7 @@
 
 #include "../../Easy_CANopen/Structs.h"
 
-STATUS_CODE CANopen_Producer_EMCY_Transmit_Error_Message(CANopen *canopen, uint16_t error_code, uint8_t error_register, uint8_t vendor_specific_data[]);
-STATUS_CODE CANopen_Consumer_EMCY_Receive_Error_Message(CANopen *canopen, uint8_t node_ID, uint8_t data[]);
+void CANopen_Producer_EMCY_Transmit_Error_Message(CANopen *canopen, uint16_t error_code, uint8_t error_register, uint8_t vendor_specific_data[]);
+void CANopen_Consumer_EMCY_Receive_Error_Message(CANopen *canopen, uint8_t node_ID, uint8_t data[]);
 
 #endif /* CANOPEN_EMCY_EMCY_H_ */
