@@ -113,6 +113,6 @@ void Easy_CANopen_Check_If_This_Serial_Number_Or_Higher_Exist_At_The_CAN_Network
 }
 
 void Easy_CANopen_Check_If_There_Are_Any_Non_Configured_Nodes_At_The_CAN_Network(CANopen *canopen){
-	canopen->master.lss.non_configured_node_ID_found = false;
+	canopen->master.lss.non_configured_node_ID_found = false; /* This will be true when a node has the node ID 0xFF */
 	CANopen_Master_LSS_Transmit_Request_Identify_Non_Configured_Remote_Slave();
 }
