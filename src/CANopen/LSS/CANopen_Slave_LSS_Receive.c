@@ -22,23 +22,24 @@ static void CANopen_Slave_LSS_Receive_Request_Identity_Remote_Slave_Value(CANope
 static void CANopen_Slave_LSS_Receive_Request_Identify_Non_Configured_Remote_Slave(CANopen *canopen, uint8_t data[]);
 
 void CANopen_Slave_LSS_Receive(CANopen *canopen, uint8_t data[]){
-	if(data[0] == CS_SWITCH_MODE_GLOBAL){
+	uint8_t cs = data[0];
+	if(cs == CS_SWITCH_MODE_GLOBAL){
 		return CANopen_Slave_LSS_Receive_Request_Switch_Mode_Global(canopen, data);
-	}else if(data[0] == CS_SWITCH_MODE_SELECTIVE){
+	}else if(cs == CS_SWITCH_MODE_SELECTIVE){
 		CANopen_Slave_LSS_Receive_Request_Switch_Mode_Selective_Value(canopen, data);
-	}else if(data[0] == CS_CONFIGURE_NODE_ID){
+	}else if(cs == CS_CONFIGURE_NODE_ID){
 		CANopen_Slave_LSS_Receive_Request_Configure_Node_ID(canopen, data);
-	}else if(data[0] == CS_CONFIGURE_BIT_TIMING_PARAMETERS){
+	}else if(cs == CS_CONFIGURE_BIT_TIMING_PARAMETERS){
 		CANopen_Slave_LSS_Receive_Request_Configure_Bit_Timing_Parameters(canopen, data);
-	}else if(data[0] == CS_ACTIVATE_BIT_TIMING_PARAMETERS){
+	}else if(cs == CS_ACTIVATE_BIT_TIMING_PARAMETERS){
 		CANopen_Slave_LSS_Receive_Request_Activate_Bit_Timing_Parameters(canopen, data);
-	}else if(data[0] == CS_STORE_CONFIGURATION_PROTOCOL){
+	}else if(cs == CS_STORE_CONFIGURATION_PROTOCOL){
 		CANopen_Slave_LSS_Receive_Request_Store_Configuration(canopen, data);
-	}else if(data[0] == CS_INQUIRE_IDENTITY){
+	}else if(cs == CS_INQUIRE_IDENTITY){
 		CANopen_Slave_LSS_Receive_Request_Inquire_Identity_Value(canopen, data);
-	}else if(data[0] == CS_IDENTIFY_REMOTE_SLAVE){
+	}else if(cs == CS_IDENTIFY_REMOTE_SLAVE){
 		CANopen_Slave_LSS_Receive_Request_Identity_Remote_Slave_Value(canopen, data);
-	}else if(data[0] == CS_IDENTIFY_REMOTE_SLAVE_NON_CONFIGURED){
+	}else if(cs == CS_IDENTIFY_REMOTE_SLAVE_NON_CONFIGURED){
 		CANopen_Slave_LSS_Receive_Request_Identify_Non_Configured_Remote_Slave(canopen, data);
 	}
 }
@@ -195,5 +196,4 @@ static void CANopen_Slave_LSS_Receive_Request_Identify_Non_Configured_Remote_Sla
 	/* Check if node ID is on the error address */
 	if(node_ID == 0xFF)
 		CANopen_Slave_LSS_Transmit_Response_Identify_Non_Configured_Remote_Slave();
-
 }
