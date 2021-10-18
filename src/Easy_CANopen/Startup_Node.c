@@ -69,7 +69,6 @@ static void create_object_dictionary(CANopen *canopen){
 	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_IDENTITY_OBJECT, OD_SUB_INDEX_2, OD_ACCESS_READ_WRITE);
 	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_IDENTITY_OBJECT, OD_SUB_INDEX_3, OD_ACCESS_READ_WRITE);
 	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_IDENTITY_OBJECT, OD_SUB_INDEX_4, OD_ACCESS_READ_WRITE);
-	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_IDENTITY_OBJECT, OD_SUB_INDEX_5, OD_ACCESS_READ_WRITE);
 	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_SERVER_SOD_PARAMETERS, OD_SUB_INDEX_0, OD_ACCESS_READ);
 	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_SERVER_SOD_PARAMETERS, OD_SUB_INDEX_1, OD_ACCESS_READ_WRITE);
 	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_SERVER_SOD_PARAMETERS, OD_SUB_INDEX_2, OD_ACCESS_READ_WRITE);
@@ -143,4 +142,6 @@ static void create_object_dictionary(CANopen *canopen){
 	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_PROGRAM_DATA_CONTROL, OD_SUB_INDEX_2, OD_ACCESS_READ_WRITE);
 	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_PROGRAM_DATA_CONTROL, OD_SUB_INDEX_3, OD_ACCESS_READ_WRITE);
 	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_PROGRAM_DATA_CONTROL, OD_SUB_INDEX_4, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_BIT_TIMING_TABLE_INDEX, OD_SUB_INDEX_0, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_NODE_ID, OD_SUB_INDEX_0, OD_ACCESS_READ_WRITE);
 }

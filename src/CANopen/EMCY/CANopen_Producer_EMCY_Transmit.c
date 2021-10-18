@@ -17,7 +17,7 @@ STATUS_CODE CANopen_Producer_EMCY_Transmit_Error_Message(CANopen *canopen, uint1
 	CANopen_OD_get_dictionary_object_value(canopen, OD_INDEX_IDENTITY_OBJECT, OD_SUB_INDEX_5, &node_ID);
 
 	/* Create the COB ID */
-	uint32_t COB_ID = FUNCTION_CODE_EMCY << 7 | node_ID;
+	uint32_t COB_ID = FUNCTION_CODE_SYNC_EMCY << 7 | node_ID;
 
 	/* Create the data and send it */
 	uint8_t data[8];

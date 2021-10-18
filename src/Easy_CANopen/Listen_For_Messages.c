@@ -9,6 +9,7 @@
 
 /* Layers */
 #include "../Hardware/Hardware.h"
+#include "../CANopen/CANopen.h"
 
 bool Easy_CANopen_Listen_For_Messages(CANopen *canopen) {
 	uint32_t COB_ID = 0;
@@ -26,11 +27,11 @@ bool Easy_CANopen_Listen_For_Messages(CANopen *canopen) {
 
 		/* Get this node ID */
 		uint32_t this_node_ID = 0;
-		CANopen_OD_get_dictionary_object_value(canopen, OD_INDEX_IDENTITY_OBJECT, OD_SUB_INDEX_5, &this_node_ID);
+		CANopen_OD_get_dictionary_object_value(canopen, OD_INDEX_NODE_ID, OD_SUB_INDEX_0, &this_node_ID);
 
 		if(function_code == FUNCTION_CODE_NMT){
 
-		}else if(function_code == FUNCTION_CODE_SYNC | FUNCTION_CODE_EMCY) {
+		}else if(function_code == FUNCTION_CODE_SYNC_EMCY) {
 			if(data[0] == data[1] == data[2] == data[3] == data[4] == data[5] == data[6] == data[7]){
 				/* SYNC */
 			}else{
@@ -58,7 +59,7 @@ bool Easy_CANopen_Listen_For_Messages(CANopen *canopen) {
 
 		}else if(function_code == FUNCTION_CODE_SDO_RECEIVE){
 
-		}else if(function_code == FUNCTION_CODE_HEARTBEAT | FUNCTION_CODE_GUARD){
+		}else if(function_code == FUNCTION_CODE_HEARTBEAT_GUARD){
 			if(data[0] == data[1] == data[2] == data[3] == data[4] == data[5] == data[6] == data[7] && node_ID == this_node_ID){
 				CANopen_Client_GUARD_Receive_Request_Guard(canopen, node_ID); 								/* Guard requests have zero data */
 			}else{

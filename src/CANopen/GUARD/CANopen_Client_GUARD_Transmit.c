@@ -16,7 +16,7 @@ STATUS_CODE CANopen_Client_GUARD_Transmit_Response_Guard(CANopen *canopen, uint8
 		return STATUS_CODE_SERVICE_NOT_ENABLED;
 
 	/* Create the COB ID */
-	uint32_t COB_ID = FUNCTION_CODE_GUARD << 7 | node_ID;
+	uint32_t COB_ID = FUNCTION_CODE_HEARTBEAT_GUARD << 7 | node_ID;
 
 	/* Get toggle */
 	canopen->client.guard.toggle = canopen->client.guard.toggle == TOGGLE_HEARTBEAT_0 ? TOGGLE_HEARTBEAT_1 : TOGGLE_HEARTBEAT_0;

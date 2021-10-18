@@ -32,7 +32,7 @@ STATUS_CODE CANopen_Producer_HEARTBEAT_Transmit_Heartbeat(CANopen *canopen){
 	CANopen_OD_get_dictionary_object_value(canopen, OD_INDEX_IDENTITY_OBJECT, OD_SUB_INDEX_5, &node_ID);
 
 	/* Create the COB ID */
-	uint32_t COB_ID = FUNCTION_CODE_HEARTBEAT << 7 | node_ID;
+	uint32_t COB_ID = FUNCTION_CODE_HEARTBEAT_GUARD << 7 | node_ID;
 
 	/* Get toggle */
 	canopen->producer.heartbeat.toggle = canopen->producer.heartbeat.toggle == TOGGLE_HEARTBEAT_0 ? TOGGLE_HEARTBEAT_1 : TOGGLE_HEARTBEAT_0;

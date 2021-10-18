@@ -15,7 +15,7 @@ STATUS_CODE CANopen_Consumer_EMCY_Receive_Error_Message(CANopen *canopen, uint8_
 	/* Get the data */
 	uint16_t error_code = (data[1] << 8) | data[0]; /* MSB LSB */
 	uint8_t error_register = data[2];
-	uint32_t COB_ID = FUNCTION_CODE_EMCY << 7 | node_ID;
+	uint32_t COB_ID = FUNCTION_CODE_SYNC_EMCY << 7 | node_ID;
 
 	/* Set the vendor specific data if */
 	if(error_register & ERROR_REGISTER_MANUFACTURER_SPECIFIC){
