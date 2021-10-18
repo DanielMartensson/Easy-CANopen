@@ -38,15 +38,16 @@ struct LSS{
 	uint8_t switch_mode_global_protocol;								/* Disable or enable the LSS service */
 	uint8_t status_code;												/* Status code */
 	uint8_t status_code_specific;										/* Status code specific */
-	uint8_t cs;															/* Command specifier */
-	uint8_t node_ID;													/* Node ID address of this device */
-	uint32_t vendor_ID;													/* Vendor ID of this device */
-	uint32_t product_code;												/* Product code of this device */
-	uint32_t revision_number;											/* Revision number of this device */
-	uint32_t serial_number;												/* Serial number of this device */
+	bool status_code_is_new;											/* Is true when the status code variables has changed */
+	bool selective_value_is_set;										/* Is true when vendor ID, product code, revision number or serial number has changed */
+	uint8_t node_ID;													/* Node ID address of this device or other device */
+	uint32_t vendor_ID;													/* Vendor ID of this device or other device */
+	uint32_t product_code;												/* Product code of this device or other device */
+	uint32_t revision_number;											/* Revision number of this device or other device */
+	uint32_t serial_number;												/* Serial number of this device or other device */
 	uint8_t table_index;												/* Baud rate table index */
 	bool identity_found;												/* If vendor ID, product code, revision number or serial number has been found */
-	bool non_configured_node_ID;										/* If the node ID is at the error address 0xFF */
+	bool non_configured_node_ID_found;									/* If the node ID is at the error address 0xFF */
 };
 
 
