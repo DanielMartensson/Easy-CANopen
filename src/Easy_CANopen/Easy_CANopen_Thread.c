@@ -1,5 +1,5 @@
 /*
- * Listen_For_Messages.c
+ * Easy_CANopen_Thread.c
  *
  *  Created on: 6 okt. 2021
  *      Author: Daniel Mårtensson
@@ -11,7 +11,7 @@
 #include "../Hardware/Hardware.h"
 #include "../CANopen/CANopen.h"
 
-bool Easy_CANopen_Listen_For_Messages(CANopen *canopen) {
+bool Easy_CANopen_Thread_Listen_Messages(CANopen *canopen) {
 	uint32_t COB_ID = 0;
 	uint8_t data[8] = { 0 };
 	bool is_new_message = CAN_Read_Message(&COB_ID, data);
@@ -38,7 +38,7 @@ bool Easy_CANopen_Listen_For_Messages(CANopen *canopen) {
 				CANopen_Consumer_EMCY_Receive_Error_Message(canopen, node_ID, data);
 			}
 		}else if(function_code == FUNCTION_CODE_TIME){
-
+			CANopen_Consumer_TIME_Receive_Clock(canopen, node_ID, data);
 		}else if(function_code == FUNCTION_CODE_PDO1_TRANSMIT){
 
 		}else if(function_code == FUNCTION_CODE_PDO1_RECEIVE){
@@ -63,7 +63,7 @@ bool Easy_CANopen_Listen_For_Messages(CANopen *canopen) {
 			if(data[0] == data[1] == data[2] == data[3] == data[4] == data[5] == data[6] == data[7] && node_ID == this_node_ID){
 				CANopen_Client_GUARD_Receive_Request_Guard(canopen, node_ID); 								/* Guard requests have zero data */
 			}else{
-				CANopen_Consumer_HEARTBEAT_Receive_Heartbeat(canopen, node_ID, data);						/* Only one process can be active */
+				CANopen_Consumer_HEARTBEAT_Receive_Heartbeat(canopen, node_ID, data);						/* Only one process of heartbeat or guard can be active */
 				CANopen_Server_GUARD_Receive_Response_Guard(canopen, node_ID, data);
 			}
 		}else if(COB_ID == FUNCTION_CODE_LSS_TRANSMIT){
@@ -74,4 +74,9 @@ bool Easy_CANopen_Listen_For_Messages(CANopen *canopen) {
 	}
 
 	return is_new_message;
+}
+
+void Easy_CANopen_Thread_Transmit_Messages(CANopen *canopen){
+	CANopen_Producer_HEARTBEAT_Transmit_Heartbeat(canopen);
+	CANopen_Producer_TIME_Transmit_Clock(canopen);
 }

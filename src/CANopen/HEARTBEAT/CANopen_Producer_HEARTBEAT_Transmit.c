@@ -1,5 +1,5 @@
 /*
- * CANopen_Slave_HEARTBEAT_Transmit.c
+ * CANopen_Producer_HEARTBEAT_Transmit.c
  *
  *  Created on: 14 okt. 2021
  *      Author: Daniel Mårtensson
@@ -11,10 +11,10 @@
 #include "../../Hardware/Hardware.h"
 #include "../OD/OD.h"
 
-STATUS_CODE CANopen_Producer_HEARTBEAT_Transmit_Heartbeat(CANopen *canopen){
+void CANopen_Producer_HEARTBEAT_Transmit_Heartbeat(CANopen *canopen){
 	/* Check if heartbeat is enabled */
 	if(!canopen->producer.heartbeat.is_enabled)
-		return STATUS_CODE_SERVICE_NOT_ENABLED;
+		return;
 
 	/* Get the heartbeat interval in milliseconds */
 	uint32_t heartbeat_interval_ms = 0;
@@ -23,7 +23,7 @@ STATUS_CODE CANopen_Producer_HEARTBEAT_Transmit_Heartbeat(CANopen *canopen){
 	/* Send out a message if it has pass the threshold, then reset, or else count */
 	if(canopen->producer.heartbeat.count_tick < heartbeat_interval_ms){
 		canopen->producer.heartbeat.count_tick++;
-		return STATUS_CODE_SUCCESSFUL;
+		return;
 	}
 	canopen->producer.heartbeat.count_tick = 0;
 
@@ -40,6 +40,6 @@ STATUS_CODE CANopen_Producer_HEARTBEAT_Transmit_Heartbeat(CANopen *canopen){
 	/* Send the heartbeat message */
 	uint8_t data[8] = {0};
 	data[0] = (canopen->producer.heartbeat.toggle << 7) | canopen->producer.heartbeat.status_operational;
-	return CAN_Send_Message(COB_ID, data);
+	CAN_Send_Message(COB_ID, data);
 }
 

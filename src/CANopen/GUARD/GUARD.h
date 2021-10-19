@@ -11,7 +11,7 @@
 #include "../../Easy_CANopen/Structs.h"
 
 void CANopen_Server_GUARD_Receive_Response_Guard(CANopen *canopen, uint8_t node_ID, uint8_t data[]);
-STATUS_CODE CANopen_Server_GUARD_Transmit_Request_Guard(CANopen *canopen, uint8_t node_ID);
+void CANopen_Server_GUARD_Transmit_Request_Guard(CANopen *canopen, uint8_t node_ID);
 void CANopen_Client_GUARD_Receive_Request_Guard(CANopen *canopen, uint8_t node_ID);
 void CANopen_Client_GUARD_Transmit_Response_Guard(CANopen *canopen, uint8_t node_ID);
 

@@ -19,3 +19,15 @@ uint32_t Hardware_Get_Time_Tick(){
 #endif
 	return 0;
 }
+
+void Hardware_Get_RTC_Clock_Time(uint8_t *date, uint8_t *month, uint16_t *year, uint8_t *hour, uint8_t *minute, uint8_t *second){
+#if PROCESSOR_CHOICE == STM32
+	return HAL_GetTick();
+#elif PROCESSOR_CHOICE == ARDUINO
+	/* Implement your memory handler function for the Arduino platform */
+#elif PROCESSOR_CHOICE == PIC
+	/* Implement your memory handler function for the PIC platform */
+#elif PROCESSOR_CHOICE == AVR
+	/* Implement your memory handler function for the AVR platform */
+#endif
+}

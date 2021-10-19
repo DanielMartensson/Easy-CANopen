@@ -41,6 +41,7 @@ bool Load_Data_Bytes(uint8_t data[], uint32_t data_length, char file_name[]);
 
 /* Time functions */
 uint32_t Hardware_Get_Time_Tick();
+void Hardware_Get_RTC_Clock_Time(uint8_t *date, uint8_t *month, uint16_t *year, uint8_t *hour, uint8_t *minute, uint8_t *second);
 
 #ifdef __cplusplus
 }

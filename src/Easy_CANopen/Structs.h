@@ -51,14 +51,31 @@ struct LSS{
 	bool non_configured_node_ID_found;									/* If the node ID is at the error address 0xFF */
 };
 
+struct EMCY{
+	uint16_t error_code;												/* The error code */
+	uint8_t	error_register;												/* What type of error code */
+	uint8_t from_node_ID;												/* From where this message came from */
+	bool error_code_is_new;												/* This will be true when the consumer get the message from the producer */
+};
+
+struct TIME{
+	uint16_t count_tick;												/* Used for time counting */
+	uint32_t milliseconds_since_midnight;								/* Milliseconds counting from midnight */
+	uint16_t days_since_1_januari_1984;									/* Days since first January 1984 */
+	uint8_t from_node_ID;												/* From where this message came from */
+	bool is_enabled;													/* Check if this process is enabled */
+};
 
 /**********************************************************************************************************/
 
 struct Producer {
+	struct TIME time;													/* Time container */
 	struct Node_status_operation heartbeat;								/* Heartbreat container */
 };
 
 struct Consumer {
+	struct TIME time;													/* Time container */
+	struct EMCY emcy;													/* EMCY container */
 	struct Node_status_operation heartbeat;								/* Heartbreat container */
 };
 

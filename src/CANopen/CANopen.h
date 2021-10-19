@@ -13,5 +13,6 @@
 #include "OD/OD.h"
 #include "GUARD/GUARD.h"
 #include "EMCY/EMCY.h"
+#include "TIME/TIME.h"
 
 #endif /* CANOPEN_CANOPEN_H_ */

@@ -1,22 +1,21 @@
 /*
- * Startup_Node.c
+ * Easy_CANopen_Startup.c
  *
  *  Created on: 6 okt. 2021
  *      Author: Daniel Mårtensson
  */
 
-#include "../CANopen/OD/OD.h"
 #include "Easy_CANopen.h"
 
 /* Layers */
+#include "../CANopen/OD/OD.h"
 
 /* Private functions */
 static void create_object_dictionary(CANopen *canopen);
 
 /* Every time you startup your node, then this function must be run only once, or else, all settings will be zero */
-bool Easy_CANopen_Startup_Node(CANopen *canopen){
+void Easy_CANopen_Startup_The_Node_Configuration(CANopen *canopen){
 	create_object_dictionary(canopen);
-	return 0;
 }
 
 static void create_object_dictionary(CANopen *canopen){
@@ -49,7 +48,7 @@ static void create_object_dictionary(CANopen *canopen){
 	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_HARDWARE_VERSION, OD_SUB_INDEX_0, OD_ACCESS_READ);
 	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_SOFTWARE_VERSION, OD_SUB_INDEX_0, OD_ACCESS_READ);
 	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_GUARD_TIME_MS, OD_SUB_INDEX_0, OD_ACCESS_READ_WRITE);
-	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_LIFE_FACTOR, OD_SUB_INDEX_0, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_LIFE_FACTOR, OD_SUB_INDEX_0, OD_ACCESS_READ_WRITE);
 	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_SAVE_PARAMETERS, OD_SUB_INDEX_0, OD_ACCESS_READ);
 	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_SAVE_PARAMETERS, OD_SUB_INDEX_1, OD_ACCESS_READ_WRITE);
 	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_SAVE_PARAMETERS, OD_SUB_INDEX_2, OD_ACCESS_READ_WRITE);
