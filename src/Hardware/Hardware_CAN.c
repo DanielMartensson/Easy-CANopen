@@ -1,5 +1,5 @@
 /*
- * CAN_Transmit_Receive.c
+ * Hardware_CAN.c
  *
  *  Created on: 11 juli 2021
  *      Author: Daniel Mårtensson
@@ -58,7 +58,7 @@ static void Internal_Receive(uint32_t *COB_ID, uint8_t data[], bool *is_new_mess
 }
 #endif
 
-STATUS_CODE CAN_Send_Message(uint32_t COB_ID, uint8_t data[]) {
+STATUS_CODE Hardware_CAN_Send_Message(uint32_t COB_ID, uint8_t data[]) {
 	STATUS_CODE status;
 #if PROCESSOR_CHOICE == STM32
 	CAN_TxHeaderTypeDef TxHeader;
@@ -114,7 +114,7 @@ STATUS_CODE CAN_Send_Request(uint32_t ID, uint8_t PGN[]) {
 }
 
 /* Read the current CAN-bus message. Returning false if the message has been read before, else true */
-bool CAN_Read_Message(uint32_t *COB_ID, uint8_t data[]) {
+bool Hardware_CAN_Read_Message(uint32_t *COB_ID, uint8_t data[]) {
 	bool is_new_message;
 	#if PROCESSOR_CHOICE == STM32
 	STM32_PLC_CAN_Get_ID_Data(ID, data, &is_new_message);

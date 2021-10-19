@@ -17,7 +17,7 @@ void CANopen_Server_GUARD_Transmit_Request_Guard(CANopen *canopen, uint8_t node_
 
 	uint8_t data[8] = {0};												/* Guard request have zero data */
 	uint8_t COB_ID = FUNCTION_CODE_HEARTBEAT_GUARD << 8 | node_ID;
-	canopen->server.guard.count_tick = Hardware_Get_Time_Tick();		/* Set time clock to count how long time it would take to get the response from the slave */
-	CAN_Send_Message(COB_ID, data);
+	canopen->server.guard.count_tick = Hardware_Time_Get_Tick();		/* Set time clock to count how long time it would take to get the response from the slave */
+	Hardware_CAN_Send_Message(COB_ID, data);
 }
 

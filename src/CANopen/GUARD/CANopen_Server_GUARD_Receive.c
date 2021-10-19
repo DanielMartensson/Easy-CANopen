@@ -28,7 +28,7 @@ void CANopen_Server_GUARD_Receive_Response_Guard(CANopen *canopen, uint8_t node_
 	canopen->server.guard.from_node_ID = node_ID;
 	canopen->server.guard.status_operational = data[0] & 0x7F;
 	canopen->server.guard.toggle = data[0] >> 7;
-	canopen->server.guard.count_tick = Hardware_Get_Time_Tick() - canopen->server.guard.count_tick;	/* Time difference from request to response */
+	canopen->server.guard.count_tick = Hardware_Time_Get_Tick() - canopen->server.guard.count_tick;	/* Time difference from request to response */
 
 	/* If the time difference is too large, send out an EMCY */
 	uint8_t vendor_specific_data[5] = {0};

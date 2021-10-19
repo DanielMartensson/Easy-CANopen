@@ -26,7 +26,7 @@ void CANopen_Producer_TIME_Transmit_Clock(CANopen *canopen){
 	/* Get the real clock */
 	uint8_t date, month, hour, minute, second;
 	uint16_t year;
-	Hardware_Get_RTC_Clock_Time(&date, &month, &year, &hour, &minute, &second);
+	Hardware_Time_Get_RTC(&date, &month, &year, &hour, &minute, &second);
 	canopen->producer.time.milliseconds_since_midnight = second*1000 + minute*60000 + hour*3600000; /* To milliseconds */
 	canopen->producer.time.days_since_1_januari_1984 = 0; /* Start counting days that have pass since 1 January 1984 */
 	for(uint16_t y = 1984; y < year; y++)
@@ -48,5 +48,5 @@ void CANopen_Producer_TIME_Transmit_Clock(CANopen *canopen){
 	data[3] = canopen->producer.time.milliseconds_since_midnight >> 24;
 	data[4] = data[1] = canopen->producer.time.days_since_1_januari_1984;
 	data[5] = data[1] = canopen->producer.time.days_since_1_januari_1984 >> 8;
-	CAN_Send_Message(FUNCTION_CODE_TIME, data);
+	Hardware_CAN_Send_Message(FUNCTION_CODE_TIME, data);
 }

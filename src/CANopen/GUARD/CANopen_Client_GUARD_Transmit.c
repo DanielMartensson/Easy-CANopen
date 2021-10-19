@@ -24,6 +24,6 @@ void CANopen_Client_GUARD_Transmit_Response_Guard(CANopen *canopen, uint8_t node
 	/* Send the guard message */
 	uint8_t data[8] = {0};
 	data[0] = (canopen->client.guard.toggle << 7) | canopen->client.guard.status_operational;
-	CAN_Send_Message(COB_ID, data);
+	Hardware_CAN_Send_Message(COB_ID, data);
 }
 

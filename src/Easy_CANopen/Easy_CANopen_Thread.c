@@ -14,7 +14,7 @@
 bool Easy_CANopen_Thread_Listen_Messages(CANopen *canopen) {
 	uint32_t COB_ID = 0;
 	uint8_t data[8] = { 0 };
-	bool is_new_message = CAN_Read_Message(&COB_ID, data);
+	bool is_new_message = Hardware_CAN_Read_Message(&COB_ID, data);
 	if (is_new_message) {
 		/* Save latest */
 		canopen->COB_ID = COB_ID;

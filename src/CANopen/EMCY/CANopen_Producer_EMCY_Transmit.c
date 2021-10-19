@@ -34,7 +34,7 @@ void CANopen_Producer_EMCY_Transmit_Error_Message(CANopen *canopen, uint16_t new
 	data[5] = vendor_specific_data[2];
 	data[6] = vendor_specific_data[3];
 	data[7] = vendor_specific_data[4];
-	CAN_Send_Message(COB_ID, data);
+	Hardware_CAN_Send_Message(COB_ID, data);
 
 	/* Shift the error codes down one step */
 	uint32_t old_error = 0;

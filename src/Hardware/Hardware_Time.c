@@ -1,21 +1,15 @@
 /*
- * Save_Load_Data_Bytes.c
+ * Hardware_Time.c
  *
- *  Created on: 22 sep. 2021
+ *  Created on: 15 okt. 2021
  *      Author: Daniel Mårtensson
  */
 
 #include "Hardware.h"
 
-bool Save_Data_Bytes(uint8_t data[], uint32_t data_length, char file_name[]){
+uint32_t Hardware_Time_Get_Tick(){
 #if PROCESSOR_CHOICE == STM32
-	/* Save it to SD card */
-	if(STM32_PLC_SD_Mont_Card() != FR_OK)
-		return false;
-	STM32_PLC_SD_Create_File_With_Write(file_name);
-	STM32_PLC_SD_Write_Data(data, data_length);
-	STM32_PLC_SD_Close_File();
-	STM32_PLC_SD_Unmount_Card();
+	return HAL_GetTick();
 #elif PROCESSOR_CHOICE == ARDUINO
 	/* Implement your memory handler function for the Arduino platform */
 #elif PROCESSOR_CHOICE == PIC
@@ -23,18 +17,12 @@ bool Save_Data_Bytes(uint8_t data[], uint32_t data_length, char file_name[]){
 #elif PROCESSOR_CHOICE == AVR
 	/* Implement your memory handler function for the AVR platform */
 #endif
-	return true;
+	return 0;
 }
 
-bool Load_Data_Bytes(uint8_t data[], uint32_t data_length, char file_name[]){
+void Hardware_Time_Get_RTC(uint8_t *date, uint8_t *month, uint16_t *year, uint8_t *hour, uint8_t *minute, uint8_t *second){
 #if PROCESSOR_CHOICE == STM32
-	/* Load it from SD card */
-	if(STM32_PLC_SD_Mont_Card() != FR_OK)
-		return false;
-	STM32_PLC_SD_Open_File_With_Read(file_name);
-	STM32_PLC_SD_Read_Data(data, data_length);
-	STM32_PLC_SD_Close_File();
-	STM32_PLC_SD_Unmount_Card();
+	return HAL_GetTick();
 #elif PROCESSOR_CHOICE == ARDUINO
 	/* Implement your memory handler function for the Arduino platform */
 #elif PROCESSOR_CHOICE == PIC
@@ -42,5 +30,4 @@ bool Load_Data_Bytes(uint8_t data[], uint32_t data_length, char file_name[]){
 #elif PROCESSOR_CHOICE == AVR
 	/* Implement your memory handler function for the AVR platform */
 #endif
-	return true;
 }

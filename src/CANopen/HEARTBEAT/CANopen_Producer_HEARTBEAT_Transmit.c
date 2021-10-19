@@ -40,6 +40,6 @@ void CANopen_Producer_HEARTBEAT_Transmit_Heartbeat(CANopen *canopen){
 	/* Send the heartbeat message */
 	uint8_t data[8] = {0};
 	data[0] = (canopen->producer.heartbeat.toggle << 7) | canopen->producer.heartbeat.status_operational;
-	CAN_Send_Message(COB_ID, data);
+	Hardware_CAN_Send_Message(COB_ID, data);
 }
 
