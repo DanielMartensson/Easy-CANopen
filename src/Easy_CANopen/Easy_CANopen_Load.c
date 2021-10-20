@@ -1,5 +1,5 @@
 /*
- * Easy_CANopen_Startup.c
+ * Easy_CANopen_Load.c
  *
  *  Created on: 6 okt. 2021
  *      Author: Daniel Mårtensson
@@ -10,16 +10,11 @@
 /* Layers */
 #include "../CANopen/OD/OD.h"
 
-/* Private functions */
-static void create_object_dictionary(CANopen *canopen);
-
-/* Every time you startup your node, then this function must be run only once, or else, all settings will be zero */
-void Easy_CANopen_Startup_The_Node_Configuration(CANopen *canopen){
-	create_object_dictionary(canopen);
-}
-
-static void create_object_dictionary(CANopen *canopen){
+void Easy_CANopen_Load_Node_Configuration(CANopen *canopen){
+	/* TODO: Detta ska vara statiskt minne! Jag får hitta på något annat sätt */
 	/* First create the zero-length struct */
+	if(canopen->object_dictionaries != NULL)
+		free(canopen->object_dictionaries);
 	canopen->length_object_dictionaries = 0;
 	canopen->object_dictionaries = (struct Object_dictionary*)calloc(0, sizeof(struct Object_dictionary));
 
@@ -141,6 +136,11 @@ static void create_object_dictionary(CANopen *canopen){
 	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_PROGRAM_DATA_CONTROL, OD_SUB_INDEX_2, OD_ACCESS_READ_WRITE);
 	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_PROGRAM_DATA_CONTROL, OD_SUB_INDEX_3, OD_ACCESS_READ_WRITE);
 	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_PROGRAM_DATA_CONTROL, OD_SUB_INDEX_4, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_NMT_STARTUP, OD_SUB_INDEX_0, OD_ACCESS_READ_WRITE);
 	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_BIT_TIMING_TABLE_INDEX, OD_SUB_INDEX_0, OD_ACCESS_READ_WRITE);
 	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_NODE_ID, OD_SUB_INDEX_0, OD_ACCESS_READ_WRITE);
+}
+
+void Easy_CANopen_Load_Dictionary_Objects(CANopen *canopen){
+
 }

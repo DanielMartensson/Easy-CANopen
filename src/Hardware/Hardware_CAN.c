@@ -134,7 +134,7 @@ bool Hardware_CAN_Read_Message(uint32_t *COB_ID, uint8_t data[]) {
 }
 
 bool CAN_Set_Baud_Rate(uint8_t table_index){
-	bool is_set;
+	bool is_set = false;
 	#if PROCESSOR_CHOICE == STM32
 
 #elif PROCESSOR_CHOICE == ARDUINO

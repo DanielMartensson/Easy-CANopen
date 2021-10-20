@@ -22,6 +22,7 @@ void CANopen_Client_GUARD_Transmit_Response_Guard(CANopen *canopen, uint8_t node
 	canopen->client.guard.toggle = canopen->client.guard.toggle == TOGGLE_HEARTBEAT_0 ? TOGGLE_HEARTBEAT_1 : TOGGLE_HEARTBEAT_0;
 
 	/* Send the guard message */
+	canopen->client.guard.status_operational = canopen->slave.nmt.status_operational;
 	uint8_t data[8] = {0};
 	data[0] = (canopen->client.guard.toggle << 7) | canopen->client.guard.status_operational;
 	Hardware_CAN_Send_Message(COB_ID, data);

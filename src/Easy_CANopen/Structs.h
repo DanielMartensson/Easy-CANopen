@@ -26,6 +26,7 @@ struct Object_dictionary{
     uint32_t value;                                                     /* Unsigned value - If I had use a pointer, it would take more memory */
 };
 
+/* TODO: Baka ihop NMT + Heart + Guard */
 struct Node_status_operation{
 	bool error_activated;												/* If error is activated at this device */
 	uint8_t toggle;														/* Toggle 1 or 0 to see if the process is alive */
@@ -52,13 +53,16 @@ struct LSS{
 };
 
 struct EMCY{
+	/* TODO: Det finns redan detta i OD - Ta bort EMCY */
 	uint16_t error_code;												/* The error code */
 	uint8_t	error_register;												/* What type of error code */
 	uint8_t from_node_ID;												/* From where this message came from */
 	bool error_code_is_new;												/* This will be true when the consumer get the message from the producer */
+	bool is_enabled;													/* Check if this process is enabled */
 };
 
 struct TIME{
+	/* TODO. Det finns redan detta i OD - Ta bort TIME */
 	uint16_t count_tick;												/* Used for time counting */
 	uint32_t milliseconds_since_midnight;								/* Milliseconds counting from midnight */
 	uint16_t days_since_1_januari_1984;									/* Days since first January 1984 */
@@ -66,10 +70,16 @@ struct TIME{
 	bool is_enabled;													/* Check if this process is enabled */
 };
 
+/* TODO: Baka ihop NMT + heart + guard */
+struct NMT{
+	uint8_t status_operational;											/* What status operation is the slave into */
+};
+
 /**********************************************************************************************************/
 
 struct Producer {
 	struct TIME time;													/* Time container */
+	struct EMCY emcy;													/* EMCY container */
 	struct Node_status_operation heartbeat;								/* Heartbreat container */
 };
 
@@ -92,6 +102,7 @@ struct Master{
 };
 
 struct Slave{
+	struct NMT nmt;														/* NMT container */
 	struct LSS lss;														/* LSS container */
 };
 
@@ -103,7 +114,7 @@ typedef struct {
 	uint8_t data[8];													/* This is the CAN bus data */
 	bool COB_ID_and_data_is_updated;									/* This is a flag that going to be set to true for every time ID and data */
 
-	/* Dictionary objects */
+	/* Dictionary objects - TODO: Använd fix OD */
 	uint16_t length_object_dictionaries;								/* How many index the pointer struct contains */
 	struct Object_dictionary* object_dictionaries;						/* This is a dynamic map that holds object dictionaries of CANopen */
 

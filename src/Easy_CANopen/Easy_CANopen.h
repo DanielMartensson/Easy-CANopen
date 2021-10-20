@@ -21,8 +21,8 @@ bool Easy_CANopen_Thread_Listen_Messages(CANopen *canopen);
 /* This function must be called every millisecond */
 void Easy_CANopen_Thread_Transmit_Messages(CANopen *canopen);
 
-/* This function should ONLY be called at your node startup */
-void Easy_CANopen_Startup_The_Node_Configuration(CANopen *canopen);
+/* These functions should only be called once at start up */
+void Easy_CANopen_Load_Node_Configuration(CANopen *canopen);
 
 /* Functions for other nodes */
 void Easy_CANopen_Other_Node_Activate_Node_Configuration(bool activate);

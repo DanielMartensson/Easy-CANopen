@@ -8,13 +8,9 @@
 #ifndef CANOPEN_NMT_NMT_H_
 #define CANOPEN_NMT_NMT_H_
 
-/* Enums and structs */
 #include "../../Easy_CANopen/Structs.h"
-#include "../Global_Enums/Enum_Baudrate_Codes.h"
-#include "../Global_Enums/Enum_Command_Specifier_Codes.h"
-#include "../Global_Enums/Enum_Function_Codes.h"
-#include "../Global_Enums/Enum_Mode_Codes.h"
 
-STATUS_CODE CANopen_NMT_
+void CANopen_Master_NMT_Transmit_Operation_State(CANopen *canopen, uint8_t cs, uint8_t node_ID);
+void CANopen_Slave_NMT_Receive(CANopen *canopen, uint8_t data[]);
 
 #endif /* CANOPEN_NMT_NMT_H_ */

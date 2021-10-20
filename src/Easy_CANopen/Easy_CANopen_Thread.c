@@ -25,12 +25,8 @@ bool Easy_CANopen_Thread_Listen_Messages(CANopen *canopen) {
 		uint8_t function_code = COB_ID >> 7;											/* What service should we use */
 		uint16_t node_ID = 0x7F & COB_ID;												/* Node ID = 0 for masters. Node ID 1 to 127 for slaves */
 
-		/* Get this node ID */
-		uint32_t this_node_ID = 0;
-		CANopen_OD_get_dictionary_object_value(canopen, OD_INDEX_NODE_ID, OD_SUB_INDEX_0, &this_node_ID);
-
 		if(function_code == FUNCTION_CODE_NMT){
-
+			CANopen_Slave_NMT_Receive(canopen, data);
 		}else if(function_code == FUNCTION_CODE_SYNC_EMCY) {
 			if(data[0] == data[1] == data[2] == data[3] == data[4] == data[5] == data[6] == data[7]){
 				/* SYNC */
@@ -60,6 +56,11 @@ bool Easy_CANopen_Thread_Listen_Messages(CANopen *canopen) {
 		}else if(function_code == FUNCTION_CODE_SDO_RECEIVE){
 
 		}else if(function_code == FUNCTION_CODE_HEARTBEAT_GUARD){
+			/* Get this node ID */
+			uint32_t this_node_ID = 0;
+			CANopen_OD_get_dictionary_object_value(canopen, OD_INDEX_NODE_ID, OD_SUB_INDEX_0, &this_node_ID);
+
+			/* Check what type of message */
 			if(data[0] == data[1] == data[2] == data[3] == data[4] == data[5] == data[6] == data[7] && node_ID == this_node_ID){
 				CANopen_Client_GUARD_Receive_Request_Guard(canopen, node_ID); 								/* Guard requests have zero data */
 			}else{

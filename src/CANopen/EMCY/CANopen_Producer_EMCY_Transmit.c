@@ -12,6 +12,10 @@
 #include "../OD/OD.h"
 
 void CANopen_Producer_EMCY_Transmit_Error_Message(CANopen *canopen, uint16_t new_error_code, uint8_t new_error_register, uint8_t vendor_specific_data[]){
+	/* Check if EMCY is enabled */
+	if(!canopen->producer.emcy.is_enabled)
+		return;
+
 	/* Get the node ID from this node */
 	uint32_t node_ID = 0;
 	CANopen_OD_get_dictionary_object_value(canopen, OD_INDEX_NODE_ID, OD_SUB_INDEX_0, &node_ID);
