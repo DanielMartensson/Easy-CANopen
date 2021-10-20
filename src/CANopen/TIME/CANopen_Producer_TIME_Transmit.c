@@ -12,41 +12,44 @@
 #include "../../Hardware/Hardware.h"
 
 void CANopen_Producer_TIME_Transmit_Clock(CANopen *canopen){
-	/* Check if heartbeat is enabled */
-	if(!canopen->producer.time.is_enabled)
-		return;
+	/* Check if this is allowed to produce */
+	uint32_t COB_ID_stamp_object = 0;
+	CANopen_OD_get_dictionary_object_value(canopen, OD_INDEX_COB_ID_TIME_STAMP_OBJECT, OD_SUB_INDEX_0, &COB_ID_stamp_object);
+	uint8_t canopen_device_produces_TIME_message = (COB_ID_stamp_object >> 30) & 0x1;
+	if(!canopen_device_produces_TIME_message)
+		return; /* Nope. Not enabled as producer */
 
-	/* Send out a message if it has pass the threshold of 1 second, then reset, or else count */
-	if(canopen->producer.time.count_tick < 1000){
-		canopen->producer.time.count_tick++;
+	/* Send out a message if it has pass the threshold of 1 second (Most RTC in microcontrollers have 1 seconds interval), then reset, or else count */
+	if(canopen->producer.time_producer_interval < 1000){
+		canopen->producer.time_producer_interval++;
 		return;
 	}
-	canopen->producer.time.count_tick = 0;
+	canopen->producer.time_producer_interval = 0;
 
 	/* Get the real clock */
 	uint8_t date, month, hour, minute, second;
 	uint16_t year;
 	Hardware_Time_Get_RTC(&date, &month, &year, &hour, &minute, &second);
-	canopen->producer.time.milliseconds_since_midnight = second*1000 + minute*60000 + hour*3600000; /* To milliseconds */
-	canopen->producer.time.days_since_1_januari_1984 = 0; /* Start counting days that have pass since 1 January 1984 */
+	uint32_t milliseconds_since_midnight = second*1000 + minute*60000 + hour*3600000; /* To milliseconds */
+	uint16_t days_since_1_januari_1984 = 0; /* Start counting days that have pass since 1 January 1984 */
 	for(uint16_t y = 1984; y < year; y++)
-		canopen->producer.time.days_since_1_januari_1984 += (y % 4 == 0) || (y % 400 == 0) ? 366 : 365; /* Leap year, not leap year */
+		days_since_1_januari_1984 += (y % 4 == 0) || (y % 400 == 0) ? 366 : 365; /* Leap year, not leap year */
 	for(uint8_t m = 1; m < month; m++)
 		if(m == 1 || m == 3 || m == 5 || m == 7 || m == 8 || m == 10 || m == 12)
-			canopen->producer.time.days_since_1_januari_1984 += 31;
+			days_since_1_januari_1984 += 31;
 		else if(m == 2)
-			canopen->producer.time.days_since_1_januari_1984 += 28; /* Leap */
+			days_since_1_januari_1984 += 28; /* Leap */
 		else
-			canopen->producer.time.days_since_1_januari_1984 += 30;
-	canopen->producer.time.days_since_1_januari_1984 += date - 1; /* Days since, does not includes this day */
+			days_since_1_januari_1984 += 30;
+	days_since_1_januari_1984 += date - 1; /* Days since, does not includes this day */
 
 	/* Send data */
 	uint8_t data[8] = {0};
-	data[0] = canopen->producer.time.milliseconds_since_midnight;
-	data[1] = canopen->producer.time.milliseconds_since_midnight >> 8;
-	data[2] = canopen->producer.time.milliseconds_since_midnight >> 16;
-	data[3] = canopen->producer.time.milliseconds_since_midnight >> 24;
-	data[4] = data[1] = canopen->producer.time.days_since_1_januari_1984;
-	data[5] = data[1] = canopen->producer.time.days_since_1_januari_1984 >> 8;
+	data[0] = milliseconds_since_midnight;
+	data[1] = milliseconds_since_midnight >> 8;
+	data[2] = milliseconds_since_midnight >> 16;
+	data[3] = milliseconds_since_midnight >> 24;
+	data[4] = days_since_1_januari_1984;
+	data[5] = days_since_1_januari_1984 >> 8;
 	Hardware_CAN_Send_Message(FUNCTION_CODE_TIME, data);
 }

@@ -11,17 +11,10 @@
 #include "../CANopen/OD/OD.h"
 
 void Easy_CANopen_Load_Node_Configuration(CANopen *canopen){
-	/* TODO: Detta ska vara statiskt minne! Jag får hitta på något annat sätt */
-	/* First create the zero-length struct */
-	if(canopen->object_dictionaries != NULL)
-		free(canopen->object_dictionaries);
-	canopen->length_object_dictionaries = 0;
-	canopen->object_dictionaries = (struct Object_dictionary*)calloc(0, sizeof(struct Object_dictionary));
-
 	/* This MUST be in a linear sorted descending order - That's because we are using binary search */
-	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_DEVICE_TYPE_INDEX, OD_SUB_INDEX_0, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_DEVICE_TYPE, OD_SUB_INDEX_0, OD_ACCESS_READ);
 	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_ERROR_REGISTER, OD_SUB_INDEX_0, OD_ACCESS_READ);
-	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_CALIBRATION_DATE, OD_SUB_INDEX_0, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_MANUFACTURER_STATUS_REGISTER, OD_SUB_INDEX_0, OD_ACCESS_READ);
 	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_PRE_DEFINED_ERROR_FIELD, OD_SUB_INDEX_0, OD_ACCESS_READ_WRITE);
 	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_PRE_DEFINED_ERROR_FIELD, OD_SUB_INDEX_1, OD_ACCESS_READ);
 	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_PRE_DEFINED_ERROR_FIELD, OD_SUB_INDEX_2, OD_ACCESS_READ);
@@ -39,30 +32,49 @@ void Easy_CANopen_Load_Node_Configuration(CANopen *canopen){
 	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_PRE_DEFINED_ERROR_FIELD, OD_SUB_INDEX_14, OD_ACCESS_READ);
 	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_PRE_DEFINED_ERROR_FIELD, OD_SUB_INDEX_15, OD_ACCESS_READ);
 	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_COB_ID_SYNC, OD_SUB_INDEX_0, OD_ACCESS_READ_WRITE);
-	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_DEVICE_NAME, OD_SUB_INDEX_0, OD_ACCESS_READ);
-	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_HARDWARE_VERSION, OD_SUB_INDEX_0, OD_ACCESS_READ);
-	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_SOFTWARE_VERSION, OD_SUB_INDEX_0, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_COMMUNICATION_CYCLE_PERIOD, OD_SUB_INDEX_0, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_SYNCHRONOUS_WINDOW_LENGTH, OD_SUB_INDEX_0, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_MANUFACTURER_DEVICE_NAME, OD_SUB_INDEX_0, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_MANUFACTURER_HARDWARE_VERSION, OD_SUB_INDEX_0, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_MANUFACTURER_SOFTWARE_VERSION, OD_SUB_INDEX_0, OD_ACCESS_READ);
 	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_GUARD_TIME_MS, OD_SUB_INDEX_0, OD_ACCESS_READ_WRITE);
 	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_LIFE_FACTOR, OD_SUB_INDEX_0, OD_ACCESS_READ_WRITE);
-	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_SAVE_PARAMETERS, OD_SUB_INDEX_0, OD_ACCESS_READ);
-	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_SAVE_PARAMETERS, OD_SUB_INDEX_1, OD_ACCESS_READ_WRITE);
-	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_SAVE_PARAMETERS, OD_SUB_INDEX_2, OD_ACCESS_READ_WRITE);
-	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_SAVE_PARAMETERS, OD_SUB_INDEX_3, OD_ACCESS_READ_WRITE);
-	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_SAVE_PARAMETERS, OD_SUB_INDEX_4, OD_ACCESS_READ_WRITE);
-	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_SAVE_PARAMETERS, OD_SUB_INDEX_0, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_STORE_PARAMETERS, OD_SUB_INDEX_0, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_STORE_PARAMETERS, OD_SUB_INDEX_1, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_STORE_PARAMETERS, OD_SUB_INDEX_2, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_STORE_PARAMETERS, OD_SUB_INDEX_3, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_STORE_PARAMETERS, OD_SUB_INDEX_4, OD_ACCESS_READ_WRITE);
 	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_RESTORE_PARAMETERS, OD_SUB_INDEX_0, OD_ACCESS_READ);
 	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_RESTORE_PARAMETERS, OD_SUB_INDEX_1, OD_ACCESS_READ_WRITE);
 	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_RESTORE_PARAMETERS, OD_SUB_INDEX_2, OD_ACCESS_READ_WRITE);
 	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_RESTORE_PARAMETERS, OD_SUB_INDEX_3, OD_ACCESS_READ_WRITE);
 	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_RESTORE_PARAMETERS, OD_SUB_INDEX_4, OD_ACCESS_READ_WRITE);
-	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_COB_ID_EMERGENCY_MESSAGE, OD_SUB_INDEX_0, OD_ACCESS_READ);
-	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_INHIBIT_TIME_MS_BETWEEN_TWO_EMCY_MESSAGES, OD_SUB_INDEX_0, OD_ACCESS_READ_WRITE);
-	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_HEARTBEAT_INTERVAL_MS, OD_SUB_INDEX_0, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_COB_ID_TIME_STAMP_OBJECT, OD_SUB_INDEX_0, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_COB_ID_HIGH_RESOLUTION_TIME_STAMP, OD_SUB_INDEX_0, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_COB_ID_EMCY, OD_SUB_INDEX_0, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_INHIBIT_TIME_EMCY, OD_SUB_INDEX_0, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_CONSUMER_HEARTBEAT_TIME, OD_SUB_INDEX_0, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_PRODUCER_HEARTBEAT_TIME, OD_SUB_INDEX_0, OD_ACCESS_READ_WRITE);
 	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_IDENTITY_OBJECT, OD_SUB_INDEX_0, OD_ACCESS_READ);
 	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_IDENTITY_OBJECT, OD_SUB_INDEX_1, OD_ACCESS_READ_WRITE);
 	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_IDENTITY_OBJECT, OD_SUB_INDEX_2, OD_ACCESS_READ_WRITE);
 	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_IDENTITY_OBJECT, OD_SUB_INDEX_3, OD_ACCESS_READ_WRITE);
 	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_IDENTITY_OBJECT, OD_SUB_INDEX_4, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_SYNCHRONOUS_COUNTER_OVERFLOW_VALUE, OD_SUB_INDEX_0, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_VERIFY_CONFIGURATION, OD_SUB_INDEX_0, OD_ACCESS_READ);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_VERIFY_CONFIGURATION, OD_SUB_INDEX_1, OD_ACCESS_READ_WRITE);
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_VERIFY_CONFIGURATION, OD_SUB_INDEX_2, OD_ACCESS_READ_WRITE);
+
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_MODULE_LIST, OD_SUB_INDEX_0, OD_ACCESS_READ);
+
+	/* Save the EMCY COB ID */
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_EMERGENCY_CONSUMER_OBJECT, OD_SUB_INDEX_0, OD_ACCESS_READ);
+	for(uint8_t i = 1; i <= 0x7F; i++)
+		CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_EMERGENCY_CONSUMER_OBJECT, i, OD_ACCESS_READ_WRITE);
+
+	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_ERROR_BEHAVIOR_OBJECT, OD_SUB_INDEX_0, OD_ACCESS_READ);
+
+
 	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_SERVER_SOD_PARAMETERS, OD_SUB_INDEX_0, OD_ACCESS_READ);
 	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_SERVER_SOD_PARAMETERS, OD_SUB_INDEX_1, OD_ACCESS_READ_WRITE);
 	CANopen_OD_add_dictionary_object_index(canopen, OD_INDEX_SERVER_SOD_PARAMETERS, OD_SUB_INDEX_2, OD_ACCESS_READ_WRITE);

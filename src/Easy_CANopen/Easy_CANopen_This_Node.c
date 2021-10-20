@@ -11,7 +11,7 @@
 #include "../CANopen/OD/OD.h"
 
 void Easy_CANopen_This_Node_Configure_Heartbeat_Interval(CANopen *canopen, uint16_t interval_ms){
-	CANopen_OD_set_dictionary_object_value(canopen, OD_INDEX_HEARTBEAT_INTERVAL_MS, OD_SUB_INDEX_0, interval_ms);
+	CANopen_OD_set_dictionary_object_value(canopen, OD_INDEX_PRODUCER_HEARTBEAT_TIME, OD_SUB_INDEX_0, interval_ms);
 
 	/* If the interval is zero milliseconds, then heartbeat will be disabled and guard will be enabled */
 	canopen->producer.heartbeat.is_enabled = interval_ms > 0 ? true : false;

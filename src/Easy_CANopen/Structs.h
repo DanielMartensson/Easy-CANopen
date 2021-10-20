@@ -52,24 +52,6 @@ struct LSS{
 	bool non_configured_node_ID_found;									/* If the node ID is at the error address 0xFF */
 };
 
-struct EMCY{
-	/* TODO: Det finns redan detta i OD - Ta bort EMCY */
-	uint16_t error_code;												/* The error code */
-	uint8_t	error_register;												/* What type of error code */
-	uint8_t from_node_ID;												/* From where this message came from */
-	bool error_code_is_new;												/* This will be true when the consumer get the message from the producer */
-	bool is_enabled;													/* Check if this process is enabled */
-};
-
-struct TIME{
-	/* TODO. Det finns redan detta i OD - Ta bort TIME */
-	uint16_t count_tick;												/* Used for time counting */
-	uint32_t milliseconds_since_midnight;								/* Milliseconds counting from midnight */
-	uint16_t days_since_1_januari_1984;									/* Days since first January 1984 */
-	uint8_t from_node_ID;												/* From where this message came from */
-	bool is_enabled;													/* Check if this process is enabled */
-};
-
 /* TODO: Baka ihop NMT + heart + guard */
 struct NMT{
 	uint8_t status_operational;											/* What status operation is the slave into */
@@ -78,14 +60,11 @@ struct NMT{
 /**********************************************************************************************************/
 
 struct Producer {
-	struct TIME time;													/* Time container */
-	struct EMCY emcy;													/* EMCY container */
+	uint16_t time_producer_interval;									/* Time counter */
 	struct Node_status_operation heartbeat;								/* Heartbreat container */
 };
 
 struct Consumer {
-	struct TIME time;													/* Time container */
-	struct EMCY emcy;													/* EMCY container */
 	struct Node_status_operation heartbeat;								/* Heartbreat container */
 };
 
@@ -114,9 +93,8 @@ typedef struct {
 	uint8_t data[8];													/* This is the CAN bus data */
 	bool COB_ID_and_data_is_updated;									/* This is a flag that going to be set to true for every time ID and data */
 
-	/* Dictionary objects - TODO: Använd fix OD */
-	uint16_t length_object_dictionaries;								/* How many index the pointer struct contains */
-	struct Object_dictionary* object_dictionaries;						/* This is a dynamic map that holds object dictionaries of CANopen */
+	uint16_t array_position;											/* How many object have we included */
+	struct Object_dictionary object_dictionaries[50];					/* This is a dynamic map that holds object dictionaries of CANopen */
 
 	/* Consumer & Producer */
 	struct Consumer consumer;											/* Store values from the producer */

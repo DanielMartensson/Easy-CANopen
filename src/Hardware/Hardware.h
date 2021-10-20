@@ -9,7 +9,6 @@
 #define HARDWARE_HARDWARE_H_
 
 /* Select your processor choice here */
-
 #define	INTERNAL 0
 #define	STM32 1
 #define	ARDUINO 2
@@ -17,6 +16,11 @@
 #define	AVR 4
 #define	QT_USB 5
 #define PROCESSOR_CHOICE INTERNAL
+
+/* What type of bit length is your CAN message */
+#define STANDARD 0
+#define EXTENDED 1
+#define CAN_ID_BITS_LENGTH STANDARD
 
 /* C standard library */
 #include <stdint.h>

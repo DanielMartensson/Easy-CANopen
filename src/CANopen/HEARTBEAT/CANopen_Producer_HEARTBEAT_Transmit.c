@@ -18,7 +18,7 @@ void CANopen_Producer_HEARTBEAT_Transmit_Heartbeat(CANopen *canopen){
 
 	/* Get the heartbeat interval in milliseconds */
 	uint32_t heartbeat_interval_ms = 0;
-	CANopen_OD_get_dictionary_object_value(canopen, OD_INDEX_HEARTBEAT_INTERVAL_MS, OD_SUB_INDEX_0, &heartbeat_interval_ms);
+	CANopen_OD_get_dictionary_object_value(canopen, OD_INDEX_PRODUCER_HEARTBEAT_TIME, OD_SUB_INDEX_0, &heartbeat_interval_ms);
 
 	/* Send out a message if it has pass the threshold, then reset, or else count */
 	if(canopen->producer.heartbeat.count_tick < heartbeat_interval_ms){

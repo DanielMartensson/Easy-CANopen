@@ -34,7 +34,7 @@ bool Easy_CANopen_Thread_Listen_Messages(CANopen *canopen) {
 				CANopen_Consumer_EMCY_Receive_Error_Message(canopen, node_ID, data);
 			}
 		}else if(function_code == FUNCTION_CODE_TIME){
-			CANopen_Consumer_TIME_Receive_Clock(canopen, node_ID, data);
+			CANopen_Consumer_TIME_Receive_Clock(canopen, data);
 		}else if(function_code == FUNCTION_CODE_PDO1_TRANSMIT){
 
 		}else if(function_code == FUNCTION_CODE_PDO1_RECEIVE){

@@ -13,8 +13,11 @@
 
 void CANopen_Producer_EMCY_Transmit_Error_Message(CANopen *canopen, uint16_t new_error_code, uint8_t new_error_register, uint8_t vendor_specific_data[]){
 	/* Check if EMCY is enabled */
-	if(!canopen->producer.emcy.is_enabled)
-		return;
+	uint32_t COB_ID_MERCY;
+	CANopen_OD_get_dictionary_object_value(canopen, OD_INDEX_COB_ID_EMCY, OD_SUB_INDEX_0, &COB_ID_MERCY);
+	uint8_t EMCY_does_not_exist = COB_ID_MERCY >> 31;
+	if(EMCY_does_not_exist)
+		return; /* MECY producer is not enabled */
 
 	/* Get the node ID from this node */
 	uint32_t node_ID = 0;
