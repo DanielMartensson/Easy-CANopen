@@ -13,18 +13,9 @@
 
 void CANopen_Producer_TIME_Transmit_Clock(CANopen *canopen){
 	/* Check if this is allowed to produce */
-	uint32_t COB_ID_stamp_object = 0;
-	CANopen_OD_get_dictionary_object_value(canopen, OD_INDEX_COB_ID_TIME_STAMP_OBJECT, OD_SUB_INDEX_0, &COB_ID_stamp_object);
-	uint8_t canopen_device_produces_TIME_message = (COB_ID_stamp_object >> 30) & 0x1;
+	uint8_t canopen_device_produces_TIME_message = (canopen->od_communication.COB_ID_time_stamp_object >> 30) & 0x1;
 	if(!canopen_device_produces_TIME_message)
 		return; /* Nope. Not enabled as producer */
-
-	/* Send out a message if it has pass the threshold of 1 second (Most RTC in microcontrollers have 1 seconds interval), then reset, or else count */
-	if(canopen->producer.time_producer_interval < 1000){
-		canopen->producer.time_producer_interval++;
-		return;
-	}
-	canopen->producer.time_producer_interval = 0;
 
 	/* Get the real clock */
 	uint8_t date, month, hour, minute, second;

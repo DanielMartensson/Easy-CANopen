@@ -17,5 +17,5 @@ void CANopen_Consumer_EMCY_Receive_Error_Message(CANopen *canopen, uint8_t node_
 		value |= 0 << 31; /* EMCY consumer does not exist */
 
 	/* The Sub-index shall refer to the related node-ID according to CiA301 V4.2.0 */
-	CANopen_OD_set_dictionary_object_value(canopen, OD_INDEX_EMERGENCY_CONSUMER_OBJECT, node_ID, value);
+	canopen->od_communication.emergency_consumer_object[node_ID] = value;
 }

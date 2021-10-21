@@ -13,20 +13,15 @@
 
 void CANopen_Producer_EMCY_Transmit_Error_Message(CANopen *canopen, uint16_t new_error_code, uint8_t new_error_register, uint8_t vendor_specific_data[]){
 	/* Check if EMCY is enabled */
-	uint32_t COB_ID_MERCY;
-	CANopen_OD_get_dictionary_object_value(canopen, OD_INDEX_COB_ID_EMCY, OD_SUB_INDEX_0, &COB_ID_MERCY);
-	uint8_t EMCY_does_not_exist = COB_ID_MERCY >> 31;
+	uint8_t EMCY_does_not_exist = canopen->od_communication.COB_ID_emcy >> 31;
 	if(EMCY_does_not_exist)
 		return; /* MECY producer is not enabled */
 
-	/* Get the node ID from this node */
-	uint32_t node_ID = 0;
-	CANopen_OD_get_dictionary_object_value(canopen, OD_INDEX_NODE_ID, OD_SUB_INDEX_0, &node_ID);
+	/* Get the node ID from this producer */
+	uint32_t node_ID = canopen->od_manufacturer.node_ID;
 
 	/* Get the error register and add new new error register to it */
-	uint32_t error_register = 0;
-	CANopen_OD_get_dictionary_object_value(canopen, OD_INDEX_ERROR_REGISTER, OD_SUB_INDEX_0, &error_register);
-	error_register |= new_error_register;
+	uint32_t error_register = canopen->od_communication.error_register | new_error_register;
 
 	/* Create the COB ID */
 	uint32_t COB_ID = FUNCTION_CODE_SYNC_EMCY << 7 | node_ID;
@@ -44,21 +39,14 @@ void CANopen_Producer_EMCY_Transmit_Error_Message(CANopen *canopen, uint16_t new
 	Hardware_CAN_Send_Message(COB_ID, data);
 
 	/* Shift the error codes down one step */
-	uint32_t old_error = 0;
-	for(uint8_t sub_index = OD_SUB_INDEX_14; sub_index >= OD_SUB_INDEX_1; sub_index--){
-		CANopen_OD_get_dictionary_object_value(canopen, OD_INDEX_PRE_DEFINED_ERROR_FIELD, sub_index, &old_error);
-		CANopen_OD_set_force_dictionary_object_value(canopen, OD_INDEX_PRE_DEFINED_ERROR_FIELD, sub_index + 1, old_error);
-	}
+	for(uint8_t sub_index = 8; sub_index >= 1; sub_index--)
+		canopen->od_communication.pre_defined_error_field[sub_index + 1] = canopen->od_communication.pre_defined_error_field[sub_index];
 
 	/* Save the latest error code on top and save error register as well */
-	CANopen_OD_set_force_dictionary_object_value(canopen, OD_INDEX_PRE_DEFINED_ERROR_FIELD, OD_SUB_INDEX_1, new_error_code);
-	CANopen_OD_set_force_dictionary_object_value(canopen, OD_INDEX_ERROR_REGISTER, OD_SUB_INDEX_0, error_register);
+	canopen->od_communication.pre_defined_error_field[1] = new_error_code;
+	canopen->od_communication.error_register = error_register;
 
 	/* Count how many error codes we had implemented so far */
-	uint32_t errors_available = 0;
-	CANopen_OD_get_dictionary_object_value(canopen, OD_INDEX_PRE_DEFINED_ERROR_FIELD, OD_SUB_INDEX_0, &errors_available);
-	if(errors_available < OD_SUB_INDEX_15){
-		errors_available++;
-		CANopen_OD_set_dictionary_object_value(canopen, OD_INDEX_PRE_DEFINED_ERROR_FIELD, OD_SUB_INDEX_0, errors_available);
-	}
+	if(canopen->od_communication.pre_defined_error_field[0] < 0xA)
+		canopen->od_communication.pre_defined_error_field[0]++;
 }

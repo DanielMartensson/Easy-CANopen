@@ -57,8 +57,7 @@ bool Easy_CANopen_Thread_Listen_Messages(CANopen *canopen) {
 
 		}else if(function_code == FUNCTION_CODE_HEARTBEAT_GUARD){
 			/* Get this node ID */
-			uint32_t this_node_ID = 0;
-			CANopen_OD_get_dictionary_object_value(canopen, OD_INDEX_NODE_ID, OD_SUB_INDEX_0, &this_node_ID);
+			uint32_t this_node_ID = canopen->od_manufacturer.node_ID;
 
 			/* Check what type of message */
 			if(data[0] == data[1] == data[2] == data[3] == data[4] == data[5] == data[6] == data[7] && node_ID == this_node_ID){
