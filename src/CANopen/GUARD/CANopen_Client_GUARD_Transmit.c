@@ -9,7 +9,6 @@
 
 /* Layers */
 #include "../../Hardware/Hardware.h"
-#include "../HEARTBEAT/HEARTBEAT.h"
 
 void CANopen_Client_GUARD_Transmit_Response_Guard(CANopen *canopen, uint8_t node_ID){
 	/* Check if guard is enabled */

@@ -9,7 +9,6 @@
 
 /* Layers */
 #include "../../Hardware/Hardware.h"
-#include "../OD/OD.h"
 
 void CANopen_Producer_EMCY_Transmit_Error_Message(CANopen *canopen, uint16_t new_error_code, uint8_t new_error_register, uint8_t vendor_specific_data[]){
 	/* Check if EMCY is enabled */

@@ -7,9 +7,6 @@
 
 #include "TIME.h"
 
-/* Layers */
-#include "../OD/OD.h"
-
 void CANopen_Consumer_TIME_Receive_Clock(CANopen *canopen, uint8_t data[]){
 	/* Check if this is allowed to consume */
 	uint8_t canopen_device_consumes_TIME_message = canopen->od_communication.COB_ID_time_stamp_object >> 31;

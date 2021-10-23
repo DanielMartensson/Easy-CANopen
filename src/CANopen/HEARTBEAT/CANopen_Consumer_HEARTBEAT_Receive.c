@@ -8,7 +8,6 @@
 #include "HEARTBEAT.h"
 
 /* Layers */
-#include "../OD/OD.h"
 #include "../../Hardware/Hardware.h"
 
 void CANopen_Consumer_HEARTBEAT_Receive_Heartbeat(CANopen *canopen, uint8_t node_ID, uint8_t data[]){

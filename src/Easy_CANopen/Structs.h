@@ -17,9 +17,7 @@
 /* Enums */
 #include "../CANopen/Global_Enums/Global_Enums.h"
 
-/**********************************************************************************************************/
-
-/* Our dictionary object */
+/* CiA 301: Object dictionary for communication parameter area 0x1000 -> 0x1FFF */
 struct OD_Communication{
 	uint32_t device_type;												/* Index 0x1000 sub index 0x0 */
 	uint8_t error_register;												/* Index 0x1001 sub index 0x0 */
@@ -28,9 +26,9 @@ struct OD_Communication{
 	uint32_t COB_ID_sync_message;										/* Index 0x1005 sub index 0x0 */
 	uint32_t communication_cycle_period;								/* Index 0x1006 sub index 0x0 */
 	uint32_t synchronous_window_length;									/* Index 0x1007 sub index 0x0 */
-	uint32_t manufacturer_device_name;									/* Index 0x1008 sub index 0x0 */
-	uint32_t manufacturer_hardware_version;								/* Index 0x1009 sub index 0x0 */
-	uint32_t manufacturer_software_version;								/* Index 0x100A sub index 0x0 */
+	char manufacturer_device_name[30];									/* Index 0x1008 sub index 0x0 */
+	char manufacturer_hardware_version[30];								/* Index 0x1009 sub index 0x0 */
+	char manufacturer_software_version[30];								/* Index 0x100A sub index 0x0 */
 	uint16_t guard_time;												/* Index 0x100C sub index 0x0 */
 	uint8_t life_time_factor;											/* Index 0x100D sub index 0x0 */
 	uint32_t store_parameters[4];										/* Index 0x1010 sub index 0x0 -> 0x3 */
@@ -48,12 +46,13 @@ struct OD_Communication{
 	uint8_t  error_behavior_object[11];									/* Index 0x1029 sub index 0x0 -> 0xA */
 };
 
+/* CiA 301: Object dictionary for manufacturer parameter area 0x2000 -> 0x5FFF */
 struct OD_Manufacturer{
 	uint8_t bit_timing_table_index;										/* Index 0x2000 sub index 0x0 */
 	uint8_t node_ID;													/* Index 0x2001 sub index 0x0 */
 };
 
-
+/* CiA 305: Layer setting services */
 struct LSS{
 	uint8_t switch_mode_global_protocol;								/* Disable or enable the LSS service */
 	uint8_t status_code;												/* Status code */
@@ -70,6 +69,7 @@ struct LSS{
 	bool non_configured_node_ID_found;									/* If the node ID is at the error address 0xFF */
 };
 
+/* CiA 301: Network management */
 struct NMT{
 	uint8_t node_status_operation;										/* Status at the other nodes */
 	uint8_t status_operational;											/* What status operation is the slave into */
@@ -79,7 +79,7 @@ struct NMT{
 };
 
 
-
+/* This struct is the object used by the CANopen user */
 typedef struct {
 	/* Latest CAN message */
 	uint32_t COB_ID;													/* This is the CAN bus ID */

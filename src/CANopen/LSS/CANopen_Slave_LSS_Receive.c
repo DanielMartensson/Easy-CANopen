@@ -8,7 +8,6 @@
 #include "LSS.h"
 
 /* Layers */
-#include "../OD/OD.h"
 #include "../../Hardware/Hardware.h"
 
 static void CANopen_Slave_LSS_Receive_Request_Switch_Mode_Global(CANopen *canopen, uint8_t data[]);
@@ -117,7 +116,7 @@ static void CANopen_Slave_LSS_Receive_Request_Store_Configuration(CANopen *canop
 	if(canopen->lss_slave.switch_mode_global_protocol == MODE_WAITING)
 		return;
 
-	/* Save table index of the bit timing and the node ID */
+	/* Save the bit timing table index and the node ID */
 	canopen->od_manufacturer.bit_timing_table_index = canopen->lss_slave.table_index;
 	canopen->od_manufacturer.node_ID = canopen->lss_slave.node_ID;
 
@@ -126,10 +125,6 @@ static void CANopen_Slave_LSS_Receive_Request_Store_Configuration(CANopen *canop
 }
 
 static void CANopen_Slave_LSS_Receive_Request_Inquire_Identity_Value(CANopen *canopen, uint8_t data[]){
-	/* Check if enabled */
-	if(canopen->lss_slave.switch_mode_global_protocol == MODE_WAITING)
-		return;
-
 	/* Get cs and find value */
 	uint8_t cs = data[0];
 	uint32_t value = 0;
@@ -149,10 +144,6 @@ static void CANopen_Slave_LSS_Receive_Request_Inquire_Identity_Value(CANopen *ca
 }
 
 static void CANopen_Slave_LSS_Receive_Request_Identity_Remote_Slave_Value(CANopen *canopen, uint8_t data[]){
-	/* Check if enabled */
-	if(canopen->lss_slave.switch_mode_global_protocol == MODE_WAITING)
-		return;
-
 	/* Get the value and compare */
 	uint8_t cs = data[0];
 	uint32_t compare = (data[4] << 24) | (data[3] << 16) | (data[2] << 8) | data[1];
@@ -178,10 +169,6 @@ static void CANopen_Slave_LSS_Receive_Request_Identity_Remote_Slave_Value(CANope
 }
 
 static void CANopen_Slave_LSS_Receive_Request_Identify_Non_Configured_Remote_Slave(CANopen *canopen, uint8_t data[]){
-	/* Check if enabled */
-	if(canopen->lss_slave.switch_mode_global_protocol == MODE_WAITING)
-		return;
-
 	/* Check if node ID is on the error address */
 	if(canopen->od_manufacturer.node_ID == 0xFF)
 		CANopen_Slave_LSS_Transmit_Response_Identify_Non_Configured_Remote_Slave();
