@@ -34,7 +34,7 @@ bool Easy_CANopen_Thread_Listen_Messages(CANopen *canopen) {
 				CANopen_Consumer_EMCY_Receive_Error_Message(canopen, node_ID, data);
 			}
 		}else if(function_code == FUNCTION_CODE_TIME){
-			CANopen_Consumer_TIME_Receive_Clock(canopen, data);
+			CANopen_Consumer_TIME_Receive_Clock(canopen, node_ID, data);
 		}else if(function_code == FUNCTION_CODE_PDO1_TRANSMIT){
 
 		}else if(function_code == FUNCTION_CODE_PDO1_RECEIVE){
@@ -57,7 +57,7 @@ bool Easy_CANopen_Thread_Listen_Messages(CANopen *canopen) {
 
 		}else if(function_code == FUNCTION_CODE_HEARTBEAT_GUARD){
 			/* Get this node ID */
-			uint32_t this_node_ID = canopen->od_manufacturer.node_ID;
+			uint8_t this_node_ID = canopen->slave.lss.this_node_ID;
 
 			/* Check what type of message */
 			if(data[0] == data[1] == data[2] == data[3] == data[4] == data[5] == data[6] == data[7] && node_ID == this_node_ID){

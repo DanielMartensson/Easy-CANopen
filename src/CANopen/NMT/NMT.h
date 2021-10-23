@@ -10,7 +10,12 @@
 
 #include "../../Easy_CANopen/Structs.h"
 
+/* Transmit */
 void CANopen_Master_NMT_Transmit_Operation_State(CANopen *canopen, uint8_t cs, uint8_t node_ID);
+
+/* Receive + tools */
 void CANopen_Slave_NMT_Receive(CANopen *canopen, uint8_t data[]);
+void CANopen_Slave_NMT_Restore_OD_Communication_To_Default_Parameters(CANopen *canopen);
+void CANopen_Slave_NMT_Reset_Node_Struct(CANopen *canopen);
 
 #endif /* CANOPEN_NMT_NMT_H_ */

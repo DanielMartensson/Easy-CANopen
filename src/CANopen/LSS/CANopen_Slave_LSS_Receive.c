@@ -44,12 +44,12 @@ void CANopen_Slave_LSS_Receive(CANopen *canopen, uint8_t data[]){
 }
 
 static void CANopen_Slave_LSS_Receive_Request_Switch_Mode_Global(CANopen *canopen, uint8_t data[]){
-	canopen->lss_slave.switch_mode_global_protocol = data[0];
+	canopen->slave.lss.switch_mode_global_protocol = data[0];
 }
 
 static void CANopen_Slave_LSS_Receive_Request_Switch_Mode_Selective_Value(CANopen *canopen, uint8_t data[]){
 	/* Check if enabled */
-	if(canopen->lss_slave.switch_mode_global_protocol == MODE_WAITING)
+	if(canopen->slave.lss.switch_mode_global_protocol == MODE_WAITING)
 		return;
 
 	/* Save parameter */
@@ -70,7 +70,7 @@ static void CANopen_Slave_LSS_Receive_Request_Switch_Mode_Selective_Value(CANope
 
 static void CANopen_Slave_LSS_Receive_Request_Configure_Node_ID(CANopen *canopen, uint8_t data[]){
 	/* Check if enabled */
-	if(canopen->lss_slave.switch_mode_global_protocol == MODE_WAITING)
+	if(canopen->slave.lss.switch_mode_global_protocol == MODE_WAITING)
 		return;
 
 	/* Check parameter */
@@ -81,13 +81,13 @@ static void CANopen_Slave_LSS_Receive_Request_Configure_Node_ID(CANopen *canopen
 	}
 
 	/* Save the parameter and give a OK response back */
-	canopen->lss_slave.node_ID = node_ID;
+	canopen->slave.lss.this_node_ID = node_ID;
 	CANopen_Slave_LSS_Transmit_Response_Status_Message(CS_CONFIGURE_NODE_ID, STATUS_CODE_SUCCESSFUL, 0x0);
 }
 
 static void CANopen_Slave_LSS_Receive_Request_Configure_Bit_Timing_Parameters(CANopen *canopen, uint8_t data[]){
 	/* Check if enabled */
-	if(canopen->lss_slave.switch_mode_global_protocol == MODE_WAITING)
+	if(canopen->slave.lss.switch_mode_global_protocol == MODE_WAITING)
 		return;
 
 	/* Check parameter */
@@ -98,27 +98,26 @@ static void CANopen_Slave_LSS_Receive_Request_Configure_Bit_Timing_Parameters(CA
 	}
 
 	/* Save the parameter and give a OK response back */
-	canopen->lss_slave.table_index = table_index;
+	canopen->slave.lss.table_index = table_index;
 	CANopen_Slave_LSS_Transmit_Response_Status_Message(CS_CONFIGURE_BIT_TIMING_PARAMETERS, STATUS_CODE_SUCCESSFUL, 0x0);
 }
 
 static void CANopen_Slave_LSS_Receive_Request_Activate_Bit_Timing_Parameters(CANopen *canopen, uint8_t data[]){
 	/* Check if enabled */
-	if(canopen->lss_slave.switch_mode_global_protocol == MODE_WAITING)
+	if(canopen->slave.lss.switch_mode_global_protocol == MODE_WAITING)
 		return;
 
 	/* Set the baud rate - No response back according to CiA standard */
-	CAN_Set_Baud_Rate(canopen->lss_slave.table_index);
+	CAN_Set_Baud_Rate(canopen->slave.lss.table_index);
 }
 
 static void CANopen_Slave_LSS_Receive_Request_Store_Configuration(CANopen *canopen, uint8_t data[]){
 	/* Check if enabled */
-	if(canopen->lss_slave.switch_mode_global_protocol == MODE_WAITING)
+	if(canopen->slave.lss.switch_mode_global_protocol == MODE_WAITING)
 		return;
 
 	/* Save the bit timing table index and the node ID */
-	canopen->od_manufacturer.bit_timing_table_index = canopen->lss_slave.table_index;
-	canopen->od_manufacturer.node_ID = canopen->lss_slave.node_ID;
+	/* TODO: Hur ska vi spara node ID och bit timing index ? */
 
 	/* Send OK response back */
 	CANopen_Slave_LSS_Transmit_Response_Status_Message(CS_STORE_CONFIGURATION_PROTOCOL, STATUS_CODE_SUCCESSFUL, 0x0);
@@ -137,7 +136,7 @@ static void CANopen_Slave_LSS_Receive_Request_Inquire_Identity_Value(CANopen *ca
 	else if(cs == CS_INQUIRE_IDENTITY_SERIAL_NUMBER)
 		value = canopen->od_communication.identity_object[4];
 	else if(cs == CS_INQUIRE_IDENTITY_NODE_ID)
-		value = canopen->od_manufacturer.node_ID;
+		value = canopen->slave.lss.this_node_ID;
 
 	/* Send identity response back */
 	CANopen_Slave_LSS_Transmit_Response_Inquire_Identity_Value(cs, value);
@@ -170,6 +169,6 @@ static void CANopen_Slave_LSS_Receive_Request_Identity_Remote_Slave_Value(CANope
 
 static void CANopen_Slave_LSS_Receive_Request_Identify_Non_Configured_Remote_Slave(CANopen *canopen, uint8_t data[]){
 	/* Check if node ID is on the error address */
-	if(canopen->od_manufacturer.node_ID == 0xFF)
+	if(canopen->slave.lss.this_node_ID == 0xFF)
 		CANopen_Slave_LSS_Transmit_Response_Identify_Non_Configured_Remote_Slave();
 }
