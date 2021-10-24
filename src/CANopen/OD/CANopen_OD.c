@@ -11,7 +11,6 @@ static OD_STATUS read_or_write(uint32_t *value, void *struct_value, bool write_v
 
 OD_STATUS CANopen_OD_set_get_value(CANopen *canopen, uint16_t index, uint8_t sub_index, bool write_value, bool force, uint32_t *value){
 	struct OD_Communication *communication = &canopen->od_communication;
-	struct OD_Application *manufacturer = &canopen->od_application;
 	if(index == OD_INDEX_DEVICE_TYPE){
 		return read_or_write(value, &communication->device_type, write_value, force, OD_ACCESS_READ, sizeof(communication->device_type));
 	}else if(index == OD_INDEX_ERROR_REGISTER){
@@ -62,10 +61,6 @@ OD_STATUS CANopen_OD_set_get_value(CANopen *canopen, uint16_t index, uint8_t sub
 		return read_or_write(value, &communication->emergency_consumer_object[sub_index], write_value, force, OD_ACCESS_READ_WRITE, sizeof(communication->emergency_consumer_object[sub_index]));
 	}else if(index == OD_INDEX_ERROR_BEHAVIOR_OBJECT){
 		return read_or_write(value, &communication->error_behavior_object[sub_index], write_value, force, OD_ACCESS_READ_WRITE, sizeof(communication->error_behavior_object[sub_index]));
-	}else if(index == OD_INDEX_BIT_TIMING_TABLE_INDEX){
-		return read_or_write(value, &manufacturer->bit_timing_table_index, write_value, force, OD_ACCESS_READ_WRITE, sizeof(manufacturer->bit_timing_table_index));
-	}else if(index == OD_INDEX_NODE_ID){
-		return read_or_write(value, &manufacturer->this_node_ID, write_value, force, OD_ACCESS_READ_WRITE, sizeof(manufacturer->this_node_ID));
 	}
 	return OD_STATUS_NOT_FOUND;
 }

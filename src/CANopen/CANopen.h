@@ -15,5 +15,6 @@
 #include "EMCY/EMCY.h"
 #include "TIME/TIME.h"
 #include "NMT/NMT.h"
+#include "SYNC/SYNC.h"
 
 #endif /* CANOPEN_CANOPEN_H_ */

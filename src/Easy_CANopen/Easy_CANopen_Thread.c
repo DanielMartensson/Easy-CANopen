@@ -28,11 +28,10 @@ bool Easy_CANopen_Thread_Listen_Messages(CANopen *canopen) {
 		if(function_code == FUNCTION_CODE_NMT){
 			CANopen_Slave_NMT_Receive(canopen, data);
 		}else if(function_code == FUNCTION_CODE_SYNC_EMCY) {
-			if(data[0] == data[1] == data[2] == data[3] == data[4] == data[5] == data[6] == data[7]){
-				/* SYNC */
-			}else{
+			if(data[2] == 0x0)
+				CANopen_Consumer_SYNC_Receive_Synchronization(canopen, node_ID, data);	/* data[2] is the error register for EMCY and it's never zero */
+			else
 				CANopen_Consumer_EMCY_Receive_Error_Message(canopen, node_ID, data);
-			}
 		}else if(function_code == FUNCTION_CODE_TIME){
 			CANopen_Consumer_TIME_Receive_Clock(canopen, node_ID, data);
 		}else if(function_code == FUNCTION_CODE_PDO1_TRANSMIT){
@@ -52,19 +51,22 @@ bool Easy_CANopen_Thread_Listen_Messages(CANopen *canopen) {
 		}else if(function_code == FUNCTION_CODE_PDO4_RECEIVE){
 
 		}else if(function_code == FUNCTION_CODE_SDO_TRANSMIT){
-
+			CANopen_Client_SDO_Receive_Request(canopen, node_ID, data);										/* Server -> Client */
 		}else if(function_code == FUNCTION_CODE_SDO_RECEIVE){
-
+			CANopen_Server_SDO_Receive_Response(canopen, node_ID, data);									/* Client -> Server */
 		}else if(function_code == FUNCTION_CODE_HEARTBEAT_GUARD){
 			/* Get this node ID */
 			uint8_t this_node_ID = canopen->slave.lss.this_node_ID;
 
 			/* Check what type of message */
-			if(data[0] == data[1] == data[2] == data[3] == data[4] == data[5] == data[6] == data[7] && node_ID == this_node_ID){
+			uint8_t total_bytes = 0;
+			for(uint8_t i = 0; i < 8; i++)
+				total_bytes += data[i];
+			if(total_bytes == 0 && node_ID == this_node_ID){
 				CANopen_Client_GUARD_Receive_Request_Guard(canopen, node_ID); 								/* Guard requests have zero data */
 			}else{
-				CANopen_Consumer_HEARTBEAT_Receive_Heartbeat(canopen, node_ID, data);						/* Only one process of heartbeat or guard can be active */
-				CANopen_Server_GUARD_Receive_Response_Guard(canopen, node_ID, data);
+				CANopen_Consumer_HEARTBEAT_Receive_Heartbeat(canopen, node_ID, data);
+				CANopen_Server_GUARD_Receive_Response_Guard(canopen, node_ID, data);						/* Guard not active if heartbeat is active */
 			}
 		}else if(COB_ID == FUNCTION_CODE_LSS_TRANSMIT){
 			CANopen_Slave_LSS_Receive(canopen, data);														/* Master -> Slave */
