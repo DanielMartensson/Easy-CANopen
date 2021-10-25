@@ -11,7 +11,7 @@
 #include "../../Easy_CANopen/Structs.h"
 
 /* Server */
-void CANopen_Server_SDO_Transmit_Request(CANopen *canopen, uint8_t cs, uint8_t node_ID, uint16_t index, uint8_t sub_index, uint32_t data);
+void CANopen_Server_SDO_Transmit_Download(CANopen *canopen, uint8_t node_ID, uint16_t index, uint8_t sub_index, uint32_t data);
 void CANopen_Server_SDO_Receive_Response(CANopen *canopen, uint8_t node_ID, uint8_t message[]);
 
 /* Client */

@@ -11,7 +11,7 @@
 #include "../../Easy_CANopen/Structs.h"
 
 /* Handlers for dictionary objects */
-OD_STATUS CANopen_OD_set_get_value(CANopen *canopen, uint16_t index, uint8_t sub_index, bool write_value, bool force_write, uint32_t *value);
+OD_STATUS CANopen_OD_set_get_value(CANopen *canopen, uint16_t index, uint8_t sub_index, bool write_value, void *value, uint8_t byte_size);
 
 
 #endif /* CANOPEN_OD_OD_H_ */
