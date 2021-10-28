@@ -20,7 +20,7 @@ void CANopen_Slave_NMT_Receive(CANopen *canopen, uint8_t data[]){
 	uint8_t node_ID = data[1];
 
 	/* Check if it's correct node address we are sending to */
-	if(node_ID == canopen->slave.lss.this_node_ID){
+	if(node_ID == canopen->slave.this_node_ID){
 		/* Enter the states */
 		if(cs == CS_NETWORK_MANAGMENT_SERVICE_START_REMOTE_NODE){
 			canopen->slave.nmt.status_operational = STATUS_OPERATIONAL_OPERATIONAL;			/* Activate the following services: PDO, SDO, SYNC, TIME, EMCY */

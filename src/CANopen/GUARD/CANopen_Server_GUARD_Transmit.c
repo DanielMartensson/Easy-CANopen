@@ -10,14 +10,16 @@
 /* Layers */
 #include "../../Hardware/Hardware.h"
 
-void CANopen_Server_GUARD_Transmit_Request_Guard(CANopen *canopen, uint8_t node_ID){
-	/* Check if guard is enabled */
-	if(canopen->od_communication.producer_heartbeat_time > 0)
-		return;
+void CANopen_Server_GUARD_Transmit_Response(CANopen *canopen, uint8_t node_ID){
+	/* Create the COB ID */
+	uint32_t COB_ID = FUNCTION_CODE_HEARTBEAT_GUARD << 7 | node_ID;
 
-	uint8_t data[8] = {0};												/* Guard request have zero data */
-	uint8_t COB_ID = FUNCTION_CODE_HEARTBEAT_GUARD << 8 | node_ID;
-	canopen->master.nmt.count_tick = Hardware_Time_Get_Tick();			/* Set time clock to count how long time it would take to get the response from the slave */
+	/* Get toggle */
+	canopen->slave.nmt.toggle = canopen->slave.heartbeat.toggle == TOGGLE_HEARTBEAT_0 ? TOGGLE_HEARTBEAT_1 : TOGGLE_HEARTBEAT_0;
+
+	/* Send the heartbeat message */
+	uint8_t data[8] = {0};
+	data[0] = (canopen->slave.nmt.toggle << 7) | canopen->slave.nmt.status_operational;
 	Hardware_CAN_Send_Message(COB_ID, data);
 }
 

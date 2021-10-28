@@ -15,13 +15,13 @@
  * The error code and error register belongs to this node device.
  * NMT must be in operational mode or pre operational mode.
  */
-void CANopen_Producer_EMCY_Transmit_Error_Message(CANopen *canopen, uint16_t new_error_code, uint8_t new_error_register, uint8_t vendor_specific_data[]){
+void CANopen_Producer_EMCY_Transmit(CANopen *canopen, uint16_t new_error_code, uint8_t new_error_register, uint8_t vendor_specific_data[]){
 	/* Check if EMCY service is enabled */
 	if(canopen->slave.nmt.status_operational == STATUS_OPERATIONAL_STOPPED)
 		return; /* NMT is in the stopped mode. ECMY service is disabled */
 
 	/* Get the node ID from this producer */
-	uint8_t node_ID = canopen->slave.lss.this_node_ID;
+	uint8_t node_ID = canopen->slave.this_node_ID;
 
 	/* Get the error register and add new new error register to it */
 	canopen->od_communication.error_register |= new_error_register;

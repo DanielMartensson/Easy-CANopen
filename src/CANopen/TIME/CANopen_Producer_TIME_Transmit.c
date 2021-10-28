@@ -13,7 +13,7 @@
 
 void CANopen_Producer_TIME_Transmit_Clock(CANopen *canopen){
 	/* Check if TIME service is enabled */
-	if(canopen->slave.nmt.status_operational == STATUS_OPERATIONAL_STOPPED)
+	if(canopen->master.nmt.status_operational == STATUS_OPERATIONAL_STOPPED)
 		return; /* NMT is in the stopped mode. TIME service is disabled */
 
 	/* Get the real time clock */
@@ -37,6 +37,9 @@ void CANopen_Producer_TIME_Transmit_Clock(CANopen *canopen){
 			days_since_1_januari_1984 += 30;
 	days_since_1_januari_1984 += date - 1; /* Days since, does not includes this day */
 
+	/* Create the COB ID */
+	uint32_t COB_ID = FUNCTION_CODE_TIME << 7; /* Node ID is zero here */
+
 	/* Send data */
 	uint8_t data[8] = {0};
 	data[0] = milliseconds_since_midnight;
@@ -45,5 +48,5 @@ void CANopen_Producer_TIME_Transmit_Clock(CANopen *canopen){
 	data[3] = milliseconds_since_midnight >> 24;
 	data[4] = days_since_1_januari_1984;
 	data[5] = days_since_1_januari_1984 >> 8;
-	Hardware_CAN_Send_Message(FUNCTION_CODE_TIME, data);
+	Hardware_CAN_Send_Message(COB_ID, data);
 }

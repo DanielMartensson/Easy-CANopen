@@ -10,7 +10,7 @@
 /* Layers */
 #include "../../Hardware/Hardware.h"
 
-void CANopen_Client_SDO_Transmit_Response(CANopen *canopen, uint8_t cs, uint8_t node_ID, uint16_t index, uint8_t sub_index, uint32_t data){
+void CANopen_Client_SDO_Transmit_Request(CANopen *canopen, uint8_t cs, uint8_t node_ID, uint16_t index, uint8_t sub_index, uint32_t data){
 	/* Check if SDO service is enabled */
 	if(canopen->slave.nmt.status_operational == STATUS_OPERATIONAL_STOPPED)
 		return; /* NMT is in the stopped mode. SDO service is disabled */
@@ -30,4 +30,3 @@ void CANopen_Client_SDO_Transmit_Response(CANopen *canopen, uint8_t cs, uint8_t 
 	message[7] = data >> 24;					/* MSB */
 	Hardware_CAN_Send_Message(COB_ID, message);
 }
-

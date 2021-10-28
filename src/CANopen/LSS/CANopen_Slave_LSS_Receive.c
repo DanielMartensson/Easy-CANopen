@@ -81,7 +81,7 @@ static void CANopen_Slave_LSS_Receive_Request_Configure_Node_ID(CANopen *canopen
 	}
 
 	/* Save the parameter and give a OK response back */
-	canopen->slave.lss.this_node_ID = node_ID;
+	canopen->slave.this_node_ID = node_ID;
 	CANopen_Slave_LSS_Transmit_Response_Status_Message(CS_CONFIGURE_NODE_ID, STATUS_CODE_SUCCESSFUL, 0x0);
 }
 
@@ -136,7 +136,7 @@ static void CANopen_Slave_LSS_Receive_Request_Inquire_Identity_Value(CANopen *ca
 	else if(cs == CS_INQUIRE_IDENTITY_SERIAL_NUMBER)
 		value = canopen->od_communication.identity_object[4];
 	else if(cs == CS_INQUIRE_IDENTITY_NODE_ID)
-		value = canopen->slave.lss.this_node_ID;
+		value = canopen->slave.this_node_ID;
 
 	/* Send identity response back */
 	CANopen_Slave_LSS_Transmit_Response_Inquire_Identity_Value(cs, value);
@@ -169,6 +169,6 @@ static void CANopen_Slave_LSS_Receive_Request_Identity_Remote_Slave_Value(CANope
 
 static void CANopen_Slave_LSS_Receive_Request_Identify_Non_Configured_Remote_Slave(CANopen *canopen, uint8_t data[]){
 	/* Check if node ID is on the error address */
-	if(canopen->slave.lss.this_node_ID == 0xFF)
+	if(canopen->slave.this_node_ID == 0xFF)
 		CANopen_Slave_LSS_Transmit_Response_Identify_Non_Configured_Remote_Slave();
 }

@@ -10,11 +10,8 @@
 /* Layers */
 #include "../../Hardware/Hardware.h"
 
-/*
- * Receive and save the EMCY error code and error register and also from where the EMCY message came from
- */
-void CANopen_Consumer_EMCY_Receive_Error_Message(CANopen *canopen, uint8_t node_ID, uint8_t data[]) {
-	canopen->consumer.emcy.error_code = (data[1] << 8) | data[0];
-	canopen->consumer.emcy.error_register = data[2];
-	canopen->consumer.emcy.from_node_ID = node_ID;
+void CANopen_Consumer_EMCY_Receive(CANopen *canopen, uint8_t node_ID, uint8_t data[]) {
+	canopen->slave.emcy.error_code = (data[1] << 8) | data[0];
+	canopen->slave.emcy.error_register = data[2];
+	canopen->slave.emcy.from_node_ID = node_ID;
 }

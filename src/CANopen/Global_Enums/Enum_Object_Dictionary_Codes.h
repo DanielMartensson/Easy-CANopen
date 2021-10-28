@@ -14,11 +14,11 @@ typedef enum{
 	OD_ACCESS_READ_WRITE = OD_ACCESS_READ | OD_ACCESS_WRITE
 }OD_ACCESS;
 
-enum{
-	OD_DATA_TYPE_U8 = 0x3,
+typedef enum{
+	OD_DATA_TYPE_U8 = 0x1,
 	OD_DATA_TYPE_U16 = 0x2,
-	OD_DATA_TYPE_U32 = 0x0
-};
+	OD_DATA_TYPE_U32 = 0x4
+}OD_DATA_TYPE;
 
 typedef enum{
     OD_STATUS_OK,

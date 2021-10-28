@@ -51,18 +51,17 @@ bool Easy_CANopen_Thread_Listen_Messages(CANopen *canopen) {
 		}else if(function_code == FUNCTION_CODE_PDO4_RECEIVE){
 
 		}else if(function_code == FUNCTION_CODE_SDO_TRANSMIT){
-			CANopen_Client_SDO_Receive_Request(canopen, node_ID, data);										/* Server -> Client */
+			if(node_ID == canopen->slave.lss.this_node_ID){
+				CANopen_Client_SDO_Receive_Request(canopen, node_ID, data);									/* Server -> Client */
 		}else if(function_code == FUNCTION_CODE_SDO_RECEIVE){
 			CANopen_Server_SDO_Receive_Response(canopen, node_ID, data);									/* Client -> Server */
 		}else if(function_code == FUNCTION_CODE_HEARTBEAT_GUARD){
-			/* Get this node ID */
-			uint8_t this_node_ID = canopen->slave.lss.this_node_ID;
 
 			/* Check what type of message */
 			uint8_t total_bytes = 0;
 			for(uint8_t i = 0; i < 8; i++)
 				total_bytes += data[i];
-			if(total_bytes == 0 && node_ID == this_node_ID){
+			if(total_bytes == 0 && node_ID == canopen->slave.lss.this_node_ID){
 				CANopen_Client_GUARD_Receive_Request_Guard(canopen, node_ID); 								/* Guard requests have zero data */
 			}else{
 				CANopen_Consumer_HEARTBEAT_Receive_Heartbeat(canopen, node_ID, data);
