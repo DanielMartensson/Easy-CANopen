@@ -8,12 +8,22 @@
 #include "SDO.h"
 
 /* Layers */
-#include "../OD/OD.h"
+#include "SDO_Protocol/SDO_Protocol.h"
 
-void CANopen_Client_SDO_Receive_Response(CANopen *canopen, uint8_t node_ID, uint8_t message[]){
-	canopen->slave.sdo.cs = message[0];
-	canopen->slave.sdo.index = (message[2] << 8) | message[1];
-	canopen->slave.sdo.sub_index = message[3];
-	canopen->slave.sdo.data = (message[7] << 24) | (message[6] << 16) | (message[5] << 8) | message[4];
-	canopen->slave.sdo.from_node_ID = node_ID;
+void CANopen_Client_SDO_Receive_Response(CANopen *canopen, uint8_t node_ID, uint8_t data[]){
+	/* Read command specifier */
+	uint8_t cs = data[0] >> 5;
+
+	/* Make a choice */
+	switch(cs){
+	case CS_SDO_INITIATE_DOWNLOAD_RESPONSE:
+		return CANOpen_SDO_Protocol_Segment_Request(canopen, CS_SDO_SEGMENT_DOWNLOAD_REQUEST, node_ID, data);	/* This is the first segment if segment is requested */
+	case CS_SDO_SEGMENT_DOWNLOAD_RESPONSE:
+		return CANOpen_SDO_Protocol_Segment_Request(canopen, CS_SDO_SEGMENT_DOWNLOAD_REQUEST, node_ID, data);
+	case CS_SDO_INITIATE_UPLOAD_RESPONSE:
+		return CANOpen_SDO_Protocol_Segment_Request(canopen, CS_SDO_SEGMENT_UPLOAD_REQUEST, node_ID, data);		/* This is the first segment if segment is requested */
+	case CS_SDO_SEGMENT_UPLOAD_RESPONSE:
+		return CANOpen_SDO_Protocol_Segment_Request(canopen, CS_SDO_SEGMENT_UPLOAD_REQUEST, node_ID, data);
+	}
 }
+

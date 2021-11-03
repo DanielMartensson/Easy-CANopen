@@ -21,9 +21,9 @@
 #define STORE_RE_STORE_PARAMETER_MAX_SUB_INDEX 4
 #define CONSUMER_HEARTBEAT_TIME_MAX_SUB_INDEX 128
 #define EMERGENCY_CONSUMER_MAX_SUB_INDEX 128
-#define IDENTITY_MAX_OBJECT_MAX_SUB_INDEX 5
 #define VERIFY_CONFIGURATION_MAX_SUB_INDEX 3
 #define ERROR_BEHAVIOR_SUB_INDEX 2
+#define OD_STRING_LENGTH 20
 
 /* CiA 301: Object dictionary for communication parameter area 0x1000 -> 0x1FFF */
 struct OD_Communication{
@@ -34,9 +34,9 @@ struct OD_Communication{
 	uint32_t COB_ID_sync_message;										/* Index 0x1005 sub index 0x0 */
 	uint32_t communication_cycle_period;								/* Index 0x1006 sub index 0x0 */
 	uint32_t synchronous_window_length;									/* Index 0x1007 sub index 0x0 */
-	uint32_t manufacturer_device_name;									/* Index 0x1008 sub index 0x0 */
-	uint32_t manufacturer_hardware_version;								/* Index 0x1009 sub index 0x0 */
-	uint32_t manufacturer_software_version;								/* Index 0x100A sub index 0x0 */
+	uint32_t manufacturer_device_name[OD_STRING_LENGTH];								/* Index 0x1008 sub index 0x0 */
+	uint32_t manufacturer_hardware_version[OD_STRING_LENGTH];							/* Index 0x1009 sub index 0x0 */
+	uint32_t manufacturer_software_version[OD_STRING_LENGTH];							/* Index 0x100A sub index 0x0 -> 0xA9 */
 	uint16_t guard_time;												/* Index 0x100C sub index 0x0 */
 	uint8_t life_time_factor;											/* Index 0x100D sub index 0x0 */
 	uint32_t store_parameters[STORE_RE_STORE_PARAMETER_MAX_SUB_INDEX];										/* Index 0x1010 sub index 0x0 -> 0x3 */
@@ -47,7 +47,11 @@ struct OD_Communication{
 	uint16_t inhibit_time_emcy;											/* Index 0x1015 sub index 0x0 */
 	uint32_t consumer_heartbeat_time[CONSUMER_HEARTBEAT_TIME_MAX_SUB_INDEX];								/* Index 0x1016 sub index 0x0 -> 0x7F */
 	uint16_t producer_heartbeat_time;									/* Index 0x1017 sub index 0x0 */
-	uint32_t identity_object[IDENTITY_MAX_OBJECT_MAX_SUB_INDEX];										/* Index 0x1018 sub index 0x0 -> 0x4 */
+	uint8_t identity_object_highest_supported_sub_index;				/* Index 0x1018 sub index 0x0 */
+	uint32_t vendor_ID;													/* Index 0x1018 sub index 0x1 */
+	uint32_t product_code;												/* Index 0x1018 sub index 0x2 */
+	uint32_t revision_number;											/* Index 0x1018 sub index 0x3 */
+	uint32_t serial_number;												/* Index 0x1018 sub index 0x4 */
 	uint8_t synchronous_counter_overflow_value;							/* Index 0x1019 sub index 0x0 */
 	uint32_t verify_configuration[VERIFY_CONFIGURATION_MAX_SUB_INDEX];									/* Index 0x1020 sub index 0x0 -> 0x2 */
 	uint32_t emergency_consumer_object[EMERGENCY_CONSUMER_MAX_SUB_INDEX];							/* Index 0x1028 sub index 0x0 -> 0x7F */
@@ -87,7 +91,12 @@ struct GUARD_HEARTBEAT{
 
 /* CiA 301: Service Dictionary Objects */
 struct SDO{
-	uint32_t data;														/* What data did we receive or transmit */
+	uint32_t expedited_byte;											/* Expedited data or byte size that are going to be sent */
+	uint8_t expedited_byte_size;										/* Expedited data size */
+	uint32_t transceive_segment_total_byte;								/* Total bytes that are going to be transmitted or received */
+	uint32_t transceive_segment_bytes_counter;											/* How many bytes we have transmitted or received */
+	uint8_t *transceive_segment_byte_pointer;									/* Data array of transceiver data */
+
 	uint8_t cs;															/* What command specifier did we receive or transmit */
 	uint16_t index;														/* At what index did we read or write */
 	uint8_t sub_index;													/* At what sub index did we read or write */

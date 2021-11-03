@@ -9,17 +9,17 @@
 #define CANOPEN_ENUMS_ENUM_CS_CODES_H_
 
 enum {
-	/* SDO commands */
-	CS_SDO_DOWNLOAD_REQUEST_OBJECT_DICTIONARY = 0x40,
-	CS_SDO_DOWNLOAD_RESPONSE_4_BYTES = 0x43,
-	CS_SDO_DOWNLOAD_RESPONSE_3_BYTES = 0x47,
-	CS_SDO_DOWNLOAD_RESPONSE_2_BYTES = 0x4B,
-	CS_SDO_DOWNLOAD_RESPONSE_1_BYTE = 0x4F,
-	CS_SDO_UPLOAD_REQUEST_4_BYTES = 0x23,
-	CS_SDO_UPLOAD_REQUEST_3_BYTES = 0x27,
-	CS_SDO_UPLOAD_REQUEST_2_BYTES = 0x2B,
-	CS_SDO_UPLOAD_REQUEST_1_BYTE = 0x2F,
-	CS_SDO_UPLOAD_RESPONSE_OBJECT_DICTIONARY = 0x60,
+	/* Client request bytes from server */
+	CS_SDO_INITIATE_UPLOAD_REQUEST = 0x2,											/* Client request server for bytes */
+	CS_SDO_INITIATE_UPLOAD_RESPONSE = 0x2,											/* Server response client with bytes or byte length */
+	CS_SDO_SEGMENT_UPLOAD_REQUEST = 0x3,											/* Client request server for segment bytes */
+	CS_SDO_SEGMENT_UPLOAD_RESPONSE = 0x0,											/* Server response client with segment bytes */
+
+	/* Client transmit bytes to server */
+	CS_SDO_INITIATE_DOWNLOAD_REQUEST = 0x1,											/* Client transmit server with bytes or byte length */
+	CS_SDO_INITIATE_DOWNLOAD_RESPONSE = 0x3,										/* Server response client with an OK or request for segment bytes */
+	CS_SDO_SEGMENT_DOWNLOAD_REQUEST = 0x0,											/* Client transmit server with segment bytes */
+	CS_SDO_SEGMENT_DOWNLOAD_RESPONSE = 0x1,											/* Server request client for segment bytes */
 
 	/* NMT commands */
 	// TODO: NETWORK_MANAGMENT måste bli NMT
