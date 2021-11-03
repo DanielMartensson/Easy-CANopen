@@ -9,7 +9,6 @@
 
 /* Layers */
 #include "../../../Hardware/Hardware.h"
-#include "../SDO_Protocol/SDO_Protocol.h"
 #include "../SDO_Internal/SDO_Internal.h"
 
 void CANopen_Client_SDO_Transmit_Request(CANopen *canopen, uint8_t cs, uint8_t node_ID, uint16_t index, uint8_t sub_index){

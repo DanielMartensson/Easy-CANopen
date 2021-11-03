@@ -7,6 +7,9 @@
 
 #include "SDO_Internal.h"
 
+/* Layers */
+#include "SDO_Protocol/SDO_Protocol.h"
+
 void CANopen_Server_SDO_Receive_Request(CANopen *canopen, uint8_t node_ID, uint8_t data[]){
 	/* Read command specifier */
 	uint8_t cs = data[0] >> 5;

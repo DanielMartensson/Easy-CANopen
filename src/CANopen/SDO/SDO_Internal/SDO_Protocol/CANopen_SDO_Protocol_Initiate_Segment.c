@@ -8,7 +8,7 @@
 #include "SDO_Protocol.h"
 
 /* Layers */
-#include "../SDO_Internal/SDO_Internal.h"
+#include "../SDO_Internal.h"
 
 void CANopen_SDO_Protocol_Initiate_Response(CANopen *canopen, uint8_t cs_response, uint8_t node_ID, uint8_t data[]){
 	/* Read data */
