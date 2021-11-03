@@ -5,7 +5,7 @@
  *      Author: Daniel Mårtensson
  */
 
-#include "SDO.h"
+#include "SDO_Internal.h"
 
 /* Layers */
 #include "../../Hardware/Hardware.h"

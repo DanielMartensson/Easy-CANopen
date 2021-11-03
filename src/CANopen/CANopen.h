@@ -16,5 +16,6 @@
 #include "TIME/TIME.h"
 #include "NMT/NMT.h"
 #include "SYNC/SYNC.h"
+#include "SDO/SDO_User/SDO_User.h"
 
 #endif /* CANOPEN_CANOPEN_H_ */

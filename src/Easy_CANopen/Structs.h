@@ -94,10 +94,9 @@ struct SDO{
 	uint32_t expedited_byte;											/* Expedited data or byte size that are going to be sent */
 	uint8_t expedited_byte_size;										/* Expedited data size */
 	uint32_t transceive_segment_total_byte;								/* Total bytes that are going to be transmitted or received */
-	uint32_t transceive_segment_bytes_counter;											/* How many bytes we have transmitted or received */
-	uint8_t *transceive_segment_byte_pointer;									/* Data array of transceiver data */
+	uint32_t transceive_segment_bytes_counter;							/* How many bytes we have transmitted or received */
+	uint8_t *transceive_segment_byte_pointer;							/* Data array of transceiver data */
 
-	uint8_t cs;															/* What command specifier did we receive or transmit */
 	uint16_t index;														/* At what index did we read or write */
 	uint8_t sub_index;													/* At what sub index did we read or write */
 	uint8_t from_node_ID;												/* From node ID */

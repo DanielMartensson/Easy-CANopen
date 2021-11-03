@@ -7,7 +7,10 @@
 
 #include "SDO_Protocol.h"
 
-void CANOpen_SDO_Protocol_Initiate_Response(CANopen *canopen, uint8_t cs_response, uint8_t node_ID, uint8_t data[]){
+/* Layers */
+#include "../SDO_Internal/SDO_Internal.h"
+
+void CANopen_SDO_Protocol_Initiate_Response(CANopen *canopen, uint8_t cs_response, uint8_t node_ID, uint8_t data[]){
 	/* Read data */
 	uint8_t cs = data[0] >> 5;			/* Command specifier */
 	uint8_t n = (data[0] >> 2) & 0x3; 	/* Size of d, if e = 0 and s = 1 */
@@ -18,7 +21,6 @@ void CANOpen_SDO_Protocol_Initiate_Response(CANopen *canopen, uint8_t cs_respons
 	uint32_t d = (data[7] << 24) | (data[6] << 16) | (data[5] << 8) | data[4];	/* Can be value or byte size */
 
 	/* Save default information */
-	canopen->slave.sdo.cs = cs;
 	canopen->slave.sdo.index = index;
 	canopen->slave.sdo.sub_index = sub_index;
 	canopen->slave.sdo.from_node_ID = node_ID;
@@ -27,7 +29,7 @@ void CANOpen_SDO_Protocol_Initiate_Response(CANopen *canopen, uint8_t cs_respons
 	if(e == 1 && s == 1){
 		/* Store expedited data */
 		canopen->slave.sdo.expedited_byte = d;
-		canopen->slave.sdo.expedited_byte_size = n;
+		canopen->slave.sdo.expedited_byte_size = 4-n;	/* If n = 0, then expedited byte size is unsigned 32 bit */
 
 		/* Set the expedited data value and get access from index and sub index */
 		bool set = true;
@@ -39,7 +41,7 @@ void CANOpen_SDO_Protocol_Initiate_Response(CANopen *canopen, uint8_t cs_respons
 		CANopen_OD_Bank(canopen, index, sub_index, set, &value, &byte_size, &data_type, byte_pointer, &access);
 
 		/* Check if we had write permission */
-		if(!(access & OD_ACCESS_WRITE)){
+		if(access & OD_ACCESS_WRITE == 0){
 			/* TODO: Skicka ut ett felmeddelande */
 		}
 
@@ -77,14 +79,13 @@ void CANopen_SDO_Protocol_Segment_Response(CANopen *canopen, uint8_t cs_response
 
 	/* Save data */
 	canopen->slave.sdo.from_node_ID = node_ID;
-	canopen->slave.sdo.cs = cs;
 	for(uint8_t i = 1; i < 8-n; i++)
 		if(canopen->slave.sdo.transceive_segment_bytes_counter < canopen->slave.sdo.transceive_segment_total_byte)
 			canopen->slave.sdo.transceive_segment_byte_pointer[canopen->slave.sdo.transceive_segment_bytes_counter++] = data[i];
 
 	/* Should we do a request again ? */
 	if(c == 0){
-		/* Clear data */
+		/* Clear data because we need to have an empty data array with only byte value at index 0 */
 		memset(data, 0, 8);
 		data[0] = (cs_response << 5) | (t << 4);			/* Toggle value << 4 */
 
@@ -96,7 +97,7 @@ void CANopen_SDO_Protocol_Segment_Response(CANopen *canopen, uint8_t cs_response
 	}
 }
 
-void CANOpen_SDO_Protocol_Initiate_Request(CANopen *canopen, uint8_t cs_response, uint8_t node_ID, uint8_t data[]){
+void CANopen_SDO_Protocol_Initiate_Request(CANopen *canopen, uint8_t cs_response, uint8_t node_ID, uint8_t data[]){
 	/* Get index and sub index */
 	uint16_t index = (data[2] << 8) | data[1];
 	uint8_t sub_index = data[3];
@@ -111,7 +112,7 @@ void CANOpen_SDO_Protocol_Initiate_Request(CANopen *canopen, uint8_t cs_response
 	CANopen_OD_Bank(canopen, index, sub_index, set, &value, &byte_size, &data_type, byte_pointer, &access);
 
 	/* Check if we are allowed to read */
-	if(!(access & OD_ACCESS_READ)){
+	if(access & OD_ACCESS_READ == 0){
 		/* TODO : Skicka ett SDO felmeddelande */
 		return;
 	}
@@ -157,7 +158,7 @@ void CANOpen_SDO_Protocol_Initiate_Request(CANopen *canopen, uint8_t cs_response
 
 }
 
-void CANOpen_SDO_Protocol_Segment_Request(CANopen *canopen, uint8_t cs_response, uint8_t node_ID, uint8_t data[]){
+void CANopen_SDO_Protocol_Segment_Request(CANopen *canopen, uint8_t cs_response, uint8_t node_ID, uint8_t data[]){
 	/* Check if we are going to send segment bytes */
 	if(canopen->slave.sdo.transceive_segment_total_byte == 0)
 		return; /* Nope */

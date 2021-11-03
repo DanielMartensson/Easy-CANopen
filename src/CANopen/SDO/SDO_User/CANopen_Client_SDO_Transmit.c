@@ -5,11 +5,12 @@
  *      Author: Daniel Mårtensson
  */
 
-#include "SDO.h"
+#include "SDO_User.h"
 
 /* Layers */
-#include "../../Hardware/Hardware.h"
-#include "SDO_Protocol/SDO_Protocol.h"
+#include "../../../Hardware/Hardware.h"
+#include "../SDO_Protocol/SDO_Protocol.h"
+#include "../SDO_Internal/SDO_Internal.h"
 
 void CANopen_Client_SDO_Transmit_Request(CANopen *canopen, uint8_t cs, uint8_t node_ID, uint16_t index, uint8_t sub_index){
 	/* Check if SDO service is enabled */
@@ -25,12 +26,13 @@ void CANopen_Client_SDO_Transmit_Request(CANopen *canopen, uint8_t cs, uint8_t n
 	/* Make a choice */
 	switch(cs){
 	case CS_SDO_INITIATE_DOWNLOAD_REQUEST:
-		return CANOpen_SDO_Protocol_Initiate_Request(canopen, CS_SDO_INITIATE_DOWNLOAD_REQUEST, node_ID, data);	/* This modify our request */
+		return CANopen_SDO_Protocol_Initiate_Request(canopen, CS_SDO_INITIATE_DOWNLOAD_REQUEST, node_ID, data);	/* This modify our request */
 	case CS_SDO_INITIATE_UPLOAD_REQUEST:
-		return CANOpen_SDO_Protocol_Initiate_Response(canopen, CS_SDO_INITIATE_UPLOAD_REQUEST, node_ID, data);	/* This response function is used as a request function because e = s = 0 */
+		return CANopen_SDO_Protocol_Initiate_Response(canopen, CS_SDO_INITIATE_UPLOAD_REQUEST, node_ID, data);	/* This response function is used as a request function because e = s = 0 */
 	}
 }
 
+/* This function is not available for the user if the user don't include the internal SDO header */
 void CANopen_Client_SDO_Transmit_Response(CANopen *canopen, uint8_t node_ID, uint8_t data[]){
 	/* Create the COB ID */
 	uint32_t COB_ID = FUNCTION_CODE_SDO_RECEIVE << 7 | node_ID;
