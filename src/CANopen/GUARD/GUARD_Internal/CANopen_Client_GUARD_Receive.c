@@ -9,6 +9,7 @@
 
 /* Layers */
 #include "../../EMCY/EMCY_Internal/EMCY_Internal.h"
+#include "../../../Hardware/Hardware.h"
 
 void CANopen_Client_GUARD_Receive_Response(CANopen *canopen, uint8_t node_ID, uint8_t data[]){
 	/* Save the response */

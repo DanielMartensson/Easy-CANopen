@@ -8,7 +8,7 @@
 #include "SDO_Internal.h"
 
 /* Layers */
-#include "../../Hardware/Hardware.h"
+#include "../../../Hardware/Hardware.h"
 
 void CANopen_Server_SDO_Transmit_Response(CANopen *canopen, uint8_t node_ID, uint8_t data[]){
 	/* Create the COB ID */

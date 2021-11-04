@@ -5,11 +5,11 @@
  *      Author: Daniel Mårtensson
  */
 
+#include "../CANopen/CANopen_User.h"
 #include "Easy_CANopen.h"
 
 /* Layers */
 #include "../Hardware/Hardware.h"
-#include "../CANopen/CANopen.h"
 
 bool Easy_CANopen_Thread_Listen_Messages(CANopen *canopen) {
 	uint32_t COB_ID = 0;

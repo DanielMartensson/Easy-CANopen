@@ -1,21 +1,20 @@
 /*
- * COB.h
+ * CANopen_User.h
  *
  *  Created on: 8 okt. 2021
  *      Author: Daniel Mårtensson
  */
 
-#ifndef CANOPEN_CANOPEN_H_
-#define CANOPEN_CANOPEN_H_
+#ifndef CANOPEN_CANOPEN_USER_H_
+#define CANOPEN_CANOPEN_USER_H_
 
 #include "LSS/LSS.h"
-#include "HEARTBEAT/HEARTBEAT.h"
+#include "HEARTBEAT/HEARTBEAT_User/HEARTBEAT_User.h"
 #include "OD/OD.h"
 #include "GUARD/GUARD_User/GUARD_User.h"
-#include "EMCY/EMCY_Internal/EMCY_Internal.h"
 #include "TIME/TIME_User/TIME_User.h"
 #include "NMT/NMT.h"
 #include "SYNC/SYNC.h"
 #include "SDO/SDO_User/SDO_User.h"
 
-#endif /* CANOPEN_CANOPEN_H_ */
+#endif /* CANOPEN_CANOPEN_USER_H_ */

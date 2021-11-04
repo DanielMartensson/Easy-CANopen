@@ -13,6 +13,6 @@ void CANopen_GUARD_Protocol_Status_Request_Create(CANopen *canopen, uint8_t node
 
 void CANopen_GUARD_Protocol_Status_Response_Create(CANopen *canopen, uint8_t node_ID, uint8_t data[]){
 	/* Get toggle */
-	canopen->slave.nmt.toggle = canopen->slave.guard.toggle == TOGGLE_NMT_0 ? TOGGLE_NMT_1 : TOGGLE_NMT_0;
-	data[0] = (canopen->slave.nmt.toggle << 7) | canopen->slave.nmt.status_operational;
+	canopen->slave.guard.toggle = canopen->slave.guard.toggle == TOGGLE_NMT_0 ? TOGGLE_NMT_1 : TOGGLE_NMT_0;
+	data[0] = (canopen->slave.guard.toggle << 7) | canopen->slave.nmt.status_operational;
 }
