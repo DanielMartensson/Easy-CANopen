@@ -9,14 +9,15 @@
 
 /* Layers */
 #include "../../../Hardware/Hardware.h"
-#include "GUARD_Protocol/GUARD_Protocol.h"
+#include "../GUARD_Internal/GUARD_Protocol/GUARD_Protocol.h"
 
-void CANopen_Client_GUARD_Transmit_Request(CANopen *canopen, uint8_t node_ID, uint8_t data[]){
+void CANopen_Client_GUARD_Transmit_Request(CANopen *canopen, uint8_t node_ID){
 	/* Check if guard is enabled */
 	if(canopen->od_communication.producer_heartbeat_time > 0)
 		return;
 
 	/* Create request */
+	uint8_t data[8] = {0};
 	CANopen_GUARD_Protocol_Status_Request_Create(canopen, node_ID, data);
 
 	/* Set time clock to count how long time it would take to get the response from the slave */
