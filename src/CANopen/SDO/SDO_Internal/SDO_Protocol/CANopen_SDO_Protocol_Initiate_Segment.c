@@ -10,7 +10,7 @@
 /* Layers */
 #include "../SDO_Internal.h"
 
-void CANopen_SDO_Protocol_Initiate_Response(CANopen *canopen, uint8_t cs_response, uint8_t node_ID, uint8_t data[]){
+void CANopen_SDO_Protocol_Initiate_Response_Create(CANopen *canopen, uint8_t cs_response, uint8_t node_ID, uint8_t data[]){
 	/* Read data */
 	uint8_t cs = data[0] >> 5;			/* Command specifier */
 	uint8_t n = (data[0] >> 2) & 0x3; 	/* Size of d, if e = 0 and s = 1 */
@@ -58,19 +58,9 @@ void CANopen_SDO_Protocol_Initiate_Response(CANopen *canopen, uint8_t cs_respons
 	data[5] = 0;
 	data[6] = 0;
 	data[7] = 0;
-
-	/* Which one should we send to? */
-	switch(cs_response){
-	case CS_SDO_INITIATE_DOWNLOAD_RESPONSE:
-		return CANopen_Server_SDO_Transmit_Response(canopen, node_ID, data);
-	case CS_SDO_INITIATE_UPLOAD_REQUEST:
-		return CANopen_Client_SDO_Transmit_Response(canopen, node_ID, data);
-	case CS_SDO_INITIATE_UPLOAD_RESPONSE:
-		return CANopen_Server_SDO_Transmit_Response(canopen, node_ID, data);
-	}
 }
 
-void CANopen_SDO_Protocol_Segment_Response(CANopen *canopen, uint8_t cs_response, uint8_t node_ID, uint8_t data[]){
+uint8_t CANopen_SDO_Protocol_Segment_Response_Create(CANopen *canopen, uint8_t cs_response, uint8_t node_ID, uint8_t data[]){
 	/* Read data */
 	uint8_t cs = data[0] >> 5;
 	uint8_t t = ((data[0] >> 4) & 0x1) == 0 ? 1 : 0; 	/* Toggle value. If t == 0, then t should be 1 */
@@ -88,16 +78,13 @@ void CANopen_SDO_Protocol_Segment_Response(CANopen *canopen, uint8_t cs_response
 		/* Clear data because we need to have an empty data array with only byte value at index 0 */
 		memset(data, 0, 8);
 		data[0] = (cs_response << 5) | (t << 4);			/* Toggle value << 4 */
-
-		/* Which one should we send to? */
-		switch(cs_response){
-		case CS_SDO_SEGMENT_DOWNLOAD_RESPONSE:
-			return CANopen_Server_SDO_Transmit_Response(canopen, node_ID, data);
-		}
 	}
+
+	/* This tell if we are going to response back or not */
+	return c;
 }
 
-void CANopen_SDO_Protocol_Initiate_Request(CANopen *canopen, uint8_t cs_response, uint8_t node_ID, uint8_t data[]){
+void CANopen_SDO_Protocol_Initiate_Request_Create(CANopen *canopen, uint8_t cs_response, uint8_t node_ID, uint8_t data[]){
 	/* Get index and sub index */
 	uint16_t index = (data[2] << 8) | data[1];
 	uint8_t sub_index = data[3];
@@ -147,18 +134,9 @@ void CANopen_SDO_Protocol_Initiate_Request(CANopen *canopen, uint8_t cs_response
 	data[5] = value >> 8;
 	data[6] = value >> 16;
 	data[7] = value >> 24;								/* MSB */
-
-	/* Which one should we send to? */
-	switch(cs_response){
-	case CS_SDO_INITIATE_DOWNLOAD_REQUEST:
-		return CANopen_Client_SDO_Transmit_Response(canopen, node_ID, data);
-	case CS_SDO_INITIATE_UPLOAD_REQUEST:
-		return CANopen_Server_SDO_Transmit_Response(canopen, node_ID, data);
-	}
-
 }
 
-void CANopen_SDO_Protocol_Segment_Request(CANopen *canopen, uint8_t cs_response, uint8_t node_ID, uint8_t data[]){
+void CANopen_SDO_Protocol_Segment_Request_Create(CANopen *canopen, uint8_t cs_response, uint8_t node_ID, uint8_t data[]){
 	/* Check if we are going to send segment bytes */
 	if(canopen->slave.sdo.transceive_segment_total_byte == 0)
 		return; /* Nope */
@@ -183,12 +161,4 @@ void CANopen_SDO_Protocol_Segment_Request(CANopen *canopen, uint8_t cs_response,
 
 	/* Create byte 0 */
 	data[0] = (cs_response << 5) | (t << 4) | (n << 1) | c;
-
-	/* Which one should we send to? */
-	switch(cs_response){
-	case CS_SDO_SEGMENT_DOWNLOAD_REQUEST:
-		return CANopen_Client_SDO_Transmit_Response(canopen, node_ID, data);
-	case CS_SDO_SEGMENT_UPLOAD_REQUEST:
-		CANopen_Client_SDO_Transmit_Response(canopen, node_ID, data);
-	}
 }

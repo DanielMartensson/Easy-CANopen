@@ -7,10 +7,7 @@
 
 #include "EMCY_Protocol.h"
 
-/* Layers */
-#include "../EMCY_Internal.h"
-
-void CANopen_EMCY_Protocol_Error_Transmit(CANopen *canopen, uint16_t new_error_code, uint8_t new_error_register, uint8_t vendor_specific_data[]){
+void CANopen_EMCY_Protocol_Error_Create(CANopen *canopen, uint16_t new_error_code, uint8_t new_error_register, uint8_t vendor_specific_data[], uint8_t data[]){
 	/* Get the node ID from this producer */
 	uint8_t node_ID = canopen->slave.this_node_ID;
 
@@ -27,11 +24,7 @@ void CANopen_EMCY_Protocol_Error_Transmit(CANopen *canopen, uint16_t new_error_c
 	if(canopen->od_communication.pre_defined_error_field[0] < pre_defined_error_field_length)
 		canopen->od_communication.pre_defined_error_field[0]++;
 
-	/* Create the COB ID */
-	uint32_t COB_ID = FUNCTION_CODE_SYNC_EMCY << 7 | node_ID;
-
-	/* Create the data and send it */
-	uint8_t data[8];
+	/* Set data */
 	data[0] = new_error_code;						/* LSB */
 	data[1] = new_error_code >> 8;					/* MSB */
 	data[2] = canopen->od_communication.error_register;
@@ -40,5 +33,4 @@ void CANopen_EMCY_Protocol_Error_Transmit(CANopen *canopen, uint16_t new_error_c
 	data[5] = vendor_specific_data[2];
 	data[6] = vendor_specific_data[3];
 	data[7] = vendor_specific_data[4];
-	CANopen_Producer_EMCY_Transmit_Status(canopen, node_ID, data);
 }

@@ -17,13 +17,10 @@ void CANopen_Producer_TIME_Transmit_Clock(CANopen *canopen){
 	if(canopen->master.nmt.status_operational == STATUS_OPERATIONAL_STOPPED)
 		return; /* NMT is in the stopped mode. TIME service is disabled */
 
-	/* Transmit stamp */
-	CANopen_TIME_Protocol_Stamp_Transmit(canopen);
-}
+	/* Create stamp */
+	uint8_t data[8] = {0};
+	CANopen_TIME_Protocol_Stamp_Create(canopen, data);
 
-
-/* This function is not available for the user if the user don't include the internal TIME header */
-void CANopen_Producer_TIME_Transmit_Stamp(CANopen *canopen, uint8_t data[]){
 	/* Create the COB ID */
 	uint32_t COB_ID = FUNCTION_CODE_TIME << 7;	/* Only the master node send out this message */
 

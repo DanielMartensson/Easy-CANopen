@@ -19,7 +19,7 @@ void CANopen_Producer_HEARTBEAT_Transmit(CANopen *canopen){
 	uint32_t COB_ID = FUNCTION_CODE_HEARTBEAT_GUARD << 7 | canopen->slave.this_node_ID;
 
 	/* Get toggle */
-	canopen->slave.nmt.toggle = canopen->slave.nmt.toggle == TOGGLE_HEARTBEAT_0 ? TOGGLE_HEARTBEAT_1 : TOGGLE_HEARTBEAT_0;
+	canopen->slave.nmt.toggle = canopen->slave.nmt.toggle == TOGGLE_NMT_0 ? TOGGLE_NMT_1 : TOGGLE_NMT_0;
 
 	/* Send the heartbeat message */
 	uint8_t data[8] = {0};

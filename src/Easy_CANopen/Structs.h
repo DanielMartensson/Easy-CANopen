@@ -78,10 +78,10 @@ struct LSS{
 /* CiA 301: Network management */
 struct NMT{
 	uint8_t status_operational;											/* What status operation is the node into */
-	uint8_t toggle;														/* 1 or 0 for every heartbeat */
+	uint8_t toggle;														/* 1 or 0 for every heartbeat or guard */
 };
 
-/* CiA 301: Guard */
+/* CiA 301: Guard and heartbeat */
 struct GUARD_HEARTBEAT{
 	uint8_t status_operational;											/* What status operation is the slave into */
 	uint8_t toggle;														/* 1 or 0 for every heartbeat */

@@ -12,7 +12,7 @@
 #include "HEARTBEAT/HEARTBEAT.h"
 #include "OD/OD.h"
 #include "GUARD/GUARD.h"
-#include "EMCY/EMCY.h"
+#include "EMCY/EMCY_User/EMCY_User.h"
 #include "TIME/TIME_User/TIME_User.h"
 #include "NMT/NMT.h"
 #include "SYNC/SYNC.h"
