@@ -10,10 +10,14 @@
 
 #include "../../../Easy_CANopen/Structs.h"
 
-/* Initiate & Segment */
+/* 7.2.4.3.3 to 7.2.4.3.7 in CiA 301 4.2.0 */
 void CANopen_SDO_Protocol_Initiate_Response(CANopen *canopen, uint8_t cs_response, uint8_t node_ID, uint8_t data[]);
 void CANopen_SDO_Protocol_Segment_Response(CANopen *canopen, uint8_t cs_response, uint8_t node_ID, uint8_t data[]);
 void CANopen_SDO_Protocol_Initiate_Request(CANopen *canopen, uint8_t cs_response, uint8_t node_ID, uint8_t data[]);
 void CANopen_SDO_Protocol_Segment_Request(CANopen *canopen, uint8_t cs_response, uint8_t node_ID, uint8_t data[]);
+
+/* 7.2.4.3.17 in CiA 301 4.2.0 */
+/* TODO: Fixa SDO abort-koder */
+
 
 #endif /* CANOPEN_SDO_SDO_INTERNAL_SDO_PROTOCOL_SDO_PROTOCOL_H_ */

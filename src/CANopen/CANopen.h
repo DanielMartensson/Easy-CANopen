@@ -13,7 +13,7 @@
 #include "OD/OD.h"
 #include "GUARD/GUARD.h"
 #include "EMCY/EMCY.h"
-#include "TIME/TIME.h"
+#include "TIME/TIME_User/TIME_User.h"
 #include "NMT/NMT.h"
 #include "SYNC/SYNC.h"
 #include "SDO/SDO_User/SDO_User.h"
