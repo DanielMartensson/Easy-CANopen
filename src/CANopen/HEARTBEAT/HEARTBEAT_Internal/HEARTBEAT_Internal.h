@@ -12,5 +12,6 @@
 
 /* Internal software functions that the user don't need to call */
 void CANopen_Consumer_HEARTBEAT_Receive_Status(CANopen *canopen, uint8_t node_ID, uint8_t data[]);
+void CANopen_Producer_HEARTBEAT_Transmit_Status(CANopen *canopen);
 
 #endif /* CANOPEN_HEARTBEAT_HEARTBEAT_INTERNAL_HEARTBEAT_INTERNAL_H_ */

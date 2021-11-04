@@ -9,7 +9,6 @@
 #define CANOPEN_CANOPEN_USER_H_
 
 #include "LSS/LSS.h"
-#include "HEARTBEAT/HEARTBEAT_User/HEARTBEAT_User.h"
 #include "OD/OD.h"
 #include "GUARD/GUARD_User/GUARD_User.h"
 #include "TIME/TIME_User/TIME_User.h"

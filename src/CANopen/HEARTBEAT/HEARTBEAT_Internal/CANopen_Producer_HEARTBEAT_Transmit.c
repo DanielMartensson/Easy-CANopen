@@ -5,7 +5,7 @@
  *      Author: Daniel Mårtensson
  */
 
-#include "HEARTBEAT_User.h"
+#include "HEARTBEAT_Internal.h"
 
 /* Layers */
 #include "../../Hardware/Hardware.h"
