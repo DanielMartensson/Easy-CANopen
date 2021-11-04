@@ -1,21 +1,17 @@
 /*
- * CANopen_Producer_TIME_Transmit.c
+ * CANopen_TIME_Protocol_Stamp.c
  *
- *  Created on: 19 okt. 2021
+ *  Created on: 4 nov. 2021
  *      Author: Daniel Mårtensson
  */
 
-
-#include "TIME.h"
+#include "TIME_Protocol.h"
 
 /* Layers */
-#include "../../Hardware/Hardware.h"
+#include "../../../../Hardware/Hardware.h"
+#include "../TIME_Internal.h"
 
-void CANopen_Producer_TIME_Transmit_Clock(CANopen *canopen){
-	/* Check if TIME service is enabled */
-	if(canopen->master.nmt.status_operational == STATUS_OPERATIONAL_STOPPED)
-		return; /* NMT is in the stopped mode. TIME service is disabled */
-
+void CANopen_TIME_Protocol_Stamp_Transmit(CANopen *canopen){
 	/* Get the real time clock */
 	uint8_t date, month, hour, minute, second;
 	uint16_t year;
@@ -48,5 +44,5 @@ void CANopen_Producer_TIME_Transmit_Clock(CANopen *canopen){
 	data[3] = milliseconds_since_midnight >> 24;
 	data[4] = days_since_1_januari_1984;
 	data[5] = days_since_1_januari_1984 >> 8;
-	Hardware_CAN_Send_Message(COB_ID, data);
+	CANopen_Producer_TIME_Transmit_Stamp(canopen, data);
 }
