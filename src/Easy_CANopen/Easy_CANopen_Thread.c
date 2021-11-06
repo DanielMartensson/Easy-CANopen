@@ -5,11 +5,11 @@
  *      Author: Daniel Mårtensson
  */
 
-#include "../CANopen/CANopen_User.h"
 #include "Easy_CANopen.h"
 
 /* Layers */
 #include "../Hardware/Hardware.h"
+#include "../CANopen/CANopen_Internal.h"
 
 bool Easy_CANopen_Thread_Listen_Messages(CANopen *canopen) {
 	uint32_t COB_ID = 0;
@@ -29,11 +29,11 @@ bool Easy_CANopen_Thread_Listen_Messages(CANopen *canopen) {
 			CANopen_Slave_NMT_Receive(canopen, data);
 		}else if(function_code == FUNCTION_CODE_SYNC_EMCY) {
 			if(data[2] == 0x0)
-				CANopen_Consumer_SYNC_Receive_Synchronization(canopen, node_ID, data);	/* data[2] is the error register for EMCY and it's never zero */
+				CANopen_Consumer_SYNC_Receive_Synchronization(canopen, data);	/* data[2] is the error register for EMCY and it's never zero */
 			else
-				CANopen_Consumer_EMCY_Receive_Error_Message(canopen, node_ID, data);
+				CANopen_Consumer_EMCY_Receive_Error(canopen, node_ID, data);
 		}else if(function_code == FUNCTION_CODE_TIME){
-			CANopen_Consumer_TIME_Receive_Clock(canopen, node_ID, data);
+			CANopen_Consumer_TIME_Receive_Clock(canopen, data);
 		}else if(function_code == FUNCTION_CODE_PDO1_TRANSMIT){
 
 		}else if(function_code == FUNCTION_CODE_PDO1_RECEIVE){
@@ -51,22 +51,13 @@ bool Easy_CANopen_Thread_Listen_Messages(CANopen *canopen) {
 		}else if(function_code == FUNCTION_CODE_PDO4_RECEIVE){
 
 		}else if(function_code == FUNCTION_CODE_SDO_TRANSMIT){
-			if(node_ID == canopen->slave.lss.this_node_ID){
-				CANopen_Client_SDO_Receive_Request(canopen, node_ID, data);									/* Server -> Client */
+			CANopen_Server_SDO_Receive_Request(canopen, node_ID, data);										/* Server -> Client */
 		}else if(function_code == FUNCTION_CODE_SDO_RECEIVE){
-			CANopen_Server_SDO_Receive_Response(canopen, node_ID, data);									/* Client -> Server */
+			CANopen_Client_SDO_Receive_Response(canopen, node_ID, data);									/* Client -> Server */
 		}else if(function_code == FUNCTION_CODE_HEARTBEAT_GUARD){
-
-			/* Check what type of message */
-			uint8_t total_bytes = 0;
-			for(uint8_t i = 0; i < 8; i++)
-				total_bytes += data[i];
-			if(total_bytes == 0 && node_ID == canopen->slave.lss.this_node_ID){
-				CANopen_Client_GUARD_Receive_Request_Guard(canopen, node_ID); 								/* Guard requests have zero data */
-			}else{
-				CANopen_Consumer_HEARTBEAT_Receive_Heartbeat(canopen, node_ID, data);
-				CANopen_Server_GUARD_Receive_Response_Guard(canopen, node_ID, data);						/* Guard not active if heartbeat is active */
-			}
+			CANopen_Consumer_HEARTBEAT_Receive_Status(canopen, node_ID, data);
+			CANopen_Server_GUARD_Receive_Request_Status(canopen, node_ID, data);
+			CANopen_Client_GUARD_Receive_Response_Status(canopen, node_ID, data);
 		}else if(COB_ID == FUNCTION_CODE_LSS_TRANSMIT){
 			CANopen_Slave_LSS_Receive(canopen, data);														/* Master -> Slave */
 		}else if(COB_ID == FUNCTION_CODE_LSS_RECEIVE){
@@ -78,6 +69,6 @@ bool Easy_CANopen_Thread_Listen_Messages(CANopen *canopen) {
 }
 
 void Easy_CANopen_Thread_Transmit_Messages(CANopen *canopen){
-	CANopen_Producer_HEARTBEAT_Transmit_Heartbeat(canopen);
+	CANopen_Producer_HEARTBEAT_Transmit_Status(canopen);
 	CANopen_Producer_TIME_Transmit_Clock(canopen);
 }

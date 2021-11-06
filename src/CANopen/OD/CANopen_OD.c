@@ -224,7 +224,7 @@ OD_STATUS CANopen_OD_Bank(CANopen *canopen, uint16_t index, uint8_t sub_index, b
 		*byte_size = sizeof(communication->synchronous_counter_overflow_value);
 		*data_type = sizeof(communication->synchronous_counter_overflow_value);
 		byte_pointer = (uint8_t*) &communication->synchronous_counter_overflow_value;
-		*access = OD_ACCESS_READ_WRITE
+		*access = OD_ACCESS_READ_WRITE;
 		return read_or_write(value, &communication->synchronous_counter_overflow_value, set, *access, *data_type);
 	}else if(index == OD_INDEX_VERIFY_CONFIGURATION && sub_index < VERIFY_CONFIGURATION_MAX_SUB_INDEX){
 		*byte_size = sizeof(communication->verify_configuration);

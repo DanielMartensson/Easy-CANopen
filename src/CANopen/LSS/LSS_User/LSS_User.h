@@ -8,6 +8,8 @@
 #ifndef CANOPEN_LSS_LSS_USER_LSS_USER_H_
 #define CANOPEN_LSS_LSS_USER_LSS_USER_H_
 
+#include "../../../Easy_CANopen/Structs.h"
+
 void CANopen_Master_LSS_Transmit_Request_Switch_Mode_Global(uint8_t mode);
 void CANopen_Master_LSS_Transmit_Request_Switch_Mode_Selective_Value(uint8_t cs, uint32_t value);
 void CANopen_Master_LSS_Transmit_Request_Configure_Node_ID(uint8_t node_ID);

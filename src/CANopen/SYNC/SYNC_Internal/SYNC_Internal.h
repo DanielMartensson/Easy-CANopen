@@ -2,7 +2,7 @@
  * SYNC_Internal.h
  *
  *  Created on: 6 nov. 2021
- *      Author: danie
+ *      Author: Daniel Mårtensson
  */
 
 #ifndef CANOPEN_SYNC_SYNC_INTERNAL_SYNC_INTERNAL_H_

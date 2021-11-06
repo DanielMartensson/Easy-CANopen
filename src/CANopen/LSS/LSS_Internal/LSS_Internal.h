@@ -8,10 +8,10 @@
 #ifndef CANOPEN_LSS_LSS_INTERNAL_LSS_INTERNAL_H_
 #define CANOPEN_LSS_LSS_INTERNAL_LSS_INTERNAL_H_
 
-/* Master */
-void CANopen_Master_LSS_Receive(CANopen *canopen, uint8_t data[]);
+#include "../../../Easy_CANopen/Structs.h"
 
-/* Slave */
+/* Internal software functions that the user don't need to call */
+void CANopen_Master_LSS_Receive(CANopen *canopen, uint8_t data[]);
 void CANopen_Slave_LSS_Receive(CANopen *canopen, uint8_t data[]);
 void CANopen_Slave_LSS_Transmit_Response_Switch_Mode_Selective_Value();
 void CANopen_Slave_LSS_Transmit_Response_Status_Message(uint8_t cs, uint8_t status_code, uint8_t status_code_specific);

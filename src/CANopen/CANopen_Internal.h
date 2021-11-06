@@ -14,6 +14,9 @@
 #include "GUARD/GUARD_Internal/GUARD_Internal.h"
 #include "TIME/TIME_Internal/TIME_Internal.h"
 #include "SYNC/SYNC_Internal/SYNC_Internal.h"
+#include "SYNC/SYNC_Internal/SYNC_Internal.h"
+#include "NMT/NMT_Internal/NMT_Internal.h"
+#include "SDO/SDO_Internal/SDO_Internal.h"
 
 
 #endif /* CANOPEN_CANOPEN_INTERNAL_H_ */

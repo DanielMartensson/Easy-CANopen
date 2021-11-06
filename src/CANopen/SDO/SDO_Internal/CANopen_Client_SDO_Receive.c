@@ -11,6 +11,10 @@
 #include "SDO_Protocol/SDO_Protocol.h"
 
 void CANopen_Client_SDO_Receive_Response(CANopen *canopen, uint8_t node_ID, uint8_t data[]){
+	/* Check if it's right node */
+	if(node_ID != canopen->slave.this_node_ID)
+		return;
+
 	/* Read command specifier */
 	uint8_t cs = data[0] >> 5;
 

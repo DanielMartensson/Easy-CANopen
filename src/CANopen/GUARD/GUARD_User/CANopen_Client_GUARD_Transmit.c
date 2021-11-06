@@ -5,13 +5,12 @@
  *      Author: Daniel Mårtensson
  */
 
-#include "GUARD_Internal.h"
+#include "GUARD_User.h"
 
 /* Layers */
-#include "../../../Hardware/Hardware.h"
 #include "../GUARD_Internal/GUARD_Protocol/GUARD_Protocol.h"
 
-void CANopen_Client_GUARD_Transmit_Request(CANopen *canopen, uint8_t node_ID){
+void CANopen_Client_GUARD_Transmit_Request(CANopen *canopen, uint8_t node_ID, uint8_t data[]){
 	/* Check if guard is enabled */
 	if(canopen->od_communication.producer_heartbeat_time > 0)
 		return;

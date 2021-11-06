@@ -11,8 +11,7 @@
 #include "LSS/LSS_User/LSS_User.h"
 #include "OD/OD.h"
 #include "GUARD/GUARD_User/GUARD_User.h"
-#include "NMT/NMT.h"
-#include "SYNC/SYNC.h"
+#include "NMT/NMT_User/NMT_User.h"
 #include "SDO/SDO_User/SDO_User.h"
 
 #endif /* CANOPEN_CANOPEN_USER_H_ */

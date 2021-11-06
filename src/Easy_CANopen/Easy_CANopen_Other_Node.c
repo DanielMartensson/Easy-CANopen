@@ -8,7 +8,7 @@
 #include "Easy_CANopen.h"
 
 /* Layers */
-#include "../CANopen/LSS/LSS.h"
+#include "../CANopen/CANopen_User.h"
 
 /*
  * Activates the configuration mode to a node. This MUST be done before if you want to send configurations to the node
