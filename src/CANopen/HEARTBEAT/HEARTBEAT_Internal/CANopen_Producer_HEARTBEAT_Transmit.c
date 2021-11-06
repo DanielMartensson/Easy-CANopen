@@ -8,7 +8,7 @@
 #include "HEARTBEAT_Internal.h"
 
 /* Layers */
-#include "../../Hardware/Hardware.h"
+#include "HEARTBEAT_Protocol/HEARTBEAT_Protocol.h"
 
 void CANopen_Producer_HEARTBEAT_Transmit_Status(CANopen *canopen){
 	/* Check if heartbeat is enabled */
@@ -16,11 +16,7 @@ void CANopen_Producer_HEARTBEAT_Transmit_Status(CANopen *canopen){
 		return;
 
 	/* Create the heartbeat */
-	uint8_t data[8] = {0};
 	uint8_t node_ID = canopen->slave.this_node_ID;
-	CANopen_HEARTBEAT_Protocol_Status_Create(canopen, node_ID, data);
+	CANopen_HEARTBEAT_Protocol_Produce_Status(canopen, node_ID);
 
-	/* Create the COB ID and send heartbeat */
-	uint32_t COB_ID = FUNCTION_CODE_HEARTBEAT_GUARD << 7 | node_ID;
-	Hardware_CAN_Send_Message(COB_ID, data);
 }

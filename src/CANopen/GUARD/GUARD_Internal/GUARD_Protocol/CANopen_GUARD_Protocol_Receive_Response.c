@@ -10,7 +10,7 @@
 /* Layers */
 #include "../../../EMCY/EMCY_Internal/EMCY_Internal.h"
 
-void CANopen_GUARD_Protocol_Receive_Response(CANopen *canopen, uint8_t node_ID, uint8_t data[]){
+void CANopen_GUARD_Protocol_Receive_Response_Status(CANopen *canopen, uint8_t node_ID, uint8_t data[]){
 	/* Save the response */
 	canopen->slave.guard.status_operational = data[0] & 0x7F;
 	canopen->slave.guard.toggle = data[0] >> 7;

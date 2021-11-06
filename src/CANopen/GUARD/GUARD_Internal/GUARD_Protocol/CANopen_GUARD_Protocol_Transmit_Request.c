@@ -10,7 +10,7 @@
 /* Layer */
 #include "../../../../Hardware/Hardware.h"
 
-void CANopen_GUARD_Protocol_Transmit_Request(CANopen *canopen, uint8_t node_ID){
+void CANopen_GUARD_Protocol_Transmit_Request_Status(CANopen *canopen, uint8_t node_ID){
 	/* Guard request have zero data */
 	uint8_t data[8] = {0};
 

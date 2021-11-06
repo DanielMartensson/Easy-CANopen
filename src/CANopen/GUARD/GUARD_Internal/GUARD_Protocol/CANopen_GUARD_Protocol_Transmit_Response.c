@@ -10,7 +10,7 @@
 /* Layers */
 #include "../../../../Hardware/Hardware.h"
 
-void CANopen_GUARD_Protocol_Transmit_Response(CANopen *canopen, uint8_t node_ID){
+void CANopen_GUARD_Protocol_Transmit_Response_Status(CANopen *canopen, uint8_t node_ID){
 	/* Get toggle */
 	canopen->slave.guard.toggle = canopen->slave.guard.toggle == TOGGLE_NMT_0 ? TOGGLE_NMT_1 : TOGGLE_NMT_0;
 	uint8_t data[8] = {0};

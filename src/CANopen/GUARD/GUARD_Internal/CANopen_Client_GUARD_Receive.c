@@ -11,5 +11,5 @@
 #include "GUARD_Protocol/GUARD_Protocol.h"
 
 void CANopen_Client_GUARD_Receive_Response(CANopen *canopen, uint8_t node_ID, uint8_t data[]){
-	CANopen_GUARD_Protocol_Receive_Response(canopen, node_ID, data);
+	CANopen_GUARD_Protocol_Receive_Response_Status(canopen, node_ID, data);
 }
