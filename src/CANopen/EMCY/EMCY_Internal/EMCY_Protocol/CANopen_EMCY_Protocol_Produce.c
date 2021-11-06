@@ -1,13 +1,16 @@
 /*
- * CANopen_EMCY_Protocol_Error.c
+ * CANopen_EMCY_Protocol_Produce.c
  *
- *  Created on: 4 nov. 2021
+ *  Created on: 6 nov. 2021
  *      Author: Daniel Mårtensson
  */
 
 #include "EMCY_Protocol.h"
 
-void CANopen_EMCY_Protocol_Error_Create(CANopen *canopen, uint16_t new_error_code, uint8_t new_error_register, uint8_t vendor_specific_data[], uint8_t data[]){
+/* Layers */
+#include "../../../../Hardware/Hardware.h"
+
+void CANopen_EMCY_Protocol_Produce_Error(CANopen *canopen, uint16_t new_error_code, uint8_t new_error_register, uint8_t vendor_specific_data[]){
 	/* Get the node ID from this producer */
 	uint8_t node_ID = canopen->slave.this_node_ID;
 
@@ -25,6 +28,7 @@ void CANopen_EMCY_Protocol_Error_Create(CANopen *canopen, uint16_t new_error_cod
 		canopen->od_communication.pre_defined_error_field[0]++;
 
 	/* Set data */
+	uint8_t data[8];
 	data[0] = new_error_code;						/* LSB */
 	data[1] = new_error_code >> 8;					/* MSB */
 	data[2] = canopen->od_communication.error_register;
@@ -33,4 +37,11 @@ void CANopen_EMCY_Protocol_Error_Create(CANopen *canopen, uint16_t new_error_cod
 	data[5] = vendor_specific_data[2];
 	data[6] = vendor_specific_data[3];
 	data[7] = vendor_specific_data[4];
+
+	/* Create the COB ID */
+	uint32_t COB_ID = FUNCTION_CODE_SYNC_EMCY << 7 | canopen->slave.this_node_ID;
+
+	/* Send the message to client */
+	Hardware_CAN_Send_Message(COB_ID, data);
+
 }

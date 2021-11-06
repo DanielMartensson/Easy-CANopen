@@ -17,12 +17,5 @@ void CANopen_Producer_EMCY_Transmit_Error(CANopen *canopen, uint16_t new_error_c
 		return; /* NMT is in the stopped mode. ECMY service is disabled */
 
 	/* Create error */
-	uint8_t data[8] = {0};
-	CANopen_EMCY_Protocol_Error_Create(canopen, new_error_code, new_error_register, vendor_specific_data, data);
-
-	/* Create the COB ID */
-	uint32_t COB_ID = FUNCTION_CODE_SYNC_EMCY << 7 | canopen->slave.this_node_ID;
-
-	/* Send the message to client */
-	Hardware_CAN_Send_Message(COB_ID, data);
+	CANopen_EMCY_Protocol_Produce_Error(canopen, new_error_code, new_error_register, vendor_specific_data);
 }
