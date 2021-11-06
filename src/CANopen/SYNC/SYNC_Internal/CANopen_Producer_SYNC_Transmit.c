@@ -8,7 +8,7 @@
 #include "SYNC_Internal.h"
 
 /* Layers */
-#include "../../Hardware/Hardware.h"
+#include "SYNC_Protocol/SYNC_Protocol.h"
 
 void CANopen_Producer_SYNC_Transmit_Synchronization(CANopen *canopen){
 	/* Check if SYNC service is enabled */
