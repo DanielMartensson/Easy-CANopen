@@ -1,7 +1,7 @@
 /*
- * CANopen_TIME_Protocol_Stamp.c
+ * CANopen_TIME_Protocol_Produce.c
  *
- *  Created on: 4 nov. 2021
+ *  Created on: 6 nov. 2021
  *      Author: Daniel Mårtensson
  */
 
@@ -10,7 +10,7 @@
 /* Layers */
 #include "../../../../Hardware/Hardware.h"
 
-void CANopen_TIME_Protocol_Stamp_Create(CANopen *canopen, uint8_t data[]){
+void CANopen_TIME_Protocol_Produce_Clock(CANopen *canopen){
 	/* Get the real time clock */
 	uint8_t date, month, hour, minute, second;
 	uint16_t year;
@@ -33,10 +33,17 @@ void CANopen_TIME_Protocol_Stamp_Create(CANopen *canopen, uint8_t data[]){
 	days_since_1_januari_1984 += date - 1; /* Days since, does not includes this day */
 
 	/* Set data */
+	uint8_t data[8] = {0};
 	data[0] = milliseconds_since_midnight;
 	data[1] = milliseconds_since_midnight >> 8;
 	data[2] = milliseconds_since_midnight >> 16;
 	data[3] = milliseconds_since_midnight >> 24;
 	data[4] = days_since_1_januari_1984;
 	data[5] = days_since_1_januari_1984 >> 8;
+
+	/* Create the COB ID */
+	uint32_t COB_ID = FUNCTION_CODE_TIME << 7;	/* Only the master node send out this message */
+
+	/* Send the message to client */
+	Hardware_CAN_Send_Message(COB_ID, data);
 }
