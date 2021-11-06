@@ -13,6 +13,7 @@
 #include "LSS/LSS_Internal/LSS_Internal.h"
 #include "GUARD/GUARD_Internal/GUARD_Internal.h"
 #include "TIME/TIME_Internal/TIME_Internal.h"
+#include "SYNC/SYNC_Internal/SYNC_Internal.h"
 
 
 #endif /* CANOPEN_CANOPEN_INTERNAL_H_ */

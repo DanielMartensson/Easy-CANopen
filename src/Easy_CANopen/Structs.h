@@ -125,6 +125,7 @@ struct EMCY{
 struct Master{
 	struct NMT nmt;
 	struct LSS lss;
+	struct SYNC sync;
 };
 
 struct Slave{
