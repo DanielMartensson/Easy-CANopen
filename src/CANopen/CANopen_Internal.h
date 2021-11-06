@@ -10,6 +10,7 @@
 
 #include "EMCY/EMCY_Internal/EMCY_Internal.h"
 #include "HEARTBEAT/HEARTBEAT_Internal/HEARTBEAT_Internal.h"
+#include "LSS/LSS_Internal/LSS_Internal.h"
 
 
 #endif /* CANOPEN_CANOPEN_INTERNAL_H_ */
