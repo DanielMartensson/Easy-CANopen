@@ -1,0 +1,13 @@
+/*
+ * NMT_Protocol.h
+ *
+ *  Created on: 6 nov. 2021
+ *      Author: Daniel Mårtensson
+ */
+
+#ifndef CANOPEN_NMT_NMT_INTERNAL_NMT_PROTOCOL_NMT_PROTOCOL_H_
+#define CANOPEN_NMT_NMT_INTERNAL_NMT_PROTOCOL_NMT_PROTOCOL_H_
+
+
+
+#endif /* CANOPEN_NMT_NMT_INTERNAL_NMT_PROTOCOL_NMT_PROTOCOL_H_ */

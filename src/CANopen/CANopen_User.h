@@ -11,7 +11,6 @@
 #include "LSS/LSS_User/LSS_User.h"
 #include "OD/OD.h"
 #include "GUARD/GUARD_User/GUARD_User.h"
-#include "TIME/TIME_User/TIME_User.h"
 #include "NMT/NMT.h"
 #include "SYNC/SYNC.h"
 #include "SDO/SDO_User/SDO_User.h"

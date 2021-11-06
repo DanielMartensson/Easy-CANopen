@@ -11,6 +11,8 @@
 #include "EMCY/EMCY_Internal/EMCY_Internal.h"
 #include "HEARTBEAT/HEARTBEAT_Internal/HEARTBEAT_Internal.h"
 #include "LSS/LSS_Internal/LSS_Internal.h"
+#include "GUARD/GUARD_Internal/GUARD_Internal.h"
+#include "TIME/TIME_Internal/TIME_Internal.h"
 
 
 #endif /* CANOPEN_CANOPEN_INTERNAL_H_ */
