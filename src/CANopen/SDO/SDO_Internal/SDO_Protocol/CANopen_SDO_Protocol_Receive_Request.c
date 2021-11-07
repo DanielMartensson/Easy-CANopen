@@ -62,7 +62,7 @@ void CANopen_SDO_Protocol_Receive_Request_Initiate(CANopen *canopen, uint8_t cs_
 	data[7] = value >> 24;								/* MSB */
 
 	/* Send a request */
-	CANopen_SDO_Protocol_Transmit_Request_Initiate(canopen, cs_response, node_ID, data);
+	CANopen_SDO_Protocol_Transmit_Response_Initiate(canopen, cs_response, node_ID, data);
 }
 
 void CANopen_SDO_Protocol_Receive_Request_Segment(CANopen *canopen, uint8_t cs_response, uint8_t node_ID, uint8_t data[]){

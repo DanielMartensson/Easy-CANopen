@@ -7,9 +7,11 @@
 
 #include "SDO_Protocol.h"
 
+/* Layers */
+#include "../../../OD/OD.h"
+
 void CANopen_SDO_Protocol_Receive_Response_Initiate(CANopen *canopen, uint8_t cs_response, uint8_t node_ID, uint8_t data[]){
 	/* Read data */
-	uint8_t cs = data[0] >> 5;			/* Command specifier */
 	uint8_t n = (data[0] >> 2) & 0x3; 	/* Size of d, if e = 0 and s = 1 */
 	uint8_t e = (data[0] >> 1) & 0x1; 	/* Is expedited */
 	uint8_t s = data[0] & 0x1;			/* Is size included */
@@ -38,7 +40,7 @@ void CANopen_SDO_Protocol_Receive_Response_Initiate(CANopen *canopen, uint8_t cs
 		CANopen_OD_Bank(canopen, index, sub_index, set, &value, &byte_size, &data_type, byte_pointer, &access);
 
 		/* Check if we had write permission */
-		if(access & OD_ACCESS_WRITE == 0){
+		if((access & OD_ACCESS_WRITE) == 0){
 			/* TODO: Skicka ut ett felmeddelande */
 		}
 
@@ -55,7 +57,6 @@ void CANopen_SDO_Protocol_Receive_Response_Initiate(CANopen *canopen, uint8_t cs
 
 void CANopen_SDO_Protocol_Receive_Response_Segment(CANopen *canopen, uint8_t cs_response, uint8_t node_ID, uint8_t data[]){
 	/* Read data */
-	uint8_t cs = data[0] >> 5;
 	uint8_t n = (data[0] >> 1) & 0x7;					/* How many bytes is NOT segment data from byte 8-n to byte 7 */
 	uint8_t c = data[0] & 0x1;							/* Is last segment response */
 

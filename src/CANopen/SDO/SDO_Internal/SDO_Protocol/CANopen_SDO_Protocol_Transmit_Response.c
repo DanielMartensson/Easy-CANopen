@@ -11,15 +11,8 @@
 #include "../../../../Hardware/Hardware.h"
 
 void CANopen_SDO_Protocol_Transmit_Response_Initiate(CANopen *canopen, uint8_t cs_response, uint8_t node_ID, uint8_t data[]){
-	/* Modify the response, but keep index and sub index in the data array. They are at data[1], data[2] and data[3] */
-	data[0] = cs_response << 5;
-	data[4] = 0;
-	data[5] = 0;
-	data[6] = 0;
-	data[7] = 0;
-
 	/* Create the COB ID */
-	uint32_t COB_ID;
+	uint32_t COB_ID = 0;
 	switch(cs_response){
 	case CS_SDO_INITIATE_DOWNLOAD_RESPONSE:
 		COB_ID = FUNCTION_CODE_SDO_RECEIVE << 7 | node_ID;
