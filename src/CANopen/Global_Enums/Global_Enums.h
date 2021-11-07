@@ -15,5 +15,6 @@
 #include "Enum_Mode_Codes.h"
 #include "Enum_Object_Dictionary_Codes.h"
 #include "Enum_Status_Codes.h"
+#include "Enum_COB_ID_Codes.h"
 
 #endif /* CANOPEN_GLOBAL_ENUMS_GLOBAL_ENUMS_H_ */

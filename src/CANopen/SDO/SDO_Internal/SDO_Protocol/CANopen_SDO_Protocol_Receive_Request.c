@@ -7,6 +7,9 @@
 
 #include "SDO_Protocol.h"
 
+/* Layers */
+#include "../../../OD/OD.h"
+
 void CANopen_SDO_Protocol_Receive_Request_Initiate(CANopen *canopen, uint8_t cs_response, uint8_t node_ID, uint8_t data[]){
 	/* Get index and sub index */
 	uint16_t index = (data[2] << 8) | data[1];
@@ -22,7 +25,7 @@ void CANopen_SDO_Protocol_Receive_Request_Initiate(CANopen *canopen, uint8_t cs_
 	CANopen_OD_Bank(canopen, index, sub_index, set, &value, &byte_size, &data_type, byte_pointer, &access);
 
 	/* Check if we are allowed to read */
-	if(access & OD_ACCESS_READ == 0){
+	if((access & OD_ACCESS_READ) == 0){
 		/* TODO : Skicka ett SDO felmeddelande */
 		return;
 	}

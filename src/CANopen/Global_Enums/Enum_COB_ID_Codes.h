@@ -1,0 +1,16 @@
+/*
+ * Enum_COB_ID_Codes.h
+ *
+ *  Created on: 7 nov. 2021
+ *      Author: Daniel Mårtensson
+ */
+
+#ifndef CANOPEN_GLOBAL_ENUMS_ENUM_COB_ID_CODES_H_
+#define CANOPEN_GLOBAL_ENUMS_ENUM_COB_ID_CODES_H_
+
+enum{
+	FUNCTION_CODE_LSS_RECEIVE = 0x7E4,
+	FUNCTION_CODE_LSS_TRANSMIT = 0x7E5
+};
+
+#endif /* CANOPEN_GLOBAL_ENUMS_ENUM_COB_ID_CODES_H_ */
