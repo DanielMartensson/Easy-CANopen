@@ -20,12 +20,16 @@ void CANopen_Client_SDO_Receive_Response(CANopen *canopen, uint8_t node_ID, uint
 
 	switch(cs){
 	case CS_SDO_INITIATE_DOWNLOAD_RESPONSE:
-		return CANopen_SDO_Protocol_Transmit_Response_Segment(canopen, CS_SDO_SEGMENT_DOWNLOAD_REQUEST, node_ID, data);		/* This is the first segment if segment is requested */
+		CANopen_SDO_Protocol_Receive_Response_Initiate(canopen, CS_SDO_SEGMENT_DOWNLOAD_REQUEST, node_ID, data);
+		break;
 	case CS_SDO_SEGMENT_DOWNLOAD_RESPONSE:
-		return CANopen_SDO_Protocol_Transmit_Response_Segment(canopen, CS_SDO_SEGMENT_DOWNLOAD_REQUEST, node_ID, data);
+		CANopen_SDO_Protocol_Receive_Response_Segment(canopen, CS_SDO_SEGMENT_DOWNLOAD_REQUEST, node_ID, data);
+		break;
 	case CS_SDO_INITIATE_UPLOAD_RESPONSE:
-		return CANopen_SDO_Protocol_Transmit_Response_Segment(canopen, CS_SDO_SEGMENT_UPLOAD_REQUEST, node_ID, data);		/* This is the first segment if segment is requested */
+		CANopen_SDO_Protocol_Receive_Response_Initiate(canopen, CS_SDO_SEGMENT_UPLOAD_REQUEST, node_ID, data);
+		break;
 	case CS_SDO_SEGMENT_UPLOAD_RESPONSE:
-		return CANopen_SDO_Protocol_Transmit_Response_Segment(canopen, CS_SDO_SEGMENT_UPLOAD_REQUEST, node_ID, data);
+		CANopen_SDO_Protocol_Transmit_Response_Segment(canopen, CS_SDO_SEGMENT_UPLOAD_REQUEST, node_ID, data);
+		break;
 	}
 }

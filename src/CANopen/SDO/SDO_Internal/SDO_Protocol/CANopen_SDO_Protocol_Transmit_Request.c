@@ -9,28 +9,33 @@
 
 /* Layers */
 #include "../../../../Hardware/Hardware.h"
+#include "../../../OD/OD.h"
 
 void CANopen_SDO_Protocol_Transmit_Request_Initiate(CANopen *canopen, uint8_t cs, uint8_t node_ID, uint16_t index, uint8_t sub_index, uint32_t value){
 
-	/* Create data array */
+	/* Default values */
 	uint8_t data[8] = {0};
+	data[1] = index;											/* LSB */
+	data[2] = index >> 8;										/* MSB */
+	data[3] = sub_index;
+
+	/* For the download request */
+	bool set = false;
+	uint32_t data_value;
+	uint32_t byte_size;
+	OD_DATA_TYPE data_type;
+	uint8_t *byte_pointer = NULL;
+	OD_ACCESS access;
+
+	/* Specific values */
 	switch(cs){
 	case CS_SDO_INITIATE_UPLOAD_REQUEST:
 		data[0] = cs << 5;
-		data[1] = index;											/* LSB */
-		data[2] = index >> 8;										/* MSB */
-		data[3] = sub_index;
 		break;
 	case CS_SDO_INITIATE_DOWNLOAD_REQUEST:
 
-		/* Get the expedited data value and data type from index and sub index */
-		bool set = false;
-		uint32_t value;										/* This is the expedited value */
-		uint32_t byte_size;
-		OD_DATA_TYPE data_type;
-		uint8_t *byte_pointer;
-		OD_ACCESS access;
-		CANopen_OD_Bank(canopen, index, sub_index, set, &value, &byte_size, &data_type, byte_pointer, &access);
+		/* This is only here because we are interesting in access, data_type and byte_size */
+		CANopen_OD_Bank(canopen, index, sub_index, set, &data_value, &byte_size, &data_type, byte_pointer, &access);
 
 		/* Check if we are allowed to read */
 		if((access & OD_ACCESS_READ) == 0){
@@ -43,15 +48,15 @@ void CANopen_SDO_Protocol_Transmit_Request_Initiate(CANopen *canopen, uint8_t cs
 		switch(data_type){
 		case OD_DATA_TYPE_U8:
 			/* Send 1 byte of expedited data to client  */
-			data[0] = (cs << 5) | (3 << 2) | (1 << 1) | 1; /* n = 3, e = 1, s = 1 */
+			data[0] = (cs << 5) | ((4-byte_size) << 2) | (1 << 1) | 1; /* n = 3, e = 1, s = 1 */
 			break;
 		case OD_DATA_TYPE_U16:
 			/* Send 2 bytes of expedited data to client  */
-			data[0] = (cs << 5) | (2 << 2) | (1 << 1) | 1; /* n = 2, e = 1, s = 1 */
+			data[0] = (cs << 5) | ((4-byte_size) << 2) | (1 << 1) | 1; /* n = 2, e = 1, s = 1 */
 			break;
 		case OD_DATA_TYPE_U32:
 			/* Send 4 bytes of expedited data to client  */
-			data[0] = (cs << 5) | (0 << 2) | (1 << 1) | 1; /* n = 0, e = 1, s = 1 */
+			data[0] = (cs << 5) | ((4-byte_size) << 2) | (1 << 1) | 1; /* n = 0, e = 1, s = 1 */
 			break;
 		case OD_DATA_TYPE_ARRAY:
 			/* Send byte size to client instead of value */

@@ -20,11 +20,11 @@ void CANopen_Server_SDO_Receive_Request(CANopen *canopen, uint8_t node_ID, uint8
 
 	switch(cs){
 	case CS_SDO_INITIATE_DOWNLOAD_REQUEST:
-		return CANopen_SDO_Protocol_Receive_Response_Initiate(canopen, CS_SDO_INITIATE_DOWNLOAD_RESPONSE, node_ID, data);
+		return CANopen_SDO_Protocol_Receive_Request_Initiate(canopen, CS_SDO_INITIATE_DOWNLOAD_RESPONSE, node_ID, data);
 	case CS_SDO_SEGMENT_DOWNLOAD_REQUEST:
 		return CANopen_SDO_Protocol_Receive_Response_Segment(canopen, CS_SDO_SEGMENT_DOWNLOAD_RESPONSE, node_ID, data);
 	case CS_SDO_INITIATE_UPLOAD_REQUEST:
-		return CANopen_SDO_Protocol_Receive_Response_Initiate(canopen, CS_SDO_INITIATE_UPLOAD_RESPONSE, node_ID, data);
+		return CANopen_SDO_Protocol_Receive_Request_Initiate(canopen, CS_SDO_INITIATE_UPLOAD_RESPONSE, node_ID, data);
 	case CS_SDO_SEGMENT_UPLOAD_REQUEST:
 		return CANopen_SDO_Protocol_Receive_Response_Segment(canopen, CS_SDO_SEGMENT_UPLOAD_RESPONSE, node_ID, data);
 	}
