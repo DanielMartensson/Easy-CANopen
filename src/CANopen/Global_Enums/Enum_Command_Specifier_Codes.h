@@ -29,7 +29,6 @@ enum {
 	CS_NMT_SERVICE_RESET_COMMUNICATION = 0x82,
 
 	/* Enable or disable the LSS service */
-	// TODO: Lägg in _LSS också
 	CS_LSS_SWITCH_MODE_GLOBAL = 0x4,
 
 	/* Set the identification values */

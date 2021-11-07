@@ -25,37 +25,70 @@
 #define ERROR_BEHAVIOR_SUB_INDEX 2
 #define OD_STRING_LENGTH 20
 
+/* CiA 301: Communication parameter record for RPDO (0x1400 - 0x15FF) and TPDO (0x1800 - 0x19FF) */
+struct PDO_communication{
+	uint8_t highest_sub_index_supported;												/* Sub index 0x0 */
+	uint32_t COB_ID;																	/* Sub index 0x1 */
+	uint8_t transmission_type;															/* Sub index 0x2 */
+	uint16_t inhibit_time;																/* Sub index 0x3 */
+	uint8_t reserved;																	/* Sub index 0x4 */
+	uint16_t event_timer;																/* Sub index 0x5 */
+	uint8_t SYNC_start_value;															/* Sub index 0x6 */
+};
+
+/* CiA 301: Mapping parameter record for RPDO (0x1600 - 0x17FF) and TPDO (0x1A00 - 0x1BFF) */
+struct PDO_mapping{
+	uint8_t number_of_mapped_objects_in_PDO;											/* Sub index 0x0 */
+	uint32_t object_to_be_mapped[64];													/* Sub index 0x1 -> 0x40 */
+};
+
 /* CiA 301: Object dictionary for communication parameter area 0x1000 -> 0x1FFF */
 struct OD_Communication{
-	uint32_t device_type;												/* Index 0x1000 sub index 0x0 */
-	uint8_t error_register;												/* Index 0x1001 sub index 0x0 */
-	uint32_t manufacturer_status_register;								/* Index 0x1002 sub index 0x0 */
-	uint32_t pre_defined_error_field[PRE_DEFINED_ERROR_FIELD_MAX_SUB_INDEX];	/* Index 0x1003 sub index 0x0 -> 0xA */
-	uint32_t COB_ID_sync_message;										/* Index 0x1005 sub index 0x0 */
-	uint32_t communication_cycle_period;								/* Index 0x1006 sub index 0x0 */
-	uint32_t synchronous_window_length;									/* Index 0x1007 sub index 0x0 */
+	uint32_t device_type;																/* Index 0x1000 sub index 0x0 */
+	uint8_t error_register;																/* Index 0x1001 sub index 0x0 */
+	uint32_t manufacturer_status_register;												/* Index 0x1002 sub index 0x0 */
+	uint32_t pre_defined_error_field[PRE_DEFINED_ERROR_FIELD_MAX_SUB_INDEX];			/* Index 0x1003 sub index 0x0 -> 0xA */
+	uint32_t COB_ID_sync_message;														/* Index 0x1005 sub index 0x0 */
+	uint32_t communication_cycle_period;												/* Index 0x1006 sub index 0x0 */
+	uint32_t synchronous_window_length;													/* Index 0x1007 sub index 0x0 */
 	uint32_t manufacturer_device_name[OD_STRING_LENGTH];								/* Index 0x1008 sub index 0x0 */
 	uint32_t manufacturer_hardware_version[OD_STRING_LENGTH];							/* Index 0x1009 sub index 0x0 */
 	uint32_t manufacturer_software_version[OD_STRING_LENGTH];							/* Index 0x100A sub index 0x0 -> 0xA9 */
-	uint16_t guard_time;												/* Index 0x100C sub index 0x0 */
-	uint8_t life_time_factor;											/* Index 0x100D sub index 0x0 */
-	uint32_t store_parameters[STORE_RE_STORE_PARAMETER_MAX_SUB_INDEX];										/* Index 0x1010 sub index 0x0 -> 0x3 */
-	uint32_t restore_default_parameters[STORE_RE_STORE_PARAMETER_MAX_SUB_INDEX];								/* Index 0x1011 sub index 0x0 -> 0x3 */
-	uint32_t COB_ID_time_stamp_object;									/* Index 0x1012 sub index 0x0 */
-	uint32_t high_resolution_time_stamp;								/* Index 0x1013 sub index 0x0 */
-	uint32_t COB_ID_emcy;												/* Index 0x1014 sub index 0x0 */
-	uint16_t inhibit_time_emcy;											/* Index 0x1015 sub index 0x0 */
-	uint32_t consumer_heartbeat_time[CONSUMER_HEARTBEAT_TIME_MAX_SUB_INDEX];								/* Index 0x1016 sub index 0x0 -> 0x7F */
-	uint16_t producer_heartbeat_time;									/* Index 0x1017 sub index 0x0 */
-	uint8_t identity_object_highest_supported_sub_index;				/* Index 0x1018 sub index 0x0 */
-	uint32_t vendor_ID;													/* Index 0x1018 sub index 0x1 */
-	uint32_t product_code;												/* Index 0x1018 sub index 0x2 */
-	uint32_t revision_number;											/* Index 0x1018 sub index 0x3 */
-	uint32_t serial_number;												/* Index 0x1018 sub index 0x4 */
-	uint8_t synchronous_counter_overflow_value;							/* Index 0x1019 sub index 0x0 */
-	uint32_t verify_configuration[VERIFY_CONFIGURATION_MAX_SUB_INDEX];									/* Index 0x1020 sub index 0x0 -> 0x2 */
-	uint32_t emergency_consumer_object[EMERGENCY_CONSUMER_MAX_SUB_INDEX];							/* Index 0x1028 sub index 0x0 -> 0x7F */
-	uint8_t  error_behavior_object[ERROR_BEHAVIOR_SUB_INDEX];									/* Index 0x1029 sub index 0x0 -> 0x1 */
+	uint16_t guard_time;																/* Index 0x100C sub index 0x0 */
+	uint8_t life_time_factor;															/* Index 0x100D sub index 0x0 */
+	uint32_t store_parameters[STORE_RE_STORE_PARAMETER_MAX_SUB_INDEX];					/* Index 0x1010 sub index 0x0 -> 0x3 */
+	uint32_t restore_default_parameters[STORE_RE_STORE_PARAMETER_MAX_SUB_INDEX];		/* Index 0x1011 sub index 0x0 -> 0x3 */
+	uint32_t COB_ID_time_stamp_object;													/* Index 0x1012 sub index 0x0 */
+	uint32_t high_resolution_time_stamp;												/* Index 0x1013 sub index 0x0 */
+	uint32_t COB_ID_emcy;																/* Index 0x1014 sub index 0x0 */
+	uint16_t inhibit_time_emcy;															/* Index 0x1015 sub index 0x0 */
+	uint32_t consumer_heartbeat_time[CONSUMER_HEARTBEAT_TIME_MAX_SUB_INDEX];			/* Index 0x1016 sub index 0x0 -> 0x7F */
+	uint16_t producer_heartbeat_time;													/* Index 0x1017 sub index 0x0 */
+	uint8_t identity_object_highest_supported_sub_index;								/* Index 0x1018 sub index 0x0 */
+	uint32_t vendor_ID;																	/* Index 0x1018 sub index 0x1 */
+	uint32_t product_code;																/* Index 0x1018 sub index 0x2 */
+	uint32_t revision_number;															/* Index 0x1018 sub index 0x3 */
+	uint32_t serial_number;																/* Index 0x1018 sub index 0x4 */
+	uint8_t synchronous_counter_overflow_value;											/* Index 0x1019 sub index 0x0 */
+	uint32_t verify_configuration[VERIFY_CONFIGURATION_MAX_SUB_INDEX];					/* Index 0x1020 sub index 0x0 -> 0x2 */
+	uint32_t emergency_consumer_object[EMERGENCY_CONSUMER_MAX_SUB_INDEX];				/* Index 0x1028 sub index 0x0 -> 0x7F */
+	uint8_t error_behavior_object[ERROR_BEHAVIOR_SUB_INDEX];							/* Index 0x1029 sub index 0x0 -> 0x1 */
+	struct PDO_communication RPDO1_C;													/* Index 0x1400 */
+	struct PDO_communication RPDO2_C;													/* Index 0x1401 */
+	struct PDO_communication RPDO3_C;													/* Index 0x1402 */
+	struct PDO_communication RPDO4_C;													/* Index 0x1403 */
+	struct PDO_communication TPDO1_C;													/* Index 0x1800 */
+	struct PDO_communication TPDO2_C;													/* Index 0x1801 */
+	struct PDO_communication TPDO3_C;													/* Index 0x1802 */
+	struct PDO_communication TPDO4_C;													/* Index 0x1803 */
+	struct PDO_mapping RPDO1_M;															/* Index 0x1600 */
+	struct PDO_mapping RPDO2_M;															/* Index 0x1601 */
+	struct PDO_mapping RPDO3_M;															/* Index 0x1602 */
+	struct PDO_mapping RPDO4_M;															/* Index 0x1603 */
+	struct PDO_mapping TPDO1_M;															/* Index 0x1A00 */
+	struct PDO_mapping TPDO2_M;															/* Index 0x1A01 */
+	struct PDO_mapping TPDO3_M;															/* Index 0x1A02 */
+	struct PDO_mapping TPDO4_M;															/* Index 0x1A03 */
 };
 
 /* CiA 305: Layer setting services */
