@@ -41,3 +41,35 @@ void CANopen_Producer_PDO_Transmit_TPDO4(CANopen *canopen, uint8_t node_ID, uint
 
 
 }
+
+void CANopen_Producer_PDO_Transmit_RPDO1(CANopen *canopen, uint8_t node_ID, uint8_t data[]){
+	/* Check if PDO service is enabled */
+	if(canopen->slave.nmt.status_operational != STATUS_OPERATIONAL_OPERATIONAL)
+		return; /* NMT is not in operational mode. PDO service is disabled */
+
+
+}
+
+void CANopen_Producer_PDO_Transmit_RPDO2(CANopen *canopen, uint8_t node_ID, uint8_t data[]){
+	/* Check if PDO service is enabled */
+	if(canopen->slave.nmt.status_operational != STATUS_OPERATIONAL_OPERATIONAL)
+		return; /* NMT is not in operational mode. PDO service is disabled */
+
+
+}
+
+void CANopen_Producer_PDO_Transmit_RPDO3(CANopen *canopen, uint8_t node_ID, uint8_t data[]){
+	/* Check if PDO service is enabled */
+	if(canopen->slave.nmt.status_operational != STATUS_OPERATIONAL_OPERATIONAL)
+		return; /* NMT is not in operational mode. PDO service is disabled */
+
+
+}
+
+void CANopen_Producer_PDO_Transmit_RPDO4(CANopen *canopen, uint8_t node_ID, uint8_t data[]){
+	/* Check if PDO service is enabled */
+	if(canopen->slave.nmt.status_operational != STATUS_OPERATIONAL_OPERATIONAL)
+		return; /* NMT is not in operational mode. PDO service is disabled */
+
+
+}

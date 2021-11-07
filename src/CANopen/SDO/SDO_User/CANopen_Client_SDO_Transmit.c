@@ -18,6 +18,7 @@ void CANopen_Client_SDO_Transmit_Request(CANopen *canopen, uint8_t cs, uint8_t n
 
 	/* Define the index and sub index position in a data array. We don't need to specify data[0] here */
 	uint8_t data[8] = {0};
+	data[0] =
 	data[1] = index;									/* LSB */
 	data[2] = index >> 8;								/* MSB */
 	data[3] = sub_index;
