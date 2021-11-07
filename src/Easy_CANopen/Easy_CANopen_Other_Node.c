@@ -28,7 +28,7 @@ void Easy_CANopen_Other_Node_Activate_Node_Configuration(bool activate){
  */
 void Easy_CANopen_Other_Node_Set_Vendor_ID_To_Node(CANopen *canopen, uint32_t vendor_ID){
 	canopen->master.lss.selective_value_is_set = false; /* This will update to true when the slave sends out its response back to the master */
-	CANopen_Master_LSS_Transmit_Request_Switch_Mode_Selective_Value(CS_SWITCH_MODE_SELECTIVE_VENDOR_ID, vendor_ID);
+	CANopen_Master_LSS_Transmit_Request_Switch_Mode_Selective_Value(CS_LSS_SWITCH_MODE_SELECTIVE_VENDOR_ID, vendor_ID);
 }
 
 /*
@@ -39,7 +39,7 @@ void Easy_CANopen_Other_Node_Set_Vendor_ID_To_Node(CANopen *canopen, uint32_t ve
  */
 void Easy_CANopen_Other_Node_Set_Product_Code_To_Node(CANopen *canopen, uint32_t product_code){
 	canopen->master.lss.selective_value_is_set = false; /* This will update to true when the slave sends out its response back to the master */
-	CANopen_Master_LSS_Transmit_Request_Switch_Mode_Selective_Value(CS_SWITCH_MODE_SELECTIVE_PRODUCT_CODE, product_code);
+	CANopen_Master_LSS_Transmit_Request_Switch_Mode_Selective_Value(CS_LSS_SWITCH_MODE_SELECTIVE_PRODUCT_CODE, product_code);
 }
 
 /*
@@ -50,7 +50,7 @@ void Easy_CANopen_Other_Node_Set_Product_Code_To_Node(CANopen *canopen, uint32_t
  */
 void Easy_CANopen_Other_Node_Set_Revision_Number_To_Node(CANopen *canopen, uint32_t revision_number){
 	canopen->master.lss.selective_value_is_set = false; /* This will update to true when the slave sends out its response back to the master */
-	CANopen_Master_LSS_Transmit_Request_Switch_Mode_Selective_Value(CS_SWITCH_MODE_SELECTIVE_REVISION_NUMBER, revision_number);
+	CANopen_Master_LSS_Transmit_Request_Switch_Mode_Selective_Value(CS_LSS_SWITCH_MODE_SELECTIVE_REVISION_NUMBER, revision_number);
 }
 
 /*
@@ -61,7 +61,7 @@ void Easy_CANopen_Other_Node_Set_Revision_Number_To_Node(CANopen *canopen, uint3
  */
 void Easy_CANopen_Other_Node_Set_Serial_Number_To_Node(CANopen *canopen, uint32_t serial_number){
 	canopen->master.lss.selective_value_is_set = false; /* This will update to true when the slave sends out its response back to the master */
-	CANopen_Master_LSS_Transmit_Request_Switch_Mode_Selective_Value(CS_SWITCH_MODE_SELECTIVE_SERIAL_NUMBER, serial_number);
+	CANopen_Master_LSS_Transmit_Request_Switch_Mode_Selective_Value(CS_LSS_SWITCH_MODE_SELECTIVE_SERIAL_NUMBER, serial_number);
 }
 
 /*
@@ -111,7 +111,7 @@ void Easy_CANopen_Other_Node_Save_Node_ID_And_Baud_Rate_In_Node(CANopen *canopen
  */
 void Easy_CANopen_Other_Node_Get_Vendor_ID_From_Node(CANopen *canopen){
 	canopen->master.lss.vendor_ID = 0; /* Reset, then it will have another number when the master receive the response */
-	CANopen_Master_LSS_Transmit_Request_Inquire_Identity_Value(CS_INQUIRE_IDENTITY_VENDOR_ID);
+	CANopen_Master_LSS_Transmit_Request_Inquire_Identity_Value(CS_LSS_INQUIRE_IDENTITY_VENDOR_ID);
 }
 
 /*
@@ -121,7 +121,7 @@ void Easy_CANopen_Other_Node_Get_Vendor_ID_From_Node(CANopen *canopen){
  */
 void Easy_CANopen_Other_Node_Get_Product_Code_From_Node(CANopen *canopen){
 	canopen->master.lss.product_code = 0; /* Reset, then it will have another number when the master receive the response */
-	CANopen_Master_LSS_Transmit_Request_Inquire_Identity_Value(CS_INQUIRE_IDENTITY_PRODUCT_CODE);
+	CANopen_Master_LSS_Transmit_Request_Inquire_Identity_Value(CS_LSS_INQUIRE_IDENTITY_PRODUCT_CODE);
 }
 
 /*
@@ -131,7 +131,7 @@ void Easy_CANopen_Other_Node_Get_Product_Code_From_Node(CANopen *canopen){
  */
 void Easy_CANopen_Other_Node_Get_Revision_Number_From_Node(CANopen *canopen){
 	canopen->master.lss.revision_number = 0; /* Reset, then it will have another number when the master receive the response */
-	CANopen_Master_LSS_Transmit_Request_Inquire_Identity_Value(CS_INQUIRE_IDENTITY_REVISION_NUMBER);
+	CANopen_Master_LSS_Transmit_Request_Inquire_Identity_Value(CS_LSS_INQUIRE_IDENTITY_REVISION_NUMBER);
 }
 
 /*
@@ -141,7 +141,7 @@ void Easy_CANopen_Other_Node_Get_Revision_Number_From_Node(CANopen *canopen){
  */
 void Easy_CANopen_Other_Node_Get_Serial_Number_From_Node(CANopen *canopen){
 	canopen->master.lss.serial_number = 0; /* Reset, then it will have another number when the master receive the response */
-	CANopen_Master_LSS_Transmit_Request_Inquire_Identity_Value(CS_INQUIRE_IDENTITY_SERIAL_NUMBER);
+	CANopen_Master_LSS_Transmit_Request_Inquire_Identity_Value(CS_LSS_INQUIRE_IDENTITY_SERIAL_NUMBER);
 }
 
 /*
@@ -151,7 +151,7 @@ void Easy_CANopen_Other_Node_Get_Serial_Number_From_Node(CANopen *canopen){
  */
 void Easy_CANopen_Other_Node_Get_Node_ID_From_Node(CANopen *canopen){
 	canopen->master.lss.node_ID = 0; /* Reset, then it will have another number when the master receive the response */
-	CANopen_Master_LSS_Transmit_Request_Inquire_Identity_Value(CS_INQUIRE_IDENTITY_NODE_ID);
+	CANopen_Master_LSS_Transmit_Request_Inquire_Identity_Value(CS_LSS_INQUIRE_IDENTITY_NODE_ID);
 }
 
 /*
@@ -161,7 +161,7 @@ void Easy_CANopen_Other_Node_Get_Node_ID_From_Node(CANopen *canopen){
  */
 void Easy_CANopen_Other_Node_Check_If_This_Vendor_ID_Exist_At_The_CAN_Network(CANopen *canopen, uint32_t vendor_ID){
 	canopen->master.lss.identity_found = false; /* Reset, then it will be true if it exist */
-	CANopen_Master_LSS_Transmit_Request_Identity_Remote_Slave_Value(CS_IDENTIFY_REMOTE_SLAVE_VENDOR_ID, vendor_ID);
+	CANopen_Master_LSS_Transmit_Request_Identity_Remote_Slave_Value(CS_LSS_IDENTIFY_REMOTE_SLAVE_VENDOR_ID, vendor_ID);
 }
 
 /*
@@ -171,7 +171,7 @@ void Easy_CANopen_Other_Node_Check_If_This_Vendor_ID_Exist_At_The_CAN_Network(CA
  */
 void Easy_CANopen_Other_Node_Check_If_This_Product_Code_Exist_At_The_CAN_Network(CANopen *canopen, uint32_t product_code){
 	canopen->master.lss.identity_found = false; /* Reset, then it will be true if it exist */
-	CANopen_Master_LSS_Transmit_Request_Identity_Remote_Slave_Value(CS_IDENTIFY_REMOTE_SLAVE_PRODUCT_CODE, product_code);
+	CANopen_Master_LSS_Transmit_Request_Identity_Remote_Slave_Value(CS_LSS_IDENTIFY_REMOTE_SLAVE_PRODUCT_CODE, product_code);
 }
 
 /*
@@ -181,7 +181,7 @@ void Easy_CANopen_Other_Node_Check_If_This_Product_Code_Exist_At_The_CAN_Network
  */
 void Easy_CANopen_Other_Node_Check_If_This_Revision_Number_Or_Lower_Exist_At_The_CAN_Network(CANopen *canopen, uint32_t revision_number){
 	canopen->master.lss.identity_found = false; /* Reset, then it will be true if it exist */
-	CANopen_Master_LSS_Transmit_Request_Identity_Remote_Slave_Value(CS_IDENTIFY_REMOTE_SLAVE_REVISION_NUMBER_LOW, revision_number);
+	CANopen_Master_LSS_Transmit_Request_Identity_Remote_Slave_Value(CS_LSS_IDENTIFY_REMOTE_SLAVE_REVISION_NUMBER_LOW, revision_number);
 }
 
 /*
@@ -191,7 +191,7 @@ void Easy_CANopen_Other_Node_Check_If_This_Revision_Number_Or_Lower_Exist_At_The
  */
 void Easy_CANopen_Other_Node_Check_If_This_Revision_Number_Or_Higher_Exist_At_The_CAN_Network(CANopen *canopen, uint32_t revision_number){
 	canopen->master.lss.identity_found = false; /* Reset, then it will be true if it exist */
-	CANopen_Master_LSS_Transmit_Request_Identity_Remote_Slave_Value(CS_IDENTIFY_REMOTE_SLAVE_REVISION_NUMBER_HIGH, revision_number);
+	CANopen_Master_LSS_Transmit_Request_Identity_Remote_Slave_Value(CS_LSS_IDENTIFY_REMOTE_SLAVE_REVISION_NUMBER_HIGH, revision_number);
 }
 
 /*
@@ -201,7 +201,7 @@ void Easy_CANopen_Other_Node_Check_If_This_Revision_Number_Or_Higher_Exist_At_Th
  */
 void Easy_CANopen_Other_Node_Check_If_This_Serial_Number_Or_Lower_Exist_At_The_CAN_Network(CANopen *canopen, uint32_t serial_number){
 	canopen->master.lss.identity_found = false; /* Reset, then it will be true if it exist */
-	CANopen_Master_LSS_Transmit_Request_Identity_Remote_Slave_Value(CS_IDENTIFY_REMOTE_SLAVE_REVISION_NUMBER_LOW, serial_number);
+	CANopen_Master_LSS_Transmit_Request_Identity_Remote_Slave_Value(CS_LSS_IDENTIFY_REMOTE_SLAVE_REVISION_NUMBER_LOW, serial_number);
 }
 
 /*
@@ -211,7 +211,7 @@ void Easy_CANopen_Other_Node_Check_If_This_Serial_Number_Or_Lower_Exist_At_The_C
  */
 void Easy_CANopen_Other_Node_Check_If_This_Serial_Number_Or_Higher_Exist_At_The_CAN_Network(CANopen *canopen, uint32_t serial_number){
 	canopen->master.lss.identity_found = false; /* Reset, then it will be true if it exist */
-	CANopen_Master_LSS_Transmit_Request_Identity_Remote_Slave_Value(CS_IDENTIFY_REMOTE_SLAVE_REVISION_NUMBER_HIGH, serial_number);
+	CANopen_Master_LSS_Transmit_Request_Identity_Remote_Slave_Value(CS_LSS_IDENTIFY_REMOTE_SLAVE_REVISION_NUMBER_HIGH, serial_number);
 }
 
 /*
@@ -230,7 +230,7 @@ void Easy_CANopen_Other_Node_Check_If_There_Are_Any_Non_Configured_Nodes_At_The_
  * Responses:	 No responses back
  */
 void Easy_CANopen_Other_Node_Start_Remote_Node(CANopen *canopen, uint8_t node_ID){
-	CANopen_Master_NMT_Transmit_Operation_State(canopen, CS_NETWORK_MANAGMENT_SERVICE_START_REMOTE_NODE, node_ID);
+	CANopen_Master_NMT_Transmit_Operation_State(canopen, CS_NMT_SERVICE_START_REMOTE_NODE, node_ID);
 }
 
 /*
@@ -239,5 +239,5 @@ void Easy_CANopen_Other_Node_Start_Remote_Node(CANopen *canopen, uint8_t node_ID
  * Responses:	 No responses back
  */
 void Easy_CANopen_Other_Node_Stop_Remote_Node(CANopen *canopen, uint8_t node_ID){
-	CANopen_Master_NMT_Transmit_Operation_State(canopen, CS_NETWORK_MANAGMENT_SERVICE_STOP_REMOTE_NODE, node_ID);
+	CANopen_Master_NMT_Transmit_Operation_State(canopen, CS_NMT_SERVICE_STOP_REMOTE_NODE, node_ID);
 }
