@@ -10,7 +10,7 @@
 /* Layers */
 #include "LSS_Protocol/LSS_Protocol.h"
 
-void CANopen_Slave_LSS_Receive(CANopen *canopen, uint8_t node_ID, uint8_t data[]){
+void CANopen_Slave_LSS_Receive_Request(CANopen *canopen, uint8_t node_ID, uint8_t data[]){
 	/* Only master can send out the LSS to the other nodes */
 	if(node_ID > 0x0)
 		return;

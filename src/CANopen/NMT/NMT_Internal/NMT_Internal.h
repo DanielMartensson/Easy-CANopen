@@ -11,6 +11,6 @@
 #include "../../../Easy_CANopen/Structs.h"
 
 /* Internal software functions that the user don't need to call */
-void CANopen_Slave_NMT_Receive(CANopen *canopen, uint8_t node_ID, uint8_t data[]);
+void CANopen_Slave_NMT_Receive_Request(CANopen *canopen, uint8_t node_ID, uint8_t data[]);
 
 #endif /* CANOPEN_NMT_NMT_INTERNAL_NMT_INTERNAL_H_ */
