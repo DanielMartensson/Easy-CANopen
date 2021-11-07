@@ -11,5 +11,7 @@
 #include "EMCY_Protocol/EMCY_Protocol.h"
 
 void CANopen_Consumer_EMCY_Receive_Error(CANopen *canopen, uint8_t node_ID, uint8_t data[]) {
-	CANopen_EMCY_Protocol_Consume_Error(canopen, node_ID, data);
+	/* Only the other nodes can send out EMCY to the other nodes */
+	if(node_ID > 0x0)
+		CANopen_EMCY_Protocol_Consume_Error(canopen, node_ID, data);
 }

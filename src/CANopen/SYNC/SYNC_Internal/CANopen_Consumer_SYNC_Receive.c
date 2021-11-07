@@ -10,6 +10,8 @@
 /* Layers */
 #include "SYNC_Protocol/SYNC_Protocol.h"
 
-void CANopen_Consumer_SYNC_Receive_Synchronization(CANopen *canopen, uint8_t data[]){
-	CANopen_SYNC_Protocol_Consume_Synchronization(canopen, data);
+void CANopen_Consumer_SYNC_Receive_Synchronization(CANopen *canopen, uint8_t node_ID, uint8_t data[]){
+	/* Only master can send out the SYNC to the other nodes */
+	if(node_ID == 0x0)
+		CANopen_SYNC_Protocol_Consume_Synchronization(canopen, data);
 }
