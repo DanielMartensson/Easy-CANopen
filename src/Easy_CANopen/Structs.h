@@ -33,13 +33,13 @@ struct PDO_communication{
 	uint16_t inhibit_time;																/* Sub index 0x3 */
 	uint8_t reserved;																	/* Sub index 0x4 */
 	uint16_t event_timer;																/* Sub index 0x5 */
-	uint8_t SYNC_start_value;															/* Sub index 0x6 */
+	uint8_t sync_start_value;															/* Sub index 0x6 */
 };
 
 /* CiA 301: Mapping parameter record for RPDO (0x1600 - 0x17FF) and TPDO (0x1A00 - 0x1BFF) */
 struct PDO_mapping{
 	uint8_t number_of_mapped_objects_in_PDO;											/* Sub index 0x0 */
-	uint32_t object_to_be_mapped[64];													/* Sub index 0x1 -> 0x40 */
+	uint32_t object_to_be_mapped[2];													/* Sub index 0x1 -> 0x2 */
 };
 
 /* CiA 301: Object dictionary for communication parameter area 0x1000 -> 0x1FFF */
@@ -135,9 +135,15 @@ struct SDO{
 	uint8_t from_node_ID;												/* From node ID */
 };
 
+struct PDO{
+	uint8_t sync_counter_value;											/* Counter sync value for PDO */
+	bool start_counting_sync;											/* This is true when sync_start_value above is equal or greater as sync */
+	uint8_t event_timer_counter;										/* Event timer counter for PDO */
+};
+
 /* CiA 301: Synchronization */
 struct SYNC{
-	uint8_t counter;													/* Counter value for sync */
+	uint8_t counter;													/* This is for the PDO */
 };
 
 /* CiA 301: Time */
@@ -169,6 +175,10 @@ struct Slave{
 	struct SYNC sync;
 	struct TIME time;
 	struct SDO sdo;
+	struct PDO pdo1;
+	struct PDO pdo2;
+	struct PDO pdo3;
+	struct PDO pdo4;
 	struct EMCY emcy;
 	uint8_t this_node_ID;
 };

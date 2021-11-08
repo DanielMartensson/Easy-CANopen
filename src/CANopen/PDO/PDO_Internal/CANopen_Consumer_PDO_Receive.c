@@ -11,7 +11,7 @@
 #include "PDO_Protocol/PDO_Protocol.h"
 
 void CANopen_Consumer_PDO_Receive_TPDO1(CANopen *canopen, uint8_t node_ID, uint8_t data[]){
-	CANopen_PDO_Protocol_Consume_TPD1(canopen, node_ID, data);
+	CANopen_PDO_Protocol_Consume_Data(canopen, node_ID, data);
 }
 
 void CANopen_Consumer_PDO_Receive_TPDO2(CANopen *canopen, uint8_t node_ID, uint8_t data[]){
