@@ -11,6 +11,6 @@
 #include "PDO_Protocol/PDO_Protocol.h"
 
 void CANopen_Consumer_PDO_Receive_TPDO(CANopen *canopen, struct PDO_mapping *rpdo_m, uint8_t data[]){
-	CANopen_PDO_Protocol_Consume_TPDO(canopen, rpdo_m, data);
+	CANopen_PDO_Protocol_Consume_Data(canopen, rpdo_m, data);
 }
 

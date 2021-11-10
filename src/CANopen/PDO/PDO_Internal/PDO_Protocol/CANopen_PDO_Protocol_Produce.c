@@ -11,9 +11,9 @@
 #include "../../../OD/OD.h"
 #include "../../../../Hardware/Hardware.h"
 
-void CANopen_PDO_Protocol_Produce_TPDO(CANopen *canopen, struct PDO *pdo, struct PDO_mapping *tpdo_m, struct PDO_communication *tpdo_c, FUNCTION_CODE function_code){
+void CANopen_PDO_Protocol_Produce_Data(CANopen *canopen, struct PDO *pdo, struct PDO_mapping *pdo_mapping, struct PDO_communication *pdo_communication, FUNCTION_CODE function_code){
 	/* Check if TPDO Communication parameter is valid */
-	uint8_t valid = tpdo_c->COB_ID >> 31;
+	uint8_t valid = pdo_communication->COB_ID >> 31;
 	if(valid == 0)
 		return; /* Nope */
 
@@ -21,25 +21,25 @@ void CANopen_PDO_Protocol_Produce_TPDO(CANopen *canopen, struct PDO *pdo, struct
 	bool execute_transmission = false;
 
 	/* Check transmission type */
-	if(tpdo_c->transmission_type == 0xFF) {
+	if(pdo_communication->transmission_type == 0xFF) {
 		/* event-driven (device profile and application profile specific) */
-		if(pdo->event_timer_counter >= tpdo_c->event_timer)
+		if(pdo->event_timer_counter >= pdo_communication->event_timer)
 			execute_transmission = true;
 
 		/* Count +1 or reset to 0 if counter is event_timer */
-		pdo->event_timer_counter = pdo->event_timer_counter == tpdo_c->event_timer ? 0 : pdo->event_timer_counter++;
+		pdo->event_timer_counter = pdo->event_timer_counter == pdo_communication->event_timer ? 0 : pdo->event_timer_counter++;
 
-	}else if(tpdo_c->transmission_type >= 0x1 && tpdo_c->transmission_type <= 0xF0) {
+	}else if(pdo_communication->transmission_type >= 0x1 && pdo_communication->transmission_type <= 0xF0) {
 		/* This is a starting threshold */
-		if(canopen->slave.sync.counter >= tpdo_c->sync_start_value)
+		if(canopen->slave.sync.counter >= pdo_communication->sync_start_value)
 			pdo->start_counting_sync = true;
 
 		/* Count +1 or reset to 1 if counter is type */
 		if(pdo->start_counting_sync)
-			pdo->sync_counter_value = pdo->sync_counter_value == tpdo_c->transmission_type ? 1 : pdo->sync_counter_value++;
+			pdo->sync_counter_value = pdo->sync_counter_value == pdo_communication->transmission_type ? 1 : pdo->sync_counter_value++;
 
 		/* synchronous (cyclic every X SYNC) */
-		if(pdo->sync_counter_value >= tpdo_c->transmission_type)
+		if(pdo->sync_counter_value >= pdo_communication->transmission_type)
 			execute_transmission = true;
 	}else{
 		/* Reset */
@@ -52,12 +52,12 @@ void CANopen_PDO_Protocol_Produce_TPDO(CANopen *canopen, struct PDO *pdo, struct
 	/* Collect data and send */
 	uint8_t data[8] = {0};
 	uint8_t position = 0;
-	for(uint8_t i = 0; i < tpdo_m->number_of_mapped_objects_in_PDO; i++){
+	for(uint8_t i = 0; i < pdo_mapping->number_of_mapped_objects_in_PDO; i++){
 
 		/* Get the mapping parameters of PDO */
-		uint16_t index = tpdo_m->object_to_be_mapped[i] >> 16;
-		uint8_t sub_index = tpdo_m->object_to_be_mapped[i] >> 8;
-		uint8_t length = tpdo_m->object_to_be_mapped[i];
+		uint16_t index = pdo_mapping->object_to_be_mapped[i] >> 16;
+		uint8_t sub_index = pdo_mapping->object_to_be_mapped[i] >> 8;
+		uint8_t length = pdo_mapping->object_to_be_mapped[i];
 		uint8_t length_in_bytes = length / 8;
 
 		/* Get the value from OD */

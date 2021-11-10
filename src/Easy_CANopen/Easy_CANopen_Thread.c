@@ -91,8 +91,8 @@ void Easy_CANopen_Thread_Transmit_Messages(CANopen *canopen){
 	CANopen_Producer_HEARTBEAT_Transmit_Status(canopen);
 	CANopen_Producer_TIME_Transmit_Clock(canopen);
 	CANopen_Producer_SYNC_Transmit_Synchronization(canopen);
-	CANopen_PDO_Protocol_Produce_TPDO(canopen, &canopen->slave.pdo1, &canopen->od_communication.TPDO1_M, &canopen->od_communication.TPDO1_C, FUNCTION_CODE_PDO1_RECEIVE);
-	CANopen_PDO_Protocol_Produce_TPDO(canopen, &canopen->slave.pdo2, &canopen->od_communication.TPDO2_M, &canopen->od_communication.TPDO2_C, FUNCTION_CODE_PDO2_RECEIVE);
-	CANopen_PDO_Protocol_Produce_TPDO(canopen, &canopen->slave.pdo3, &canopen->od_communication.TPDO3_M, &canopen->od_communication.TPDO3_C, FUNCTION_CODE_PDO3_RECEIVE);
-	CANopen_PDO_Protocol_Produce_TPDO(canopen, &canopen->slave.pdo4, &canopen->od_communication.TPDO4_M, &canopen->od_communication.TPDO4_C, FUNCTION_CODE_PDO4_RECEIVE);
+	CANopen_PDO_Protocol_Produce_Data(canopen, &canopen->slave.pdo1, &canopen->od_communication.t_pdo1_mapping, &canopen->od_communication.t_pdo1_communication, FUNCTION_CODE_PDO1_RECEIVE);
+	CANopen_PDO_Protocol_Produce_Data(canopen, &canopen->slave.pdo2, &canopen->od_communication.t_pdo2_mapping, &canopen->od_communication.t_pdo2_communication, FUNCTION_CODE_PDO2_RECEIVE);
+	CANopen_PDO_Protocol_Produce_Data(canopen, &canopen->slave.pdo3, &canopen->od_communication.t_pdo3_mapping, &canopen->od_communication.t_pdo3_communication, FUNCTION_CODE_PDO3_RECEIVE);
+	CANopen_PDO_Protocol_Produce_Data(canopen, &canopen->slave.pdo4, &canopen->od_communication.t_pdo4_mapping, &canopen->od_communication.t_pdo4_communication, FUNCTION_CODE_PDO4_RECEIVE);
 }

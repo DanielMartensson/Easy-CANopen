@@ -77,18 +77,18 @@ struct OD_Communication{
 	struct PDO_communication RPDO2_C;													/* Index 0x1401 */
 	struct PDO_communication RPDO3_C;													/* Index 0x1402 */
 	struct PDO_communication RPDO4_C;													/* Index 0x1403 */
-	struct PDO_communication TPDO1_C;													/* Index 0x1800 */
-	struct PDO_communication TPDO2_C;													/* Index 0x1801 */
-	struct PDO_communication TPDO3_C;													/* Index 0x1802 */
-	struct PDO_communication TPDO4_C;													/* Index 0x1803 */
+	struct PDO_communication t_pdo1_communication;										/* Index 0x1800 */
+	struct PDO_communication t_pdo2_communication;										/* Index 0x1801 */
+	struct PDO_communication t_pdo3_communication;										/* Index 0x1802 */
+	struct PDO_communication t_pdo4_communication;										/* Index 0x1803 */
 	struct PDO_mapping RPDO1_M;															/* Index 0x1600 */
 	struct PDO_mapping RPDO2_M;															/* Index 0x1601 */
 	struct PDO_mapping RPDO3_M;															/* Index 0x1602 */
 	struct PDO_mapping RPDO4_M;															/* Index 0x1603 */
-	struct PDO_mapping TPDO1_M;															/* Index 0x1A00 */
-	struct PDO_mapping TPDO2_M;															/* Index 0x1A01 */
-	struct PDO_mapping TPDO3_M;															/* Index 0x1A02 */
-	struct PDO_mapping TPDO4_M;															/* Index 0x1A03 */
+	struct PDO_mapping t_pdo1_mapping;													/* Index 0x1A00 */
+	struct PDO_mapping t_pdo2_mapping;													/* Index 0x1A01 */
+	struct PDO_mapping t_pdo3_mapping;													/* Index 0x1A02 */
+	struct PDO_mapping t_pdo4_mapping;													/* Index 0x1A03 */
 };
 
 /* CiA 305: Layer setting services */
