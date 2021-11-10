@@ -68,6 +68,18 @@ uint32_t CANopen_OD_Get_Value(CANopen *canopen, uint16_t index, uint8_t sub_inde
 	return value;
 }
 
+OD_STATUS CANopen_OD_Set_Value(CANopen *canopen, uint16_t index, uint8_t sub_index, uint32_t value){
+	/* Initial settings */
+	bool set = true;
+	uint32_t byte_size;
+	OD_DATA_TYPE data_type;
+	uint8_t *byte_pointer;
+	OD_ACCESS access;
+
+	/* Get the byte pointer from the bank and return it back */
+	return CANopen_OD_Bank(canopen, index, sub_index, set, &value, &byte_size, &data_type, byte_pointer, &access);
+}
+
 OD_STATUS CANopen_OD_Bank(CANopen *canopen, uint16_t index, uint8_t sub_index, bool set, uint32_t *value, uint32_t *byte_size, OD_DATA_TYPE *data_type, uint8_t *byte_pointer, OD_ACCESS *access){
 	struct OD_Communication *communication = &canopen->od_communication;
 	if(index == OD_INDEX_DEVICE_TYPE && sub_index == 0){

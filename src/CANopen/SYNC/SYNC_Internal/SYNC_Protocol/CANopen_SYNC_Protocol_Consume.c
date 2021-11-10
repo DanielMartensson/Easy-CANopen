@@ -8,5 +8,9 @@
 #include "SYNC_Protocol.h"
 
 void CANopen_SYNC_Protocol_Consume_Synchronization(CANopen *canopen, uint8_t data[]){
+	/* Save sync counter */
 	canopen->slave.sync.counter = data[0];
+
+	/* Call the PDO transmit */
+	CANopen_Producer_PDO_Transmit_TPDO(canopen);
 }

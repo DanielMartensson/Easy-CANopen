@@ -38,28 +38,28 @@ bool Easy_CANopen_Thread_Listen_Messages(CANopen *canopen) {
 			CANopen_Consumer_TIME_Receive_Clock(canopen, node_ID, data);
 			break;
 		case FUNCTION_CODE_PDO1_TRANSMIT:
-			CANopen_Consumer_PDO_Receive_TPDO1(canopen, node_ID, data);
+
 			break;
 		case FUNCTION_CODE_PDO1_RECEIVE:
-			CANopen_Consumer_PDO_Receive_RPDO1(canopen, node_ID, data);
+			CANopen_Consumer_PDO_Receive_TPDO(canopen, &canopen->od_communication.RPDO1_M, data);
 			break;
 		case FUNCTION_CODE_PDO2_TRANSMIT:
-			CANopen_Consumer_PDO_Receive_TPDO2(canopen, node_ID, data);
+
 			break;
 		case FUNCTION_CODE_PDO2_RECEIVE:
-			CANopen_Consumer_PDO_Receive_RPDO2(canopen, node_ID, data);
+			CANopen_Consumer_PDO_Receive_TPDO(canopen, &canopen->od_communication.RPDO2_M, data);
 			break;
 		case FUNCTION_CODE_PDO3_TRANSMIT:
-			CANopen_Consumer_PDO_Receive_TPDO3(canopen, node_ID, data);
+
 			break;
 		case FUNCTION_CODE_PDO3_RECEIVE:
-			CANopen_Consumer_PDO_Receive_RPDO3(canopen, node_ID, data);
+			CANopen_Consumer_PDO_Receive_TPDO(canopen, &canopen->od_communication.RPDO3_M, data);
 			break;
 		case FUNCTION_CODE_PDO4_TRANSMIT:
-			CANopen_Consumer_PDO_Receive_TPDO4(canopen, node_ID, data);
+
 			break;
 		case FUNCTION_CODE_PDO4_RECEIVE:
-			CANopen_Consumer_PDO_Receive_RPDO4(canopen, node_ID, data);
+			CANopen_Consumer_PDO_Receive_TPDO(canopen, &canopen->od_communication.RPDO4_M, data);
 			break;
 		case FUNCTION_CODE_SDO_TRANSMIT:
 			CANopen_Server_SDO_Receive_Request(canopen, node_ID, data);						/* Server -> Client */
@@ -91,4 +91,8 @@ void Easy_CANopen_Thread_Transmit_Messages(CANopen *canopen){
 	CANopen_Producer_HEARTBEAT_Transmit_Status(canopen);
 	CANopen_Producer_TIME_Transmit_Clock(canopen);
 	CANopen_Producer_SYNC_Transmit_Synchronization(canopen);
+	CANopen_PDO_Protocol_Produce_TPDO(canopen, &canopen->slave.pdo1, &canopen->od_communication.TPDO1_M, &canopen->od_communication.TPDO1_C, FUNCTION_CODE_PDO1_RECEIVE);
+	CANopen_PDO_Protocol_Produce_TPDO(canopen, &canopen->slave.pdo2, &canopen->od_communication.TPDO2_M, &canopen->od_communication.TPDO2_C, FUNCTION_CODE_PDO2_RECEIVE);
+	CANopen_PDO_Protocol_Produce_TPDO(canopen, &canopen->slave.pdo3, &canopen->od_communication.TPDO3_M, &canopen->od_communication.TPDO3_C, FUNCTION_CODE_PDO3_RECEIVE);
+	CANopen_PDO_Protocol_Produce_TPDO(canopen, &canopen->slave.pdo4, &canopen->od_communication.TPDO4_M, &canopen->od_communication.TPDO4_C, FUNCTION_CODE_PDO4_RECEIVE);
 }

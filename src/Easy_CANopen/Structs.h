@@ -39,7 +39,7 @@ struct PDO_communication{
 /* CiA 301: Mapping parameter record for RPDO (0x1600 - 0x17FF) and TPDO (0x1A00 - 0x1BFF) */
 struct PDO_mapping{
 	uint8_t number_of_mapped_objects_in_PDO;											/* Sub index 0x0 */
-	uint32_t object_to_be_mapped[2];													/* Sub index 0x1 -> 0x2 */
+	uint32_t object_to_be_mapped[8];													/* Sub index 0x1 -> 0x8 */
 };
 
 /* CiA 301: Object dictionary for communication parameter area 0x1000 -> 0x1FFF */
