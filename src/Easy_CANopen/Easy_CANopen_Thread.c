@@ -38,28 +38,28 @@ bool Easy_CANopen_Thread_Listen_Messages(CANopen *canopen) {
 			CANopen_Consumer_TIME_Receive_Clock(canopen, node_ID, data);
 			break;
 		case FUNCTION_CODE_PDO1_TRANSMIT:
-
+			CANopen_Consumer_PDO_Receive_Data(canopen, node_ID, data);
 			break;
 		case FUNCTION_CODE_PDO1_RECEIVE:
-			CANopen_Consumer_PDO_Receive_Data(canopen, node_ID, data);
+
 			break;
 		case FUNCTION_CODE_PDO2_TRANSMIT:
-
+			CANopen_Consumer_PDO_Receive_Data(canopen, node_ID, data);
 			break;
 		case FUNCTION_CODE_PDO2_RECEIVE:
-			CANopen_Consumer_PDO_Receive_Data(canopen, node_ID, data);
+
 			break;
 		case FUNCTION_CODE_PDO3_TRANSMIT:
-
+			CANopen_Consumer_PDO_Receive_Data(canopen, node_ID, data);
 			break;
 		case FUNCTION_CODE_PDO3_RECEIVE:
-			CANopen_Consumer_PDO_Receive_Data(canopen, node_ID, data);
-			break;
-		case FUNCTION_CODE_PDO4_TRANSMIT:
 
 			break;
-		case FUNCTION_CODE_PDO4_RECEIVE:
+		case FUNCTION_CODE_PDO4_TRANSMIT:
 			CANopen_Consumer_PDO_Receive_Data(canopen, node_ID, data);
+			break;
+		case FUNCTION_CODE_PDO4_RECEIVE:
+
 			break;
 		case FUNCTION_CODE_SDO_TRANSMIT:
 			CANopen_Server_SDO_Receive_Request(canopen, node_ID, data);						/* Server -> Client */
