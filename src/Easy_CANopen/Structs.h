@@ -24,6 +24,7 @@
 #define VERIFY_CONFIGURATION_MAX_SUB_INDEX 3
 #define ERROR_BEHAVIOR_SUB_INDEX 2
 #define OD_STRING_LENGTH 20
+#define PDO_LENGTH 32
 
 /* CiA 301: Communication parameter record for RPDO (0x1400 - 0x15FF) and TPDO (0x1800 - 0x19FF) */
 struct PDO_communication{
@@ -73,22 +74,11 @@ struct OD_Communication{
 	uint32_t verify_configuration[VERIFY_CONFIGURATION_MAX_SUB_INDEX];					/* Index 0x1020 sub index 0x0 -> 0x2 */
 	uint32_t emergency_consumer_object[EMERGENCY_CONSUMER_MAX_SUB_INDEX];				/* Index 0x1028 sub index 0x0 -> 0x7F */
 	uint8_t error_behavior_object[ERROR_BEHAVIOR_SUB_INDEX];							/* Index 0x1029 sub index 0x0 -> 0x1 */
-	struct PDO_communication RPDO1_C;													/* Index 0x1400 */
-	struct PDO_communication RPDO2_C;													/* Index 0x1401 */
-	struct PDO_communication RPDO3_C;													/* Index 0x1402 */
-	struct PDO_communication RPDO4_C;													/* Index 0x1403 */
-	struct PDO_communication t_pdo1_communication;										/* Index 0x1800 */
-	struct PDO_communication t_pdo2_communication;										/* Index 0x1801 */
-	struct PDO_communication t_pdo3_communication;										/* Index 0x1802 */
-	struct PDO_communication t_pdo4_communication;										/* Index 0x1803 */
-	struct PDO_mapping RPDO1_M;															/* Index 0x1600 */
-	struct PDO_mapping RPDO2_M;															/* Index 0x1601 */
-	struct PDO_mapping RPDO3_M;															/* Index 0x1602 */
-	struct PDO_mapping RPDO4_M;															/* Index 0x1603 */
-	struct PDO_mapping t_pdo1_mapping;													/* Index 0x1A00 */
-	struct PDO_mapping t_pdo2_mapping;													/* Index 0x1A01 */
-	struct PDO_mapping t_pdo3_mapping;													/* Index 0x1A02 */
-	struct PDO_mapping t_pdo4_mapping;													/* Index 0x1A03 */
+	struct PDO_communication PDO_communication_receive[PDO_LENGTH];						/* Index 0x1400 -> 0x1400 + PDO_LENGTH -1 */
+	struct PDO_communication PDO_communication_transmit[PDO_LENGTH];					/* Index 0x1800 -> 0x1800 + PDO_LENGTH -1 */
+	struct PDO_mapping PDO_mapping_receive[PDO_LENGTH];									/* Index 0x1600 -> 0x1600 + PDO_LENGTH -1 */
+	struct PDO_mapping PDO_mapping_transmit[PDO_LENGTH];								/* Index 0x1A00 -> 0x1A00 + PDO_LENGTH -1 */
+
 };
 
 /* CiA 305: Layer setting services */
@@ -143,7 +133,7 @@ struct PDO{
 
 /* CiA 301: Synchronization */
 struct SYNC{
-	uint8_t counter;													/* This is for the PDO */
+	uint8_t counter;													/* This is for the PDO sync */
 };
 
 /* CiA 301: Time */
@@ -175,10 +165,7 @@ struct Slave{
 	struct SYNC sync;
 	struct TIME time;
 	struct SDO sdo;
-	struct PDO pdo1;
-	struct PDO pdo2;
-	struct PDO pdo3;
-	struct PDO pdo4;
+	struct PDO pdo[PDO_LENGTH];											/* Only for TPDO */
 	struct EMCY emcy;
 	uint8_t this_node_ID;
 };

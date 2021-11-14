@@ -11,44 +11,7 @@
 #include "../../../OD/OD.h"
 #include "../../../../Hardware/Hardware.h"
 
-void CANopen_PDO_Protocol_Produce_Data(CANopen *canopen, struct PDO *pdo, struct PDO_mapping *pdo_mapping, struct PDO_communication *pdo_communication, FUNCTION_CODE function_code){
-	/* Check if TPDO Communication parameter is valid */
-	uint8_t valid = pdo_communication->COB_ID >> 31;
-	if(valid == 0)
-		return; /* Nope */
-
-	/* Set the execute flag */
-	bool execute_transmission = false;
-
-	/* Check transmission type */
-	if(pdo_communication->transmission_type == 0xFF) {
-		/* event-driven (device profile and application profile specific) */
-		if(pdo->event_timer_counter >= pdo_communication->event_timer)
-			execute_transmission = true;
-
-		/* Count +1 or reset to 0 if counter is event_timer */
-		pdo->event_timer_counter = pdo->event_timer_counter == pdo_communication->event_timer ? 0 : pdo->event_timer_counter++;
-
-	}else if(pdo_communication->transmission_type >= 0x1 && pdo_communication->transmission_type <= 0xF0) {
-		/* This is a starting threshold */
-		if(canopen->slave.sync.counter >= pdo_communication->sync_start_value)
-			pdo->start_counting_sync = true;
-
-		/* Count +1 or reset to 1 if counter is type */
-		if(pdo->start_counting_sync)
-			pdo->sync_counter_value = pdo->sync_counter_value == pdo_communication->transmission_type ? 1 : pdo->sync_counter_value++;
-
-		/* synchronous (cyclic every X SYNC) */
-		if(pdo->sync_counter_value >= pdo_communication->transmission_type)
-			execute_transmission = true;
-	}else{
-		/* Reset */
-		pdo->event_timer_counter = 0;
-		pdo->start_counting_sync = false;
-		pdo->sync_counter_value = 0;
-		return; /* Only synchronous and event-driven transmission is supported */
-	}
-
+void CANopen_PDO_Protocol_Produce_Data(CANopen *canopen, uint16_t CAN_ID, struct PDO_mapping *pdo_mapping){
 	/* Collect data and send */
 	uint8_t data[8] = {0};
 	uint8_t position = 0;
@@ -85,9 +48,6 @@ void CANopen_PDO_Protocol_Produce_Data(CANopen *canopen, struct PDO *pdo, struct
 		}
 	}
 
-	/* Create the COB ID */
-	uint32_t COB_ID = function_code << 7 | canopen->slave.this_node_ID;
-
 	/* Send the message to client */
-	Hardware_CAN_Send_Message(COB_ID, data);
+	Hardware_CAN_Send_Message(CAN_ID, data);
 }

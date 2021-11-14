@@ -41,25 +41,25 @@ bool Easy_CANopen_Thread_Listen_Messages(CANopen *canopen) {
 
 			break;
 		case FUNCTION_CODE_PDO1_RECEIVE:
-			CANopen_Consumer_PDO_Receive_TPDO(canopen, &canopen->od_communication.RPDO1_M, data);
+			CANopen_Consumer_PDO_Receive_Data(canopen, node_ID, data);
 			break;
 		case FUNCTION_CODE_PDO2_TRANSMIT:
 
 			break;
 		case FUNCTION_CODE_PDO2_RECEIVE:
-			CANopen_Consumer_PDO_Receive_TPDO(canopen, &canopen->od_communication.RPDO2_M, data);
+			CANopen_Consumer_PDO_Receive_Data(canopen, node_ID, data);
 			break;
 		case FUNCTION_CODE_PDO3_TRANSMIT:
 
 			break;
 		case FUNCTION_CODE_PDO3_RECEIVE:
-			CANopen_Consumer_PDO_Receive_TPDO(canopen, &canopen->od_communication.RPDO3_M, data);
+			CANopen_Consumer_PDO_Receive_Data(canopen, node_ID, data);
 			break;
 		case FUNCTION_CODE_PDO4_TRANSMIT:
 
 			break;
 		case FUNCTION_CODE_PDO4_RECEIVE:
-			CANopen_Consumer_PDO_Receive_TPDO(canopen, &canopen->od_communication.RPDO4_M, data);
+			CANopen_Consumer_PDO_Receive_Data(canopen, node_ID, data);
 			break;
 		case FUNCTION_CODE_SDO_TRANSMIT:
 			CANopen_Server_SDO_Receive_Request(canopen, node_ID, data);						/* Server -> Client */
@@ -91,8 +91,5 @@ void Easy_CANopen_Thread_Transmit_Messages(CANopen *canopen){
 	CANopen_Producer_HEARTBEAT_Transmit_Status(canopen);
 	CANopen_Producer_TIME_Transmit_Clock(canopen);
 	CANopen_Producer_SYNC_Transmit_Synchronization(canopen);
-	CANopen_PDO_Protocol_Produce_Data(canopen, &canopen->slave.pdo1, &canopen->od_communication.t_pdo1_mapping, &canopen->od_communication.t_pdo1_communication, FUNCTION_CODE_PDO1_RECEIVE);
-	CANopen_PDO_Protocol_Produce_Data(canopen, &canopen->slave.pdo2, &canopen->od_communication.t_pdo2_mapping, &canopen->od_communication.t_pdo2_communication, FUNCTION_CODE_PDO2_RECEIVE);
-	CANopen_PDO_Protocol_Produce_Data(canopen, &canopen->slave.pdo3, &canopen->od_communication.t_pdo3_mapping, &canopen->od_communication.t_pdo3_communication, FUNCTION_CODE_PDO3_RECEIVE);
-	CANopen_PDO_Protocol_Produce_Data(canopen, &canopen->slave.pdo4, &canopen->od_communication.t_pdo4_mapping, &canopen->od_communication.t_pdo4_communication, FUNCTION_CODE_PDO4_RECEIVE);
+	CANopen_Producer_PDO_Transmit_Data(canopen);
 }
