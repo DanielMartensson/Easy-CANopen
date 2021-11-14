@@ -11,6 +11,7 @@
 #include "../../../../Easy_CANopen/Structs.h"
 
 /* 7.5.2 and 7.2.2 in CiA 305 1.1.1 */
+void CANopen_PDO_Protocol_Produce_Request(uint16_t CAN_ID);
 void CANopen_PDO_Protocol_Produce_Data(CANopen *canopen, uint16_t CAN_ID, struct PDO_mapping *pdo_mapping);
 void CANopen_PDO_Protocol_Consume_Data(CANopen *canopen, struct PDO_mapping *pdo_mapping, uint8_t data[]);
 
