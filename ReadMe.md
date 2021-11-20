@@ -50,9 +50,10 @@ See the examples in `Examples` folder for more examples.
 
 # Easy CANopen functionality
  
- - Set node ID address
- - Set vendor ID, product code, revision number and serial number
- - Set baud rate
+ - Set node ID address and get response back
+ - Set vendor ID, product code, revision number and serial number and get response back
+ - Set baud rate and get response back
+ - Activate baud rate
  	
 # Questions and answers
  - Q: Can this library be used with `C++`?
