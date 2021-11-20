@@ -12,10 +12,10 @@ int main() {
 	/* Begin to activate node configuration so we can write our node ID */
 	Easy_CANopen_Other_Node_Activate_Node_Configuration(true);
 
-	/* Reading process */
+	/* Reading process for the slave node */
 	Easy_CANopen_Thread_Listen_Messages(&slave_node);
 
-	/* Set identification to slave node */
+	/* Set identification to slave */
 	uint32_t vendor_ID = 10003;
 	uint32_t product_code = 65467;
 	uint32_t revision_number = 565;

@@ -46,6 +46,7 @@ void CANopen_LSS_Protocol_Receive_Request_Configure_Node_ID(CANopen *canopen, ui
 	if(node_ID == 0 || node_ID > 127){
 		/* Node ID 0 is master ID and node ID cannot be larger than 127 */
 		CANopen_Slave_LSS_Transmit_Response_Status_Message(CS_LSS_CONFIGURE_NODE_ID, STATUS_CODE_INVALID_PARAMETER, 0x0);
+		return;
 	}
 
 	/* Save the parameter and give a OK response back */
@@ -63,6 +64,7 @@ void CANopen_LSS_Protocol_Receive_Request_Configure_Bit_Timing_Parameters(CANope
 	if(table_index > TABLE_INDEX_8_BAUD_RATE_10){
 		/* Outside of the table index */
 		CANopen_Slave_LSS_Transmit_Response_Status_Message(CS_LSS_CONFIGURE_BIT_TIMING_PARAMETERS, STATUS_CODE_INVALID_PARAMETER, 0x0);
+		return;
 	}
 
 	/* Save the parameter and give a OK response back */
