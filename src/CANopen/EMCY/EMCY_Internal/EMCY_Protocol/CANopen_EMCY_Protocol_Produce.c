@@ -14,7 +14,7 @@ void CANopen_EMCY_Protocol_Produce_Error(CANopen *canopen, uint16_t new_error_co
 	/* Get the node ID from this producer */
 	uint8_t node_ID = canopen->slave.this_node_ID;
 
-	/* Get the error register and add new new error register to it */
+	/* Get the error register and add new new error register to it. Please, if you reset error_register field, then clear the pre_definited_error_field as well */
 	canopen->od_communication.error_register |= new_error_register;
 
 	/* Shift the error codes down one step and save the latest on top */

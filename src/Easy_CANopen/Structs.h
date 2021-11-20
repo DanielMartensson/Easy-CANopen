@@ -46,9 +46,9 @@ struct PDO_mapping{
 /* CiA 301: Object dictionary for communication parameter area 0x1000 -> 0x1FFF */
 struct OD_Communication{
 	uint32_t device_type;																/* Index 0x1000 sub index 0x0 */
-	uint8_t error_register;																/* Index 0x1001 sub index 0x0 */
+	uint8_t error_register;																/* Index 0x1001 sub index 0x0 - OK*/
 	uint32_t manufacturer_status_register;												/* Index 0x1002 sub index 0x0 */
-	uint32_t pre_defined_error_field[PRE_DEFINED_ERROR_FIELD_MAX_SUB_INDEX];			/* Index 0x1003 sub index 0x0 -> 0xA */
+	uint32_t pre_defined_error_field[PRE_DEFINED_ERROR_FIELD_MAX_SUB_INDEX];			/* Index 0x1003 sub index 0x0 -> 0xA - OK */
 	uint32_t COB_ID_sync_message;														/* Index 0x1005 sub index 0x0 */
 	uint32_t communication_cycle_period;												/* Index 0x1006 sub index 0x0 */
 	uint32_t synchronous_window_length;													/* Index 0x1007 sub index 0x0 */
@@ -61,7 +61,7 @@ struct OD_Communication{
 	uint32_t restore_default_parameters[STORE_RE_STORE_PARAMETER_MAX_SUB_INDEX];		/* Index 0x1011 sub index 0x0 -> 0x3 */
 	uint32_t COB_ID_time_stamp_object;													/* Index 0x1012 sub index 0x0 */
 	uint32_t high_resolution_time_stamp;												/* Index 0x1013 sub index 0x0 */
-	uint32_t COB_ID_emcy;																/* Index 0x1014 sub index 0x0 */
+	uint32_t COB_ID_emcy;																/* Index 0x1014 sub index 0x0 - OK*/
 	uint16_t inhibit_time_emcy;															/* Index 0x1015 sub index 0x0 */
 	uint32_t consumer_heartbeat_time[CONSUMER_HEARTBEAT_TIME_MAX_SUB_INDEX];			/* Index 0x1016 sub index 0x0 -> 0x7F */
 	uint16_t producer_heartbeat_time;													/* Index 0x1017 sub index 0x0 */
