@@ -8,7 +8,7 @@
 #ifndef CANOPEN_PDO_PDO_USER_PDO_USER_H_
 #define CANOPEN_PDO_PDO_USER_PDO_USER_H_
 
-#include "../../../Easy_CANopen/Structs.h"
+#include "../../../Easy_CANopen/Easy_CANopen_Structs.h"
 
 void CANopen_Consumer_PDO_Transmit_Request(CANopen *canopen, uint8_t node_ID);
 

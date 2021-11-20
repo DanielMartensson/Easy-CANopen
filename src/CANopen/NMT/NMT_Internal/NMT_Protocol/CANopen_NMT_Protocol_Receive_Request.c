@@ -11,23 +11,23 @@
 #include "../../../HEARTBEAT/HEARTBEAT_Internal/HEARTBEAT_Internal.h"
 
 void CANopen_NMT_Protocol_Receive_Request_Enter_Status(CANopen *canopen, uint8_t status){
-	canopen->slave.nmt.status_operational = status;
+	canopen->slave.nmt.this_node_status_operational = status;
 }
 
 void CANopen_NMT_Protocol_Receive_Request_Node_Reset(CANopen *canopen){
 	/* Reset the whole canopen struct */
 	memset(canopen, 0, sizeof(CANopen));
-	canopen->slave.nmt.status_operational = STATUS_OPERATIONAL_STOPPED;
+	canopen->slave.nmt.this_node_status_operational = STATUS_OPERATIONAL_STOPPED;
 
 	/* Restore the communication struct */
 	CANopen_NMT_Protocol_Receive_Request_Restore_Communication_Parameters(canopen);
 
 	/* Send out a boot up message via HEARTBEAT service */
-	canopen->slave.nmt.status_operational = STATUS_OPERATIONAL_BOOT_UP;
+	canopen->slave.nmt.this_node_status_operational = STATUS_OPERATIONAL_BOOT_UP;
 	CANopen_Producer_HEARTBEAT_Transmit_Status(canopen);
 
 	/* Activate the following services: PDO, SDO, SYNC, TIME, EMCY */
-	canopen->slave.nmt.status_operational = STATUS_OPERATIONAL_OPERATIONAL;
+	canopen->slave.nmt.this_node_status_operational = STATUS_OPERATIONAL_OPERATIONAL;
 }
 
 void CANopen_NMT_Protocol_Receive_Request_Restore_Communication_Parameters(CANopen *canopen){

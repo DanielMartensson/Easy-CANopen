@@ -15,7 +15,7 @@ void CANopen_GUARD_Protocol_Transmit_Request_Status(CANopen *canopen, uint8_t no
 	uint8_t data[8] = {0};
 
 	/* Set time clock to count how long time it would take to get the response from the slave */
-	canopen->slave.guard.count_tick = Hardware_Time_Get_Tick();
+	canopen->slave.nmt.this_node_count_tick = Hardware_Time_Get_Tick();
 
 	/* Create COB ID and send request to the node */
 	uint8_t COB_ID = FUNCTION_CODE_HEARTBEAT_GUARD << 7 | node_ID;

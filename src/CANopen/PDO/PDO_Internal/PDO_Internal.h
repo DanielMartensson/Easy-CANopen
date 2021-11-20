@@ -8,7 +8,7 @@
 #ifndef CANOPEN_PDO_PDO_INTERNAL_PDO_INTERNAL_H_
 #define CANOPEN_PDO_PDO_INTERNAL_PDO_INTERNAL_H_
 
-#include "../../../Easy_CANopen/Structs.h"
+#include "../../../Easy_CANopen/Easy_CANopen_Structs.h"
 
 /* Internal software functions that the user don't need to call */
 void CANopen_Producer_PDO_Transmit_Data(CANopen *canopen);

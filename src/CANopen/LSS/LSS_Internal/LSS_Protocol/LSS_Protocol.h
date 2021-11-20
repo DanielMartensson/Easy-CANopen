@@ -8,7 +8,7 @@
 #ifndef CANOPEN_LSS_LSS_INTERNAL_LSS_PROTOCOL_LSS_PROTOCOL_H_
 #define CANOPEN_LSS_LSS_INTERNAL_LSS_PROTOCOL_LSS_PROTOCOL_H_
 
-#include "../../../../Easy_CANopen/Structs.h"
+#include "../../../../Easy_CANopen/Easy_CANopen_Structs.h"
 
 /* 5 LSS PROTOCOL PERSPECTIVE in CiA 305 1.1.1 */
 void CANopen_LSS_Protocol_Transmit_Request_Switch_Mode_Global(uint8_t mode);

@@ -11,8 +11,13 @@
 #include "PDO_Protocol/PDO_Protocol.h"
 
 void CANopen_Producer_PDO_Transmit_Data(CANopen *canopen) {
+	/* Check if this is master node */
+	uint8_t node_ID = canopen->slave.this_node_ID;
+	if(node_ID == 0)
+		return; /* This is master node - Cannot send */
+
 	/* Check if PDO service is enabled */
-	if(canopen->slave.nmt.status_operational != STATUS_OPERATIONAL_OPERATIONAL)
+	if(canopen->slave.nmt.this_node_status_operational != STATUS_OPERATIONAL_OPERATIONAL)
 		return; /* NMT is not in operational mode. PDO service is disabled */
 
 	for(uint8_t i = 0; i < PDO_LENGTH; i++){

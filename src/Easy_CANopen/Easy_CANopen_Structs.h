@@ -1,12 +1,12 @@
 /*
- * Structs.h
+ * Easy_CANopen_Structs.h
  *
  *  Created on: 6 okt. 2021
  *      Author: Daniel Mårtensson
  */
 
-#ifndef EASY_CANOPEN_STRUCTS_H_
-#define EASY_CANOPEN_STRUCTS_H_
+#ifndef EASY_CANOPEN_EASY_CANOPEN_STRUCTS_H_
+#define EASY_CANOPEN_EASY_CANOPEN_STRUCTS_H_
 
 /* C standard library */
 #include <stdlib.h>
@@ -55,16 +55,15 @@ struct OD_Communication{
 	uint32_t manufacturer_device_name[OD_STRING_LENGTH];								/* Index 0x1008 sub index 0x0 */
 	uint32_t manufacturer_hardware_version[OD_STRING_LENGTH];							/* Index 0x1009 sub index 0x0 */
 	uint32_t manufacturer_software_version[OD_STRING_LENGTH];							/* Index 0x100A sub index 0x0 -> 0xA9 */
-	uint16_t guard_time;																/* Index 0x100C sub index 0x0 */
-	uint8_t life_time_factor;															/* Index 0x100D sub index 0x0 */
+	uint16_t guard_time;																/* Index 0x100C sub index 0x0 - OK */
+	uint8_t life_time_factor;															/* Index 0x100D sub index 0x0 - OK */
 	uint32_t store_parameters[STORE_RE_STORE_PARAMETER_MAX_SUB_INDEX];					/* Index 0x1010 sub index 0x0 -> 0x3 */
 	uint32_t restore_default_parameters[STORE_RE_STORE_PARAMETER_MAX_SUB_INDEX];		/* Index 0x1011 sub index 0x0 -> 0x3 */
 	uint32_t COB_ID_time_stamp_object;													/* Index 0x1012 sub index 0x0 */
 	uint32_t high_resolution_time_stamp;												/* Index 0x1013 sub index 0x0 */
 	uint32_t COB_ID_emcy;																/* Index 0x1014 sub index 0x0 - OK*/
-	uint16_t inhibit_time_emcy;															/* Index 0x1015 sub index 0x0 */
-	uint32_t consumer_heartbeat_time[CONSUMER_HEARTBEAT_TIME_MAX_SUB_INDEX];			/* Index 0x1016 sub index 0x0 -> 0x7F */
-	uint16_t producer_heartbeat_time;													/* Index 0x1017 sub index 0x0 */
+	uint32_t consumer_heartbeat_time[CONSUMER_HEARTBEAT_TIME_MAX_SUB_INDEX];			/* Index 0x1016 sub index 0x0 -> 0x7F - OK */
+	uint16_t producer_heartbeat_time;													/* Index 0x1017 sub index 0x0 - OK */
 	uint8_t identity_object_highest_supported_sub_index;								/* Index 0x1018 sub index 0x0 */
 	uint32_t vendor_ID;																	/* Index 0x1018 sub index 0x1 */
 	uint32_t product_code;																/* Index 0x1018 sub index 0x2 */
@@ -100,15 +99,12 @@ struct LSS{
 
 /* CiA 301: Network management */
 struct NMT{
-	uint8_t status_operational;											/* What status operation is the node into */
-	uint8_t toggle;														/* 1 or 0 for every heartbeat or guard */
-};
-
-/* CiA 301: Guard and heartbeat */
-struct GUARD_HEARTBEAT{
-	uint8_t status_operational;											/* What status operation is the slave into */
-	uint8_t toggle;														/* 1 or 0 for every heartbeat */
-	uint32_t count_tick;												/* Counter in milliseconds */
+	uint8_t this_node_status_operational;								/* Operational status of this node */
+	uint8_t from_node_status_operational;								/* Operational status of other node */
+	uint8_t this_node_toggle;											/* Toggle of this node */
+	uint8_t from_node_toggle;											/* Toggle of other node */
+	uint32_t this_node_count_tick;										/* Counter in milliseconds of this node */
+	uint32_t from_node_count_tick;										/* Counter in milliseconds of other node */
 	uint8_t from_node_ID;												/* From node ID */
 };
 
@@ -159,8 +155,6 @@ struct Master{
 
 struct Slave{
 	struct NMT nmt;
-	struct GUARD_HEARTBEAT guard;
-	struct GUARD_HEARTBEAT heartbeat;
 	struct LSS lss;
 	struct SYNC sync;
 	struct TIME time;
@@ -182,11 +176,6 @@ typedef struct {
 	struct OD_Communication od_communication;							/* Communication objects */
 	struct Master master;												/* The node with address 0 */
 	struct Slave slave;													/* The nodes with address 1 to 127 */
-
-
-	uint8_t bit_timing_table_index;										/* The baud rate table index */
-	uint8_t node_ID_of_this_device;										/* This node ID of this device */
-
 } CANopen;
 
-#endif /* EASY_CANOPEN_STRUCTS_H_ */
+#endif /* EASY_CANOPEN_EASY_CANOPEN_STRUCTS_H_ */

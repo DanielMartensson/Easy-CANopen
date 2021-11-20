@@ -184,12 +184,6 @@ OD_STATUS CANopen_OD_Bank(CANopen *canopen, uint16_t index, uint8_t sub_index, b
 		byte_pointer = (uint8_t*) &communication->COB_ID_emcy;
 		*access = OD_ACCESS_READ_WRITE;
 		return read_or_write(value, &communication->COB_ID_emcy, set, *access, *data_type);
-	}else if(index == OD_INDEX_INHIBIT_TIME_EMCY && sub_index == 0){
-		*byte_size = sizeof(communication->inhibit_time_emcy);
-		*data_type = sizeof(communication->inhibit_time_emcy);
-		byte_pointer = (uint8_t*) &communication->inhibit_time_emcy;
-		*access = OD_ACCESS_READ_WRITE;
-		return read_or_write(value, &communication->inhibit_time_emcy, set, *access, *data_type);
 	}else if(index == OD_INDEX_CONSUMER_HEARTBEAT_TIME && sub_index < CONSUMER_HEARTBEAT_TIME_MAX_SUB_INDEX){
 		*byte_size = sizeof(communication->consumer_heartbeat_time);
 		*data_type = sizeof(communication->consumer_heartbeat_time)/sizeof(communication->consumer_heartbeat_time[0]);

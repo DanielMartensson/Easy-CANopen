@@ -11,6 +11,7 @@
 #include "../Hardware/Hardware.h"
 #include "../CANopen/CANopen_Internal.h"
 
+/* Call this function for every 1 millisecond */
 bool Easy_CANopen_Thread_Listen_Messages(CANopen *canopen) {
 	uint32_t COB_ID = 0;
 	uint8_t data[8] = { 0 };
@@ -87,6 +88,7 @@ bool Easy_CANopen_Thread_Listen_Messages(CANopen *canopen) {
 	return is_new_message;
 }
 
+/* Call this function for every 1 millisecond */
 void Easy_CANopen_Thread_Transmit_Messages(CANopen *canopen){
 	CANopen_Producer_HEARTBEAT_Transmit_Status(canopen);
 	CANopen_Producer_TIME_Transmit_Clock(canopen);

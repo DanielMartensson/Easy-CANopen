@@ -8,7 +8,7 @@
 #ifndef CANOPEN_OD_OD_H_
 #define CANOPEN_OD_OD_H_
 
-#include "../../Easy_CANopen/Structs.h"
+#include "../../Easy_CANopen/Easy_CANopen_Structs.h"
 
 OD_DATA_TYPE CANopen_OD_Get_Data_Type(CANopen *canopen, uint16_t index, uint8_t sub_index);
 uint32_t CANopen_OD_Get_Byte_Size(CANopen *canopen, uint16_t index, uint8_t sub_index);

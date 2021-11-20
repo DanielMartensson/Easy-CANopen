@@ -8,7 +8,7 @@
 #ifndef CANOPEN_NMT_NMT_INTERNAL_NMT_PROTOCOL_NMT_PROTOCOL_H_
 #define CANOPEN_NMT_NMT_INTERNAL_NMT_PROTOCOL_NMT_PROTOCOL_H_
 
-#include "../../../../Easy_CANopen/Structs.h"
+#include "../../../../Easy_CANopen/Easy_CANopen_Structs.h"
 
 /* 7.2.8.3.1 in CiA 305 1.1.1 */
 void CANopen_NMT_Protocol_Receive_Request_Enter_Status(CANopen *canopen, uint8_t status);

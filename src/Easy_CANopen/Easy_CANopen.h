@@ -9,7 +9,7 @@
 #define EASY_CANOPEN_EASY_CANOPEN_H_
 
 /* Enums and structs */
-#include "Structs.h"
+#include "Easy_CANopen_Structs.h"
 
 #ifdef __cplusplus
 extern "C" {

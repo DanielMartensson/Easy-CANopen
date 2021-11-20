@@ -8,7 +8,7 @@
 #ifndef CANOPEN_PDO_PDO_INTERNAL_PDO_PROTOCOL_PDO_PROTOCOL_H_
 #define CANOPEN_PDO_PDO_INTERNAL_PDO_PROTOCOL_PDO_PROTOCOL_H_
 
-#include "../../../../Easy_CANopen/Structs.h"
+#include "../../../../Easy_CANopen/Easy_CANopen_Structs.h"
 
 /* 7.5.2 and 7.2.2 in CiA 305 1.1.1 */
 void CANopen_PDO_Protocol_Produce_Request(uint16_t CAN_ID);
