@@ -23,13 +23,13 @@ void CANopen_LSS_Protocol_Receive_Request_Switch_Mode_Selective_Value(CANopen *c
 	/* Save parameter */
 	uint8_t cs = data[0];
 	uint32_t value = (data[4] << 24) | (data[3] << 16) | (data[2] << 8) | data[1];
-	if(cs == CS_LSS_INQUIRE_IDENTITY_VENDOR_ID)
+	if(cs == CS_LSS_SWITCH_MODE_SELECTIVE_VENDOR_ID)
 		canopen->od_communication.vendor_ID = value;
-	else if(cs == CS_LSS_INQUIRE_IDENTITY_PRODUCT_CODE)
+	else if(cs == CS_LSS_SWITCH_MODE_SELECTIVE_PRODUCT_CODE)
 		canopen->od_communication.product_code = value;
-	else if(cs == CS_LSS_INQUIRE_IDENTITY_REVISION_NUMBER)
+	else if(cs == CS_LSS_SWITCH_MODE_SELECTIVE_REVISION_NUMBER)
 		canopen->od_communication.revision_number = value;
-	else if(cs == CS_LSS_INQUIRE_IDENTITY_SERIAL_NUMBER)
+	else if(cs == CS_LSS_SWITCH_MODE_SELECTIVE_SERIAL_NUMBER)
 		canopen->od_communication.serial_number = value;
 
 	/* Response */

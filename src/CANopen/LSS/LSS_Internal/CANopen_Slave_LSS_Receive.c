@@ -14,7 +14,7 @@ void CANopen_Slave_LSS_Receive_Request(CANopen *canopen, uint8_t node_ID, uint8_
 	uint8_t cs = data[0];
 	if(cs == CS_LSS_SWITCH_MODE_GLOBAL){
 		CANopen_LSS_Protocol_Receive_Request_Switch_Mode_Global(canopen, data);
-	}else if(cs == CS_LSS_SWITCH_MODE_SELECTIVE){
+	}else if(cs || CS_LSS_SWITCH_MODE_SELECTIVE){
 		CANopen_LSS_Protocol_Receive_Request_Switch_Mode_Selective_Value(canopen, data);
 	}else if(cs == CS_LSS_CONFIGURE_NODE_ID){
 		CANopen_LSS_Protocol_Receive_Request_Configure_Node_ID(canopen, data);

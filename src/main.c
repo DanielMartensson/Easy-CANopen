@@ -15,15 +15,33 @@ int main() {
 	/* Reading process */
 	Easy_CANopen_Thread_Listen_Messages(&slave_node);
 
-	/* Set new ID to slave node */
-	uint8_t new_node_ID = 0x20; /* 32 */
-	Easy_CANopen_Other_Node_Set_Node_ID_To_Node(&master_node, new_node_ID);
+	/* Set identification to slave node */
+	uint32_t vendor_ID = 10003;
+	uint32_t product_code = 65467;
+	uint32_t revision_number = 565;
+	uint32_t serial_number = 3234;
+	Easy_CANopen_Other_Node_Set_Vendor_ID_To_Node(&master_node, vendor_ID);
+	Easy_CANopen_Other_Node_Set_Product_Code_To_Node(&master_node, product_code);
+	Easy_CANopen_Other_Node_Set_Revision_Number_To_Node(&master_node, revision_number);
+	Easy_CANopen_Other_Node_Set_Serial_Number_To_Node(&master_node, serial_number);
 
-	/* Reading process */
+	/* Reading process for the slave */
+	Easy_CANopen_Thread_Listen_Messages(&slave_node);
+	Easy_CANopen_Thread_Listen_Messages(&slave_node);
+	Easy_CANopen_Thread_Listen_Messages(&slave_node);
 	Easy_CANopen_Thread_Listen_Messages(&slave_node);
 
-	/* Display the node ID for slave node */
-	printf("New node ID for slave node = 0x%X", slave_node.slave.this_node_ID);
+	/* Read the process for the master */
+	Easy_CANopen_Thread_Listen_Messages(&master_node);
+
+	/* Display the identifications for slave node */
+	printf("Vendor ID = %i\n", slave_node.od_communication.vendor_ID);
+	printf("Product code = %i\n", slave_node.od_communication.product_code);
+	printf("Revision number = %i\n", slave_node.od_communication.revision_number);
+	printf("Serial number = %i\n", slave_node.od_communication.serial_number);
+
+	/* Dispay the response from the slave */
+	printf("Response is set: %i\n", master_node.master.lss.selective_value_is_set);
 
 	return 0;
 }
