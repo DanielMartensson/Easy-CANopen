@@ -50,10 +50,13 @@ See the examples in `Examples` folder for more examples.
 
 # Easy CANopen functionality
  
- - Set node ID address and get response back
- - Set vendor ID, product code, revision number and serial number and get response back
- - Set baud rate and get response back
- - Activate baud rate
+ - User functions:
+ 	- Set node ID address and get response back
+ 	- Set vendor ID, product code, revision number and serial number and get response back
+ 	- Set baud rate and get response back
+ 	- Activate baud rate
+ - Internal functions:
+ 	- EMCY message produce and consume
  	
 # Questions and answers
  - Q: Can this library be used with `C++`?
