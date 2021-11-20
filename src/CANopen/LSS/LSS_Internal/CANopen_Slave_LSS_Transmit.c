@@ -15,7 +15,7 @@ void CANopen_Slave_LSS_Transmit_Response_Switch_Mode_Selective_Value(){
 }
 
 void CANopen_Slave_LSS_Transmit_Response_Status_Message(uint8_t cs, uint8_t status_code, uint8_t status_code_specific){
-	CANopen_Slave_LSS_Transmit_Response_Status_Message(cs, status_code, status_code_specific);
+	CANopen_LSS_Protocol_Transmit_Response_Status_Message(cs, status_code, status_code_specific);
 }
 
 void CANopen_Slave_LSS_Transmit_Response_Inquire_Identity_Value(uint8_t cs, uint32_t value){

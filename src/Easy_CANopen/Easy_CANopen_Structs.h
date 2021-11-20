@@ -45,11 +45,11 @@ struct PDO_mapping{
 
 /* CiA 301: Object dictionary for communication parameter area 0x1000 -> 0x1FFF */
 struct OD_Communication{
-	uint32_t device_type;																/* Index 0x1000 sub index 0x0 */
+	uint32_t device_type;																/* Index 0x1000 sub index 0x0 - OK */
 	uint8_t error_register;																/* Index 0x1001 sub index 0x0 - OK*/
-	uint32_t manufacturer_status_register;												/* Index 0x1002 sub index 0x0 */
+	uint32_t manufacturer_status_register;												/* Index 0x1002 sub index 0x0 - OK */
 	uint32_t pre_defined_error_field[PRE_DEFINED_ERROR_FIELD_MAX_SUB_INDEX];			/* Index 0x1003 sub index 0x0 -> 0xA - OK */
-	uint32_t COB_ID_sync_message;														/* Index 0x1005 sub index 0x0 */
+	uint32_t COB_ID_sync_message;														/* Index 0x1005 sub index 0x0 - OK */
 	uint32_t communication_cycle_period;												/* Index 0x1006 sub index 0x0 */
 	uint32_t synchronous_window_length;													/* Index 0x1007 sub index 0x0 */
 	uint32_t manufacturer_device_name[OD_STRING_LENGTH];								/* Index 0x1008 sub index 0x0 */

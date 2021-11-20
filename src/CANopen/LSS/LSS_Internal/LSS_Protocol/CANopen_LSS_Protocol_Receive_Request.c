@@ -12,7 +12,7 @@
 #include "../LSS_Internal.h"
 
 void CANopen_LSS_Protocol_Receive_Request_Switch_Mode_Global(CANopen *canopen, uint8_t data[]){
-	canopen->slave.lss.switch_mode_global_protocol = data[0];
+	canopen->slave.lss.switch_mode_global_protocol = data[1]; 									/* Save the mode */
 }
 
 void CANopen_LSS_Protocol_Receive_Request_Switch_Mode_Selective_Value(CANopen *canopen, uint8_t data[]){

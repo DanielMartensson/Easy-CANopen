@@ -16,6 +16,11 @@ void CANopen_Producer_SYNC_Transmit_Synchronization(CANopen *canopen){
 	if(node_ID > 0)
 		return; /* This is slave node - Cannot send */
 
+	/* Check is valid */
+	uint8_t valid = canopen->od_communication.COB_ID_sync_message >> 31;
+	if(valid == 1)
+		return; /* Not valid */
+
 	/* Check if SYNC service is enabled */
 	if(canopen->master.nmt.this_node_status_operational == STATUS_OPERATIONAL_STOPPED)
 		return; /* NMT is in the stopped mode. SYNC service is disabled */

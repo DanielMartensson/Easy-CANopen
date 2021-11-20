@@ -11,10 +11,6 @@
 #include "LSS_Protocol/LSS_Protocol.h"
 
 void CANopen_Slave_LSS_Receive_Request(CANopen *canopen, uint8_t node_ID, uint8_t data[]){
-	/* Only master can send out the LSS to the other nodes */
-	if(node_ID > 0x0)
-		return;
-
 	uint8_t cs = data[0];
 	if(cs == CS_LSS_SWITCH_MODE_GLOBAL){
 		CANopen_LSS_Protocol_Receive_Request_Switch_Mode_Global(canopen, data);
