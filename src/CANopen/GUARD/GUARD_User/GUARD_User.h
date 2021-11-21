@@ -10,6 +10,6 @@
 
 #include "../../../Easy_CANopen/Easy_CANopen_Structs.h"
 
-void CANopen_Client_GUARD_Transmit_Request(CANopen *canopen, uint8_t node_ID, uint8_t data[]);
+void CANopen_Client_GUARD_Transmit_Request(CANopen *canopen, uint8_t node_ID);
 
 #endif /* CANOPEN_GUARD_GUARD_USER_GUARD_USER_H_ */

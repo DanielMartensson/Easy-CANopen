@@ -19,7 +19,7 @@ void CANopen_SYNC_Protocol_Produce_Synchronization(CANopen *canopen){
 		return; /* TODO: Send SDO abort code */
 
 	/* Create the COB ID */
-	uint32_t COB_ID = FUNCTION_CODE_SYNC_EMCY << 7; /* Node ID is zero here */
+	uint16_t COB_ID = FUNCTION_CODE_SYNC_EMCY << 7; /* Node ID is zero here */
 
 	/* Send the data */
 	uint8_t data[8] = {0};

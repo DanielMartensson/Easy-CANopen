@@ -61,6 +61,8 @@ See the examples in `Examples` folder for more examples.
  	- Save baude rate and node ID
 	- Check if there are non configured node ID
  	- Send bootup message
+ 	- Send heartbeat status
+ 	- Send guard status request
  - Internal functions:
  	- EMCY message produce and consume
  	

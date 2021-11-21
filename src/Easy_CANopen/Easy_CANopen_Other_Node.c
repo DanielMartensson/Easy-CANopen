@@ -242,11 +242,3 @@ void Easy_CANopen_Other_Node_Stop_Remote_Node(CANopen *canopen, uint8_t node_ID)
 	CANopen_Master_NMT_Transmit_Operation_State(canopen, CS_NMT_SERVICE_STOP_REMOTE_NODE, node_ID);
 }
 
-/*
- * Transmit bootup message to all other nodes
- * Requirements: No requirements
- * Responses:	 No responses back
- */
-void Easy_CANopen_Other_Node_Broadcast_Bootup_Message(CANopen *canopen){
-	CANopen_Producer_HEARTBEAT_Transmit_Bootup_Message(canopen);
-}

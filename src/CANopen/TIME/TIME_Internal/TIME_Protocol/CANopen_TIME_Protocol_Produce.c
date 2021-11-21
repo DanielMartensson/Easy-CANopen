@@ -42,7 +42,7 @@ void CANopen_TIME_Protocol_Produce_Clock(CANopen *canopen){
 	data[5] = days_since_1_januari_1984 >> 8;
 
 	/* Create the COB ID */
-	uint32_t COB_ID = FUNCTION_CODE_TIME << 7;	/* Only the master node send out this message */
+	uint16_t COB_ID = FUNCTION_CODE_TIME << 7;	/* Only the master node send out this message */
 
 	/* Send the message to client */
 	Hardware_CAN_Send_Message(COB_ID, data);

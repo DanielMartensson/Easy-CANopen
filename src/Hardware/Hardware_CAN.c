@@ -54,7 +54,7 @@ static void Internal_Receive(uint32_t *COB_ID, uint8_t data[], bool *is_new_mess
 }
 #endif
 
-STATUS_CODE Hardware_CAN_Send_Message(uint32_t COB_ID, uint8_t data[]) {
+STATUS_CODE Hardware_CAN_Send_Message(uint16_t COB_ID, uint8_t data[]) {
 	STATUS_CODE status;
 #if PROCESSOR_CHOICE == STM32
 	CAN_TxHeaderTypeDef TxHeader;
@@ -81,7 +81,7 @@ STATUS_CODE Hardware_CAN_Send_Message(uint32_t COB_ID, uint8_t data[]) {
 }
 
 /* Read the current CAN-bus message. Returning false if the message has been read before, else true */
-bool Hardware_CAN_Read_Message(uint32_t *COB_ID, uint8_t data[]) {
+bool Hardware_CAN_Read_Message(uint16_t *COB_ID, uint8_t data[]) {
 	bool is_new_message;
 	#if PROCESSOR_CHOICE == STM32
 	STM32_PLC_CAN_Get_ID_Data(ID, data, &is_new_message);

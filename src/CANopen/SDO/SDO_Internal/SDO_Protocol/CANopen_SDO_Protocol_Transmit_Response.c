@@ -12,7 +12,7 @@
 
 void CANopen_SDO_Protocol_Transmit_Response_Initiate(CANopen *canopen, uint8_t cs_response, uint8_t node_ID, uint8_t data[]){
 	/* Create the COB ID */
-	uint32_t COB_ID = 0;
+	uint16_t COB_ID = 0;
 	switch(cs_response){
 	case CS_SDO_INITIATE_DOWNLOAD_RESPONSE:
 		COB_ID = FUNCTION_CODE_SDO_RECEIVE << 7 | node_ID;
@@ -53,7 +53,7 @@ void CANopen_SDO_Protocol_Transmit_Response_Segment(CANopen *canopen, uint8_t cs
 	data[0] = (cs_response << 5) | (t << 4) | (n << 1) | c;
 
 	/* Create the COB ID */
-	uint32_t COB_ID;
+	uint16_t COB_ID;
 	switch(cs_response){
 	case CS_SDO_SEGMENT_DOWNLOAD_RESPONSE:
 		COB_ID = FUNCTION_CODE_SDO_RECEIVE << 7 | node_ID;

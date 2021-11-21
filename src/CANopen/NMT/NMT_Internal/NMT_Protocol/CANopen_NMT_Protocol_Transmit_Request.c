@@ -12,7 +12,7 @@
 
 void CANopen_NMT_Protocol_Transmit_Request_State(CANopen *canopen, uint8_t cs, uint8_t node_ID){
 	/* Create the COB ID */
-	uint32_t COB_ID = FUNCTION_CODE_NMT << 7 | node_ID;
+	uint16_t COB_ID = FUNCTION_CODE_NMT << 7 | node_ID;
 
 	/* Send the data */
 	uint8_t data[8] = {0};

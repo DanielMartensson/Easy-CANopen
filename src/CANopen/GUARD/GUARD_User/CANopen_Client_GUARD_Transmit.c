@@ -10,7 +10,7 @@
 /* Layers */
 #include "../GUARD_Internal/GUARD_Protocol/GUARD_Protocol.h"
 
-void CANopen_Client_GUARD_Transmit_Request(CANopen *canopen, uint8_t node_ID, uint8_t data[]){
+void CANopen_Client_GUARD_Transmit_Request(CANopen *canopen, uint8_t node_ID){
 	/* Check if guard is enabled */
 	if(canopen->od_communication.producer_heartbeat_time > 0)
 		return;

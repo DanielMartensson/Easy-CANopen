@@ -8,6 +8,33 @@
 #include "Easy_CANopen.h"
 
 /*
+ * Transmit bootup message to all other nodes
+ * Requirements: No requirements
+ * Responses:	 No responses back
+ */
+void Easy_CANopen_This_Node_Broadcast_Bootup_Message(CANopen *canopen){
+	CANopen_Producer_HEARTBEAT_Transmit_Bootup_Message(canopen);
+}
+
+/*
+ * Transmit heartbeat status to all other nodes
+ * Requirements: No requirements
+ * Responses:	 No responses back
+ */
+void Easy_CANopen_This_Node_Broadcast_Heartbeat_Status(CANopen *canopen){
+	CANopen_Producer_HEARTBEAT_Transmit_Status(canopen);
+}
+
+/*
+ * Transmit guard status to a specific node
+ * Requirements: No requirements
+ * Responses:	 Operational status
+ */
+void Easy_CANopen_This_Node_Transmit_Guard_Status_Request(CANopen *canopen, uint8_t node_ID){
+	CANopen_Client_GUARD_Transmit_Request(canopen, node_ID);
+}
+
+/*
  * Set the heartbeat time in milliseconds. If heartbeat time is 0, then HEARTBEAT service is deactivated and GUARD is enabled.
  */
 void Easy_CANopen_This_Node_Configure_Heartbeat_Interval(CANopen *canopen, uint16_t interval_ms){

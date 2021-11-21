@@ -37,8 +37,8 @@ extern "C" {
 #endif
 
 /* Transmit & Receive */
-STATUS_CODE Hardware_CAN_Send_Message(uint32_t COB_ID, uint8_t data[]);
-bool Hardware_CAN_Read_Message(uint32_t *ID, uint8_t data[]);
+STATUS_CODE Hardware_CAN_Send_Message(uint16_t COB_ID, uint8_t data[]);
+bool Hardware_CAN_Read_Message(uint16_t *ID, uint8_t data[]);
 bool CAN_Set_Baud_Rate(uint8_t table_index);
 
 /* Save and load data */

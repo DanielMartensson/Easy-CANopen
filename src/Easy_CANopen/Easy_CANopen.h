@@ -45,9 +45,12 @@ void Easy_CANopen_Other_Node_Check_If_This_Serial_Number_Or_Higher_Exist_At_The_
 void Easy_CANopen_Other_Node_Check_If_There_Are_Any_Non_Configured_Nodes_At_The_CAN_Network(CANopen *canopen);
 void Easy_CANopen_Other_Node_Start_Remote_Node(CANopen *canopen, uint8_t node_ID);
 void Easy_CANopen_Other_Node_Stop_Remote_Node(CANopen *canopen, uint8_t node_ID);
-void Easy_CANopen_Other_Node_Broadcast_Bootup_Message(CANopen *canopen);
 
 /* Functions for this node */
+void Easy_CANopen_This_Node_Broadcast_Bootup_Message(CANopen *canopen);
+void Easy_CANopen_This_Node_Broadcast_Heartbeat_Status(CANopen *canopen);
+void Easy_CANopen_This_Node_Transmit_Guard_Status_Request(CANopen *canopen, uint8_t node_ID);
+
 void Easy_CANopen_This_Node_Configure_Heartbeat_Interval(CANopen *canopen, uint16_t interval_ms);
 void Easy_CANopen_This_Node_Configure_Guard_Time_And_Life_Factor(CANopen *canopen, uint16_t guard_time_ms, uint8_t life_factor);
 

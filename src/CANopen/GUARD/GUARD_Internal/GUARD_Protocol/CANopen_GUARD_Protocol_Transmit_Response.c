@@ -17,6 +17,6 @@ void CANopen_GUARD_Protocol_Transmit_Response_Status(CANopen *canopen, uint8_t n
 	data[0] = (canopen->slave.nmt.this_node_toggle << 7) | canopen->slave.nmt.this_node_status_operational;
 
 	/* Create the COB ID and send the response to the client */
-	uint32_t COB_ID = FUNCTION_CODE_HEARTBEAT_GUARD << 7 | node_ID;
+	uint16_t COB_ID = FUNCTION_CODE_HEARTBEAT_GUARD << 7 | node_ID;
 	Hardware_CAN_Send_Message(COB_ID, data);
 }

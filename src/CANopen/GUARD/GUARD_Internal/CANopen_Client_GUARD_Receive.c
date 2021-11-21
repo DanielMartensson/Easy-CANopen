@@ -12,7 +12,7 @@
 
 void CANopen_Client_GUARD_Receive_Response_Status(CANopen *canopen, uint8_t node_ID, uint8_t data[]){
 	/* Check if guard is enabled */
-	if(canopen->od_communication.consumer_heartbeat_time == 0)
+	if(canopen->od_communication.producer_heartbeat_time > 0)
 		return;
 
 	/* A guard response have non zero data */
