@@ -26,7 +26,7 @@ That's the debugging mode for internal CAN feedback.
  - Step 1: Download this repository
  - Step 2: Go to `Hardware -> Hardware.h` and select your processor, if it's not available, please write code for it and send me a pull request
  - Step 3: Copy over the `Src` folder to your project folder inside your IDE. Rename `Src` to for example `Easy CANopen`. That's a good name.
- - Step 4: Use the `Examples -> Startup.txt` example as your initial starting code for a Easy CANopen project.
+ - Step 4: Use the `Examples -> Startup.txt` example as your initial starting code for an Easy CANopen project.
  
 ```c
 #include <stdlib.h>
@@ -55,9 +55,12 @@ See the examples in `Examples` folder for more examples.
  	- Get node ID address
  	- Set vendor ID, product code, revision number and serial number
  	- Get vendor ID, product code, revision number and serial number
+ 	- Check if vendor ID, product code, revision number low, revision number high, serial number low, serial number high exist
  	- Set baud rate
  	- Activate baud rate
  	- Save baude rate and node ID
+	- Check if there are non configured node ID
+ 	
  - Internal functions:
  	- EMCY message produce and consume
  	

@@ -34,8 +34,18 @@ void CANopen_Slave_LSS_Receive_Request(CANopen *canopen, uint8_t node_ID, uint8_
 		CANopen_LSS_Protocol_Receive_Request_Inquire_Identity_Value(canopen, data);
 	}else if(cs == CS_LSS_INQUIRE_IDENTITY_NODE_ID){
 		CANopen_LSS_Protocol_Receive_Request_Inquire_Identity_Value(canopen, data);
-	}else if(cs == CS_LSS_IDENTIFY_REMOTE_SLAVE){
+	}else if(cs == CS_LSS_IDENTIFY_REMOTE_SLAVE_VENDOR_ID){
 		CANopen_LSS_Protocol_Receive_Request_Identity_Remote_Slave_Value(canopen, data);
+	}else if(cs == CS_LSS_IDENTIFY_REMOTE_SLAVE_PRODUCT_CODE){
+			CANopen_LSS_Protocol_Receive_Request_Identity_Remote_Slave_Value(canopen, data);
+	}else if(cs == CS_LSS_IDENTIFY_REMOTE_SLAVE_REVISION_NUMBER_HIGH){
+			CANopen_LSS_Protocol_Receive_Request_Identity_Remote_Slave_Value(canopen, data);
+	}else if(cs == CS_LSS_IDENTIFY_REMOTE_SLAVE_REVISION_NUMBER_LOW){
+			CANopen_LSS_Protocol_Receive_Request_Identity_Remote_Slave_Value(canopen, data);
+	}else if(cs == CS_LSS_IDENTIFY_REMOTE_SLAVE_SERIAL_NUMBER_HIGH){
+			CANopen_LSS_Protocol_Receive_Request_Identity_Remote_Slave_Value(canopen, data);
+	}else if(cs == CS_LSS_IDENTIFY_REMOTE_SLAVE_SERIAL_NUMBER_LOW){
+			CANopen_LSS_Protocol_Receive_Request_Identity_Remote_Slave_Value(canopen, data);
 	}else if(cs == CS_LSS_IDENTIFY_REMOTE_SLAVE_NON_CONFIGURED){
 		CANopen_LSS_Protocol_Receive_Request_Identify_Non_Configured_Remote_Slave(canopen, data);
 	}
