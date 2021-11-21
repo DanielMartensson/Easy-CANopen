@@ -60,11 +60,11 @@ See the examples in `Examples` folder for more examples.
  	- Activate baud rate
  	- Save baude rate and node ID
 	- Check if there are non configured node ID
- 	- Send bootup message
- 	- Send heartbeat status
  	- Send guard status request
  - Internal functions:
  	- EMCY message produce and consume
+ 	- Send bootup message
+ 	- Send heartbeat status
  	
 # Questions and answers
  - Q: Can this library be used with `C++`?
