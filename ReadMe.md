@@ -51,10 +51,13 @@ See the examples in `Examples` folder for more examples.
 # Easy CANopen functionality
  
  - User functions:
- 	- Set node ID address and get response back
- 	- Set vendor ID, product code, revision number and serial number and get response back
- 	- Set baud rate and get response back
+ 	- Set node ID address
+ 	- Get node ID address
+ 	- Set vendor ID, product code, revision number and serial number
+ 	- Get vendor ID, product code, revision number and serial number
+ 	- Set baud rate
  	- Activate baud rate
+ 	- Save baude rate and node ID
  - Internal functions:
  	- EMCY message produce and consume
  	

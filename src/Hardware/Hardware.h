@@ -22,6 +22,9 @@
 #define EXTENDED 1
 #define CAN_ID_BITS_LENGTH STANDARD
 
+/* Save files */
+#define UINT8_T_ARRAY_NODE_ID_TABLE_INDEX "NODE_ID_TABLE_INDEX.TXT"
+
 /* C standard library */
 #include <stdint.h>
 #include <stdbool.h>

@@ -91,7 +91,6 @@ struct LSS{
 	uint32_t product_code;												/* Product code of this device or other device */
 	uint32_t revision_number;											/* Revision number of this device or other device */
 	uint32_t serial_number;												/* Serial number of this device or other device */
-	uint8_t table_index;												/* Baud rate table index */
 	uint8_t node_ID;													/* Node ID */
 	bool identity_found;												/* If vendor ID, product code, revision number or serial number has been found */
 	bool non_configured_node_ID_found;									/* If the node ID is at the error address 0xFF */
@@ -161,7 +160,8 @@ struct Slave{
 	struct SDO sdo;
 	struct PDO pdo[PDO_LENGTH];											/* Only for TPDO */
 	struct EMCY emcy;
-	uint8_t this_node_ID;
+	uint8_t this_node_ID;												/* This node ID of this slave */
+	uint8_t this_node_table_index;										/* Baud rate table index of this slave */
 };
 
 

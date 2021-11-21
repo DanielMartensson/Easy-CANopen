@@ -24,7 +24,15 @@ void CANopen_Slave_LSS_Receive_Request(CANopen *canopen, uint8_t node_ID, uint8_
 		CANopen_LSS_Protocol_Receive_Request_Activate_Bit_Timing_Parameters(canopen, data);
 	}else if(cs == CS_LSS_STORE_CONFIGURATION_PROTOCOL){
 		CANopen_LSS_Protocol_Receive_Request_Store_Configuration(canopen, data);
-	}else if(cs == CS_LSS_INQUIRE_IDENTITY){
+	}else if(cs == CS_LSS_INQUIRE_IDENTITY_VENDOR_ID){
+		CANopen_LSS_Protocol_Receive_Request_Inquire_Identity_Value(canopen, data);
+	}else if(cs == CS_LSS_INQUIRE_IDENTITY_PRODUCT_CODE){
+		CANopen_LSS_Protocol_Receive_Request_Inquire_Identity_Value(canopen, data);
+	}else if(cs == CS_LSS_INQUIRE_IDENTITY_REVISION_NUMBER){
+		CANopen_LSS_Protocol_Receive_Request_Inquire_Identity_Value(canopen, data);
+	}else if(cs == CS_LSS_INQUIRE_IDENTITY_SERIAL_NUMBER){
+		CANopen_LSS_Protocol_Receive_Request_Inquire_Identity_Value(canopen, data);
+	}else if(cs == CS_LSS_INQUIRE_IDENTITY_NODE_ID){
 		CANopen_LSS_Protocol_Receive_Request_Inquire_Identity_Value(canopen, data);
 	}else if(cs == CS_LSS_IDENTIFY_REMOTE_SLAVE){
 		CANopen_LSS_Protocol_Receive_Request_Identity_Remote_Slave_Value(canopen, data);
