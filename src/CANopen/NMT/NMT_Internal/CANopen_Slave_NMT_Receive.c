@@ -11,10 +11,6 @@
 #include "NMT_Protocol/NMT_Protocol.h"
 
 void CANopen_Slave_NMT_Receive_Request(CANopen *canopen, uint8_t node_ID, uint8_t data[]){
-	/* Only master can send out the NMT to the other nodes */
-	if(node_ID > 0x0)
-		return;
-
 	/* Check if it's correct node */
 	if(data[1] != canopen->slave.this_node_ID)
 		return;

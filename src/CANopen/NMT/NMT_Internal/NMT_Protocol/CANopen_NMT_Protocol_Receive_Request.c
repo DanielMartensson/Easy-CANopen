@@ -23,8 +23,7 @@ void CANopen_NMT_Protocol_Receive_Request_Node_Reset(CANopen *canopen){
 	CANopen_NMT_Protocol_Receive_Request_Restore_Communication_Parameters(canopen);
 
 	/* Send out a boot up message via HEARTBEAT service */
-	canopen->slave.nmt.this_node_status_operational = STATUS_OPERATIONAL_BOOT_UP;
-	CANopen_Producer_HEARTBEAT_Transmit_Status(canopen);
+	CANopen_Producer_HEARTBEAT_Transmit_Bootup_Message(canopen);
 
 	/* Activate the following services: PDO, SDO, SYNC, TIME, EMCY */
 	canopen->slave.nmt.this_node_status_operational = STATUS_OPERATIONAL_OPERATIONAL;
