@@ -12,6 +12,9 @@ int main() {
 	/* Set node ID for the slave */
 	slave_node_1.slave.this_node_ID = 50;
 	slave_node_2.slave.this_node_ID = 100;
+
+	/* To receive boot up messages, then producer heartbeat must be greater than zero */
+	slave_node_2.od_communication.producer_heartbeat_time = 100;
 	slave_node_2.slave.nmt.from_node_status_operational = 2; /* Just to make sure that this will be overwritten */
 
 	/* Broadcast a bootup message */

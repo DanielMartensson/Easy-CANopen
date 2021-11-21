@@ -30,10 +30,7 @@ void CANopen_Producer_HEARTBEAT_Transmit_Bootup_Message(CANopen *canopen){
 	if(node_ID == 0)
 		return; /* This is master node - Cannot send */
 
-	/* Create the heartbeat */
-	uint8_t temporary_operational_status = canopen->slave.nmt.this_node_status_operational;
-	canopen->slave.nmt.this_node_status_operational = STATUS_OPERATIONAL_BOOT_UP;
-	CANopen_HEARTBEAT_Protocol_Produce_Status(canopen, node_ID);
-	canopen->slave.nmt.this_node_status_operational = temporary_operational_status;
+	/* Create the heartbeat bootup message */
+	CANopen_HEARTBEAT_Protocol_Produce_Bootup_Mesage(canopen, node_ID);
 }
 

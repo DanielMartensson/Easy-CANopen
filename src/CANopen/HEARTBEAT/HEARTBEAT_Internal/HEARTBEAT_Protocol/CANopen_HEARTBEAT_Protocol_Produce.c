@@ -20,3 +20,12 @@ void CANopen_HEARTBEAT_Protocol_Produce_Status(CANopen *canopen, uint8_t node_ID
 	uint32_t COB_ID = FUNCTION_CODE_HEARTBEAT_GUARD << 7 | node_ID;
 	Hardware_CAN_Send_Message(COB_ID, data);
 }
+
+void CANopen_HEARTBEAT_Protocol_Produce_Bootup_Mesage(CANopen *canopen, uint8_t node_ID){
+	/* Bootup message is zero bytes */
+	uint8_t data[8] = {0};
+
+	/* Create the COB ID and send heartbeat to the node */
+	uint32_t COB_ID = FUNCTION_CODE_HEARTBEAT_GUARD << 7 | node_ID;
+	Hardware_CAN_Send_Message(COB_ID, data);
+}
