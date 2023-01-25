@@ -11,6 +11,10 @@ With this library, you can communicate with valves, engines, actuators, machiner
 Looking for SAE J1939 library?
 https://github.com/DanielMartensson/Open-SAE-J1939/
 
+# Status of the project
+2023-01-25
+I'm working on this project. The project has basic configuration so it can be used. But It need more work on the examples.
+
 # Getting started
 
 Learn the structure of the project, else you won't be able to understand Easy CANopen. The project structure follows the same pattern. 
