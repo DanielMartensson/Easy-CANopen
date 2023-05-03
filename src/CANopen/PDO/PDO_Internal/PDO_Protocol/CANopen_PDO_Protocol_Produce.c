@@ -43,7 +43,7 @@ void CANopen_PDO_Protocol_Produce_Data(CANopen *canopen, uint16_t CAN_ID, struct
 			data[position++] = value;
 			data[position++] = value >> 8;
 			data[position++] = value >> 16;
-			data[position++] = value >> 32;
+			data[position++] = value >> 24;
 			break;
 		}
 	}
