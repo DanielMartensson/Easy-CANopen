@@ -12,8 +12,16 @@ Looking for SAE J1939 library?
 https://github.com/DanielMartensson/Open-SAE-J1939/
 
 # Status of the project
-2023-01-25
-I'm working on this project. The project has basic configuration so it can be used. But It need more work on the examples.
+2023-05-04
+
+New goals for the project
+
+- ANSI C (C89) standard must be applied. See Open-SAE-J1939 library
+- Work more on MISRA C compability 
+- Make a basic CANopen library with a manual how to add new own features and functionality 
+- Test for bugs. I have changed to Microsoft Visual Studio Community and notice that MSVC is more sensitive than GCC compiler.
+
+C coding help is appreciated.
 
 # Getting started
 
