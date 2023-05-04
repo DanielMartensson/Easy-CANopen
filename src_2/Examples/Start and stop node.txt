@@ -1,0 +1,34 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+/* Include Easy CANopen */
+#include "Easy_CANopen/Easy_CANopen.h"
+
+int main() {
+	/* Declare our structures */
+	CANopen master_node = {0};
+	CANopen slave_node = {0}; /* Notice that ONLY one slave node can be connected to the CAN network */
+
+	/* Set node ID for the slave */
+	slave_node.slave.this_node_ID = 50;
+
+	/* Start node */
+	Easy_CANopen_Other_Node_Start_Remote_Node(&master_node, slave_node.slave.this_node_ID);
+
+	/* Reading process for the slave */
+	Easy_CANopen_Thread_Listen_Messages(&slave_node);
+
+	/* Check the operational status of the slave */
+	printf("Operational status = %i\n", slave_node.slave.nmt.this_node_status_operational);
+
+	/* Stop node */
+	Easy_CANopen_Other_Node_Stop_Remote_Node(&master_node, slave_node.slave.this_node_ID);
+
+	/* Reading process for the slave */
+	Easy_CANopen_Thread_Listen_Messages(&slave_node);
+
+	/* Check the operational status of the slave */
+	printf("Operational status = %i\n", slave_node.slave.nmt.this_node_status_operational);
+
+	return 0;
+}

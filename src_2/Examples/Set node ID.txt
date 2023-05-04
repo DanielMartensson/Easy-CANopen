@@ -1,0 +1,37 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+/* Include Easy CANopen */
+#include "Easy_CANopen/Easy_CANopen.h"
+
+int main() {
+	/* Declare our structures */
+	CANopen master_node = {0};
+	CANopen slave_node = {0}; /* Notice that ONLY one slave node can be connected to the CAN network */
+
+	/* Begin to activate node configuration so we can write our node ID */
+	Easy_CANopen_Other_Node_Activate_Node_Configuration(true);
+
+	/* Reading process for slave */
+	Easy_CANopen_Thread_Listen_Messages(&slave_node);
+
+	/* Set new ID to slave node */
+	uint8_t new_node_ID = 0x20; /* 32 */
+	Easy_CANopen_Other_Node_Set_Node_ID_To_Node(&master_node, new_node_ID);
+
+	/* Reading process for slave */
+	Easy_CANopen_Thread_Listen_Messages(&slave_node);
+
+	/* Reading process for master */
+	Easy_CANopen_Thread_Listen_Messages(&master_node);
+
+	/* Display the node ID for slave node */
+	printf("New node ID for slave node = 0x%X\n", slave_node.slave.this_node_ID);
+
+	/* Display the response from slave node */
+	printf("Is new message for master: %s\n", master_node.master.lss.status_code_is_new == true ? "true" : "false");
+	printf("Response from slave node to master node: %s\n", master_node.master.lss.status_code == STATUS_CODE_SUCCESSFUL ? "STATUS_CODE_SUCCESSFUL" : "STATUS_CODE_INVALID_PARAMETER");
+	printf("Response from slave node to master node: 0x%X\n", master_node.master.lss.status_code_specific);
+
+	return 0;
+}

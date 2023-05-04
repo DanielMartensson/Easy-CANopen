@@ -1,0 +1,55 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+/* Include Easy CANopen */
+#include "Easy_CANopen/Easy_CANopen.h"
+
+int main() {
+	/* Declare our structures */
+	CANopen master_node = {0};
+	CANopen slave_node = {0}; /* Notice that ONLY one slave node can be connected to the CAN network */
+
+	/* Set the internal identification */
+	slave_node.od_communication.vendor_ID = 1232;
+	slave_node.od_communication.product_code = 4324;
+	slave_node.od_communication.revision_number = 5435;
+	slave_node.od_communication.serial_number = 3411;
+
+	/* Vendor ID 6000 */
+	Easy_CANopen_Other_Node_Check_If_This_Vendor_ID_Exist_At_The_CAN_Network(&master_node, 1234);
+	Easy_CANopen_Thread_Listen_Messages(&slave_node);
+	Easy_CANopen_Thread_Listen_Messages(&master_node);
+	printf("Identity found = %s\n", master_node.master.lss.identity_found == true ? "true" : "false");
+
+	/* Product code 4324 */
+	Easy_CANopen_Other_Node_Check_If_This_Product_Code_Exist_At_The_CAN_Network(&master_node, 4324);
+	Easy_CANopen_Thread_Listen_Messages(&slave_node);
+	Easy_CANopen_Thread_Listen_Messages(&master_node);
+	printf("Identity found = %s\n", master_node.master.lss.identity_found == true ? "true" : "false");
+
+	/* Revision number 5000 or higher */
+	Easy_CANopen_Other_Node_Check_If_This_Revision_Number_Or_Higher_Exist_At_The_CAN_Network(&master_node, 5000);
+	Easy_CANopen_Thread_Listen_Messages(&slave_node);
+	Easy_CANopen_Thread_Listen_Messages(&master_node);
+	printf("Identity found = %s\n", master_node.master.lss.identity_found == true ? "true" : "false");
+
+	/* Revision number 5500 or lower */
+	Easy_CANopen_Other_Node_Check_If_This_Revision_Number_Or_Lower_Exist_At_The_CAN_Network(&master_node, 5000);
+	Easy_CANopen_Thread_Listen_Messages(&slave_node);
+	Easy_CANopen_Thread_Listen_Messages(&master_node);
+	printf("Identity found = %s\n", master_node.master.lss.identity_found == true ? "true" : "false");
+
+	/* Serial number 4000 or higher */
+	Easy_CANopen_Other_Node_Check_If_This_Serial_Number_Or_Higher_Exist_At_The_CAN_Network(&master_node, 4000);
+	Easy_CANopen_Thread_Listen_Messages(&slave_node);
+	Easy_CANopen_Thread_Listen_Messages(&master_node);
+	printf("Identity found = %s\n", master_node.master.lss.identity_found == true ? "true" : "false");
+
+	/* Serial number 3800 or lower */
+	Easy_CANopen_Other_Node_Check_If_This_Serial_Number_Or_Lower_Exist_At_The_CAN_Network(&master_node, 3800);
+	Easy_CANopen_Thread_Listen_Messages(&slave_node);
+	Easy_CANopen_Thread_Listen_Messages(&master_node);
+	printf("Identity found = %s\n", master_node.master.lss.identity_found == true ? "true" : "false");
+
+	return 0;
+}

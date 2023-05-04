@@ -1,0 +1,30 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+/* Include Easy CANopen */
+#include "Easy_CANopen/Easy_CANopen.h"
+
+int main() {
+	/* Declare our structures */
+	CANopen slave_node_1 = {0};
+	CANopen slave_node_2 = {0}; /* Notice that ONLY one slave node can be connected to the CAN network */
+
+	/* Set node ID for the slave */
+	slave_node_1.slave.this_node_ID = 50;
+	slave_node_2.slave.this_node_ID = 100;
+
+	/* To receive boot up messages, then producer heartbeat must be greater than zero */
+	slave_node_2.od_communication.producer_heartbeat_time = 100;
+	slave_node_2.slave.nmt.from_node_status_operational = 2; /* Just to make sure that this will be overwritten */
+
+	/* Broadcast a bootup message */
+	Easy_CANopen_This_Node_Broadcast_Bootup_Message(&slave_node_1);
+
+	/* Readning process for the other slave node */
+	Easy_CANopen_Thread_Listen_Messages(&slave_node_2);
+
+	/* Check the response from slave node 1 */
+	printf("Status operational for slave node 1: %i", slave_node_2.slave.nmt.from_node_status_operational);
+
+	return 0;
+}

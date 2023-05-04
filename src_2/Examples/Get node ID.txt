@@ -1,0 +1,28 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+/* Include Easy CANopen */
+#include "Easy_CANopen/Easy_CANopen.h"
+
+int main() {
+	/* Declare our structures */
+	CANopen master_node = {0};
+	CANopen slave_node = {0}; /* Notice that ONLY one slave node can be connected to the CAN network */
+
+	/* Set the node ID for slave */
+	slave_node.slave.this_node_ID = 100;
+
+	/* Inquire for identifications from slave */
+	Easy_CANopen_Other_Node_Get_Node_ID_From_Node(&master_node);
+
+	/* Reading process for slave */
+	Easy_CANopen_Thread_Listen_Messages(&slave_node);
+
+	/* Reading process for master */
+	Easy_CANopen_Thread_Listen_Messages(&master_node);
+
+	/* Display the node ID for slave node */
+	printf("Node ID = %i\n", master_node.master.lss.node_ID);
+
+	return 0;
+}

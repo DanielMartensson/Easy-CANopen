@@ -1,0 +1,43 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+/* Include Easy CANopen */
+#include "Easy_CANopen/Easy_CANopen.h"
+
+int main() {
+	/* Declare our structures */
+	CANopen master_node = {0};
+	CANopen slave_node = {0}; /* Notice that ONLY one slave node can be connected to the CAN network */
+
+	/* Set the internal identification */
+	slave_node.od_communication.vendor_ID = 1232;
+	slave_node.od_communication.product_code = 4324;
+	slave_node.od_communication.revision_number = 5435;
+	slave_node.od_communication.serial_number = 3411;
+
+	/* Inquire for identifications from slave */
+	Easy_CANopen_Other_Node_Get_Vendor_ID_From_Node(&master_node);
+	Easy_CANopen_Other_Node_Get_Product_Code_From_Node(&master_node);
+	Easy_CANopen_Other_Node_Get_Revision_Number_From_Node(&master_node);
+	Easy_CANopen_Other_Node_Get_Serial_Number_From_Node(&master_node);
+
+	/* Reading process for slave */
+	Easy_CANopen_Thread_Listen_Messages(&slave_node);
+	Easy_CANopen_Thread_Listen_Messages(&slave_node);
+	Easy_CANopen_Thread_Listen_Messages(&slave_node);
+	Easy_CANopen_Thread_Listen_Messages(&slave_node);
+
+	/* Reading process for master */
+	Easy_CANopen_Thread_Listen_Messages(&master_node);
+	Easy_CANopen_Thread_Listen_Messages(&master_node);
+	Easy_CANopen_Thread_Listen_Messages(&master_node);
+	Easy_CANopen_Thread_Listen_Messages(&master_node);
+
+	/* Display the identifications for slave node */
+	printf("Vendor ID = %i\n", master_node.master.lss.vendor_ID);
+	printf("Product code = %i\n", master_node.master.lss.product_code);
+	printf("Revision number = %i\n", master_node.master.lss.revision_number);
+	printf("Serial number = %i\n", master_node.master.lss.serial_number);
+
+	return 0;
+}
