@@ -5,7 +5,7 @@
 #include "Easy_CANopen/Easy_CANopen.h"
 
 int main() {
-	/* Declare our structures */
+	/* Declare our structures  */
 	CANopen master_node = { 0 };
 	CANopen slave_node = { 0 }; /* Notice that ONLY one slave node can be connected to the CAN network */
 
