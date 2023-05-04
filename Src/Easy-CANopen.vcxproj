@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CANopen\EMCY\EMCY_Internal\CANopen_Consumer_EMCY_Receive.c" />
+    <ClCompile Include="CANopen\EMCY\EMCY_Internal\CANopen_Producer_EMCY_Transmit.c" />
+    <ClCompile Include="CANopen\EMCY\EMCY_Internal\EMCY_Protocol\CANopen_EMCY_Protocol_Consume.c" />
+    <ClCompile Include="CANopen\EMCY\EMCY_Internal\EMCY_Protocol\CANopen_EMCY_Protocol_Produce.c" />
+    <ClCompile Include="CANopen\GUARD\GUARD_Internal\CANopen_Client_GUARD_Receive.c" />
+    <ClCompile Include="CANopen\GUARD\GUARD_Internal\CANopen_Server_GUARD_Receive.c" />
+    <ClCompile Include="CANopen\GUARD\GUARD_Internal\CANopen_Server_GUARD_Transmit.c" />
+    <ClCompile Include="CANopen\GUARD\GUARD_Internal\GUARD_Protocol\CANopen_GUARD_Protocol_Receive_Request.c" />
+    <ClCompile Include="CANopen\GUARD\GUARD_Internal\GUARD_Protocol\CANopen_GUARD_Protocol_Receive_Response.c" />
+    <ClCompile Include="CANopen\GUARD\GUARD_Internal\GUARD_Protocol\CANopen_GUARD_Protocol_Transmit_Request.c" />
+    <ClCompile Include="CANopen\GUARD\GUARD_Internal\GUARD_Protocol\CANopen_GUARD_Protocol_Transmit_Response.c" />
+    <ClCompile Include="CANopen\GUARD\GUARD_User\CANopen_Client_GUARD_Transmit.c" />
+    <ClCompile Include="CANopen\HEARTBEAT\HEARTBEAT_Internal\CANopen_Consumer_HEARTBEAT_Receive.c" />
+    <ClCompile Include="CANopen\HEARTBEAT\HEARTBEAT_Internal\CANopen_Producer_HEARTBEAT_Transmit.c" />
+    <ClCompile Include="CANopen\HEARTBEAT\HEARTBEAT_Internal\HEARTBEAT_Protocol\CANopen_HEARTBEAT_Protocol_Consume.c" />
+    <ClCompile Include="CANopen\HEARTBEAT\HEARTBEAT_Internal\HEARTBEAT_Protocol\CANopen_HEARTBEAT_Protocol_Produce.c" />
+    <ClCompile Include="CANopen\LSS\LSS_Internal\CANopen_Master_LSS_Receive.c" />
+    <ClCompile Include="CANopen\LSS\LSS_Internal\CANopen_Slave_LSS_Receive.c" />
+    <ClCompile Include="CANopen\LSS\LSS_Internal\CANopen_Slave_LSS_Transmit.c" />
+    <ClCompile Include="CANopen\LSS\LSS_Internal\LSS_Protocol\CANopen_LSS_Protocol_Receive_Request.c" />
+    <ClCompile Include="CANopen\LSS\LSS_Internal\LSS_Protocol\CANopen_LSS_Protocol_Receive_Response.c" />
+    <ClCompile Include="CANopen\LSS\LSS_Internal\LSS_Protocol\CANopen_LSS_Protocol_Transmit_Request.c" />
+    <ClCompile Include="CANopen\LSS\LSS_Internal\LSS_Protocol\CANopen_LSS_Protocol_Transmit_Response.c" />
+    <ClCompile Include="CANopen\LSS\LSS_User\CANopen_Master_LSS_Transmit.c" />
+    <ClCompile Include="CANopen\NMT\NMT_Internal\CANopen_Slave_NMT_Receive.c" />
+    <ClCompile Include="CANopen\NMT\NMT_Internal\NMT_Protocol\CANopen_NMT_Protocol_Receive_Request.c" />
+    <ClCompile Include="CANopen\NMT\NMT_Internal\NMT_Protocol\CANopen_NMT_Protocol_Transmit_Request.c" />
+    <ClCompile Include="CANopen\NMT\NMT_User\CANopen_Master_NMT_Transmit.c" />
+    <ClCompile Include="CANopen\OD\CANopen_OD.c" />
+    <ClCompile Include="CANopen\PDO\PDO_Internal\CANopen_Consumer_PDO_Receive.c" />
+    <ClCompile Include="CANopen\PDO\PDO_Internal\CANopen_Producer_PDO_Receive.c" />
+    <ClCompile Include="CANopen\PDO\PDO_Internal\CANopen_Producer_PDO_Transmit.c" />
+    <ClCompile Include="CANopen\PDO\PDO_Internal\PDO_Protocol\CANopen_PDO_Protocol_Consume.c" />
+    <ClCompile Include="CANopen\PDO\PDO_Internal\PDO_Protocol\CANopen_PDO_Protocol_Produce.c" />
+    <ClCompile Include="CANopen\PDO\PDO_User\CANopen_Consumer_PDO_Transmit.c" />
+    <ClCompile Include="CANopen\SDO\SDO_Internal\CANopen_Client_SDO_Receive.c" />
+    <ClCompile Include="CANopen\SDO\SDO_Internal\CANopen_Server_SDO_Receive.c" />
+    <ClCompile Include="CANopen\SDO\SDO_Internal\CANopen_Server_SDO_Transmit.c" />
+    <ClCompile Include="CANopen\SDO\SDO_Internal\SDO_Protocol\CANopen_SDO_Protocol_Receive_Request.c" />
+    <ClCompile Include="CANopen\SDO\SDO_Internal\SDO_Protocol\CANopen_SDO_Protocol_Receive_Response.c" />
+    <ClCompile Include="CANopen\SDO\SDO_Internal\SDO_Protocol\CANopen_SDO_Protocol_Transmit_Request.c" />
+    <ClCompile Include="CANopen\SDO\SDO_Internal\SDO_Protocol\CANopen_SDO_Protocol_Transmit_Response.c" />
+    <ClCompile Include="CANopen\SDO\SDO_User\CANopen_Client_SDO_Transmit.c" />
+    <ClCompile Include="CANopen\SYNC\SYNC_Internal\CANopen_Consumer_SYNC_Receive.c" />
+    <ClCompile Include="CANopen\SYNC\SYNC_Internal\CANopen_Producer_SYNC_Transmit.c" />
+    <ClCompile Include="CANopen\SYNC\SYNC_Internal\SYNC_Protocol\CANopen_SYNC_Protocol_Consume.c" />
+    <ClCompile Include="CANopen\SYNC\SYNC_Internal\SYNC_Protocol\CANopen_SYNC_Protocol_Produce.c" />
+    <ClCompile Include="CANopen\TIME\TIME_Internal\CANopen_Consumer_TIME_Receive.c" />
+    <ClCompile Include="CANopen\TIME\TIME_Internal\CANopen_Producer_TIME_Transmit.c" />
+    <ClCompile Include="CANopen\TIME\TIME_Internal\TIME_Protocol\CANopen_TIME_Protocol_Consume.c" />
+    <ClCompile Include="CANopen\TIME\TIME_Internal\TIME_Protocol\CANopen_TIME_Protocol_Produce.c" />
+    <ClCompile Include="Easy_CANopen\Easy_CANopen_Other_Node.c" />
+    <ClCompile Include="Easy_CANopen\Easy_CANopen_This_Node.c" />
+    <ClCompile Include="Easy_CANopen\Easy_CANopen_Thread.c" />
+    <ClCompile Include="Hardware\Hardware_CAN.c" />
+    <ClCompile Include="Hardware\Hardware_Memory.c" />
+    <ClCompile Include="Hardware\Hardware_Time.c" />
+    <ClCompile Include="main.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CANopen\CANopen_Internal.h" />
+    <ClInclude Include="CANopen\CANopen_User.h" />
+    <ClInclude Include="CANopen\EMCY\EMCY_Internal\EMCY_Internal.h" />
+    <ClInclude Include="CANopen\EMCY\EMCY_Internal\EMCY_Protocol\EMCY_Protocol.h" />
+    <ClInclude Include="CANopen\Global_Enums\Enum_Baudrate_Codes.h" />
+    <ClInclude Include="CANopen\Global_Enums\Enum_COB_ID_Codes.h" />
+    <ClInclude Include="CANopen\Global_Enums\Enum_Command_Specifier_Codes.h" />
+    <ClInclude Include="CANopen\Global_Enums\Enum_Error_Codes.h" />
+    <ClInclude Include="CANopen\Global_Enums\Enum_Function_Codes.h" />
+    <ClInclude Include="CANopen\Global_Enums\Enum_Mode_Codes.h" />
+    <ClInclude Include="CANopen\Global_Enums\Enum_Object_Dictionary_Codes.h" />
+    <ClInclude Include="CANopen\Global_Enums\Enum_Status_Codes.h" />
+    <ClInclude Include="CANopen\Global_Enums\Global_Enums.h" />
+    <ClInclude Include="CANopen\GUARD\GUARD_Internal\GUARD_Internal.h" />
+    <ClInclude Include="CANopen\GUARD\GUARD_Internal\GUARD_Protocol\GUARD_Protocol.h" />
+    <ClInclude Include="CANopen\GUARD\GUARD_User\GUARD_User.h" />
+    <ClInclude Include="CANopen\HEARTBEAT\HEARTBEAT_Internal\HEARTBEAT_Internal.h" />
+    <ClInclude Include="CANopen\HEARTBEAT\HEARTBEAT_Internal\HEARTBEAT_Protocol\HEARTBEAT_Protocol.h" />
+    <ClInclude Include="CANopen\LSS\LSS_Internal\LSS_Internal.h" />
+    <ClInclude Include="CANopen\LSS\LSS_Internal\LSS_Protocol\LSS_Protocol.h" />
+    <ClInclude Include="CANopen\LSS\LSS_User\LSS_User.h" />
+    <ClInclude Include="CANopen\NMT\NMT.h" />
+    <ClInclude Include="CANopen\NMT\NMT_Internal\NMT_Internal.h" />
+    <ClInclude Include="CANopen\NMT\NMT_Internal\NMT_Protocol\NMT_Protocol.h" />
+    <ClInclude Include="CANopen\NMT\NMT_User\NMT_User.h" />
+    <ClInclude Include="CANopen\OD\OD.h" />
+    <ClInclude Include="CANopen\PDO\PDO_Internal\PDO_Internal.h" />
+    <ClInclude Include="CANopen\PDO\PDO_Internal\PDO_Protocol\PDO_Protocol.h" />
+    <ClInclude Include="CANopen\PDO\PDO_User\PDO_User.h" />
+    <ClInclude Include="CANopen\SDO\SDO_Internal\SDO_Internal.h" />
+    <ClInclude Include="CANopen\SDO\SDO_Internal\SDO_Protocol\SDO_Protocol.h" />
+    <ClInclude Include="CANopen\SDO\SDO_User\SDO_User.h" />
+    <ClInclude Include="CANopen\SYNC\SYNC_Internal\SYNC_Internal.h" />
+    <ClInclude Include="CANopen\SYNC\SYNC_Internal\SYNC_Protocol\SYNC_Protocol.h" />
+    <ClInclude Include="CANopen\TIME\TIME_Internal\TIME_Internal.h" />
+    <ClInclude Include="CANopen\TIME\TIME_Internal\TIME_Protocol\TIME_Protocol.h" />
+    <ClInclude Include="Easy_CANopen\Easy_CANopen.h" />
+    <ClInclude Include="Easy_CANopen\Easy_CANopen_Structs.h" />
+    <ClInclude Include="Hardware\Hardware.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{0b67501c-1676-49b4-8caa-e5ead2d1a4e7}</ProjectGuid>
+    <RootNamespace>EasyCANopen</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

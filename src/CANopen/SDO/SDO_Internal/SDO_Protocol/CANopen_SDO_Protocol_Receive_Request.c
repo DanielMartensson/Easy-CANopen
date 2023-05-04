@@ -35,7 +35,7 @@ void CANopen_SDO_Protocol_Receive_Request_Initiate(CANopen *canopen, uint8_t cs_
 		uint32_t value = d;
 		uint32_t byte_size;
 		OD_DATA_TYPE data_type;
-		uint8_t *byte_pointer;
+		uint8_t* byte_pointer = NULL;
 		OD_ACCESS access;
 		CANopen_OD_Bank(canopen, index, sub_index, set, &value, &byte_size, &data_type, byte_pointer, &access);
 

@@ -16,7 +16,7 @@ OD_DATA_TYPE CANopen_OD_Get_Data_Type(CANopen *canopen, uint16_t index, uint8_t 
 	uint32_t value;
 	uint32_t byte_size;
 	OD_DATA_TYPE data_type;
-	uint8_t *byte_pointer;
+	uint8_t* byte_pointer = NULL;
 	OD_ACCESS access;
 
 	/* Get the data type from the bank and return it back */
@@ -31,7 +31,7 @@ uint32_t CANopen_OD_Get_Byte_Size(CANopen *canopen, uint16_t index, uint8_t sub_
 	uint32_t value;
 	uint32_t byte_size;
 	OD_DATA_TYPE data_type;
-	uint8_t *byte_pointer;
+	uint8_t* byte_pointer = NULL;
 	OD_ACCESS access;
 
 	/* Get the byte size from the bank and return it back */
@@ -46,7 +46,7 @@ uint8_t *CANopen_OD_Get_Byte_Pointer(CANopen *canopen, uint16_t index, uint8_t s
 	uint32_t value;
 	uint32_t byte_size;
 	OD_DATA_TYPE data_type;
-	uint8_t *byte_pointer;
+	uint8_t* byte_pointer = NULL;
 	OD_ACCESS access;
 
 	/* Get the byte pointer from the bank and return it back */
@@ -60,7 +60,7 @@ uint32_t CANopen_OD_Get_Value(CANopen *canopen, uint16_t index, uint8_t sub_inde
 	uint32_t value;
 	uint32_t byte_size;
 	OD_DATA_TYPE data_type;
-	uint8_t *byte_pointer;
+	uint8_t* byte_pointer = NULL;
 	OD_ACCESS access;
 
 	/* Get the byte pointer from the bank and return it back */
@@ -73,7 +73,7 @@ OD_STATUS CANopen_OD_Set_Value(CANopen *canopen, uint16_t index, uint8_t sub_ind
 	bool set = true;
 	uint32_t byte_size;
 	OD_DATA_TYPE data_type;
-	uint8_t *byte_pointer;
+	uint8_t* byte_pointer = NULL;
 	OD_ACCESS access;
 
 	/* Get the byte pointer from the bank and return it back */

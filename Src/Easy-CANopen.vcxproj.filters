@@ -1,0 +1,312 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CANopen\EMCY\EMCY_Internal\EMCY_Protocol\CANopen_EMCY_Protocol_Consume.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\EMCY\EMCY_Internal\EMCY_Protocol\CANopen_EMCY_Protocol_Produce.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\EMCY\EMCY_Internal\CANopen_Consumer_EMCY_Receive.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\EMCY\EMCY_Internal\CANopen_Producer_EMCY_Transmit.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\GUARD\GUARD_Internal\GUARD_Protocol\CANopen_GUARD_Protocol_Receive_Request.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\GUARD\GUARD_Internal\GUARD_Protocol\CANopen_GUARD_Protocol_Receive_Response.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\GUARD\GUARD_Internal\GUARD_Protocol\CANopen_GUARD_Protocol_Transmit_Request.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\GUARD\GUARD_Internal\GUARD_Protocol\CANopen_GUARD_Protocol_Transmit_Response.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\GUARD\GUARD_Internal\CANopen_Client_GUARD_Receive.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\GUARD\GUARD_Internal\CANopen_Server_GUARD_Receive.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\GUARD\GUARD_Internal\CANopen_Server_GUARD_Transmit.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\GUARD\GUARD_User\CANopen_Client_GUARD_Transmit.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\HEARTBEAT\HEARTBEAT_Internal\HEARTBEAT_Protocol\CANopen_HEARTBEAT_Protocol_Consume.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\HEARTBEAT\HEARTBEAT_Internal\HEARTBEAT_Protocol\CANopen_HEARTBEAT_Protocol_Produce.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\HEARTBEAT\HEARTBEAT_Internal\CANopen_Consumer_HEARTBEAT_Receive.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\HEARTBEAT\HEARTBEAT_Internal\CANopen_Producer_HEARTBEAT_Transmit.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\LSS\LSS_Internal\LSS_Protocol\CANopen_LSS_Protocol_Receive_Request.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\LSS\LSS_Internal\LSS_Protocol\CANopen_LSS_Protocol_Receive_Response.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\LSS\LSS_Internal\LSS_Protocol\CANopen_LSS_Protocol_Transmit_Request.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\LSS\LSS_Internal\LSS_Protocol\CANopen_LSS_Protocol_Transmit_Response.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\LSS\LSS_Internal\CANopen_Master_LSS_Receive.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\LSS\LSS_Internal\CANopen_Slave_LSS_Receive.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\LSS\LSS_Internal\CANopen_Slave_LSS_Transmit.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\LSS\LSS_User\CANopen_Master_LSS_Transmit.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\NMT\NMT_Internal\NMT_Protocol\CANopen_NMT_Protocol_Receive_Request.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\NMT\NMT_Internal\NMT_Protocol\CANopen_NMT_Protocol_Transmit_Request.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\NMT\NMT_Internal\CANopen_Slave_NMT_Receive.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\NMT\NMT_User\CANopen_Master_NMT_Transmit.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\OD\CANopen_OD.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\PDO\PDO_Internal\PDO_Protocol\CANopen_PDO_Protocol_Consume.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\PDO\PDO_Internal\PDO_Protocol\CANopen_PDO_Protocol_Produce.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\PDO\PDO_Internal\CANopen_Consumer_PDO_Receive.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\PDO\PDO_Internal\CANopen_Producer_PDO_Receive.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\PDO\PDO_Internal\CANopen_Producer_PDO_Transmit.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\PDO\PDO_User\CANopen_Consumer_PDO_Transmit.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\SDO\SDO_Internal\SDO_Protocol\CANopen_SDO_Protocol_Receive_Request.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\SDO\SDO_Internal\SDO_Protocol\CANopen_SDO_Protocol_Receive_Response.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\SDO\SDO_Internal\SDO_Protocol\CANopen_SDO_Protocol_Transmit_Request.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\SDO\SDO_Internal\SDO_Protocol\CANopen_SDO_Protocol_Transmit_Response.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\SDO\SDO_Internal\CANopen_Client_SDO_Receive.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\SDO\SDO_Internal\CANopen_Server_SDO_Receive.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\SDO\SDO_Internal\CANopen_Server_SDO_Transmit.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\SDO\SDO_User\CANopen_Client_SDO_Transmit.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\SYNC\SYNC_Internal\SYNC_Protocol\CANopen_SYNC_Protocol_Consume.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\SYNC\SYNC_Internal\SYNC_Protocol\CANopen_SYNC_Protocol_Produce.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\SYNC\SYNC_Internal\CANopen_Consumer_SYNC_Receive.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\SYNC\SYNC_Internal\CANopen_Producer_SYNC_Transmit.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\TIME\TIME_Internal\TIME_Protocol\CANopen_TIME_Protocol_Consume.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\TIME\TIME_Internal\TIME_Protocol\CANopen_TIME_Protocol_Produce.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\TIME\TIME_Internal\CANopen_Consumer_TIME_Receive.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CANopen\TIME\TIME_Internal\CANopen_Producer_TIME_Transmit.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Easy_CANopen\Easy_CANopen_Other_Node.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Easy_CANopen\Easy_CANopen_This_Node.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Easy_CANopen\Easy_CANopen_Thread.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Hardware\Hardware_CAN.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Hardware\Hardware_Memory.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Hardware\Hardware_Time.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CANopen\EMCY\EMCY_Internal\EMCY_Protocol\EMCY_Protocol.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CANopen\EMCY\EMCY_Internal\EMCY_Internal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CANopen\Global_Enums\Enum_Baudrate_Codes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CANopen\Global_Enums\Enum_COB_ID_Codes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CANopen\Global_Enums\Enum_Command_Specifier_Codes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CANopen\Global_Enums\Enum_Error_Codes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CANopen\Global_Enums\Enum_Function_Codes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CANopen\Global_Enums\Enum_Mode_Codes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CANopen\Global_Enums\Enum_Object_Dictionary_Codes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CANopen\Global_Enums\Enum_Status_Codes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CANopen\Global_Enums\Global_Enums.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CANopen\GUARD\GUARD_Internal\GUARD_Protocol\GUARD_Protocol.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CANopen\GUARD\GUARD_Internal\GUARD_Internal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CANopen\GUARD\GUARD_User\GUARD_User.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CANopen\HEARTBEAT\HEARTBEAT_Internal\HEARTBEAT_Protocol\HEARTBEAT_Protocol.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CANopen\HEARTBEAT\HEARTBEAT_Internal\HEARTBEAT_Internal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CANopen\LSS\LSS_Internal\LSS_Protocol\LSS_Protocol.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CANopen\LSS\LSS_Internal\LSS_Internal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CANopen\LSS\LSS_User\LSS_User.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CANopen\NMT\NMT_Internal\NMT_Protocol\NMT_Protocol.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CANopen\NMT\NMT_Internal\NMT_Internal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CANopen\NMT\NMT_User\NMT_User.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CANopen\NMT\NMT.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CANopen\OD\OD.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CANopen\PDO\PDO_Internal\PDO_Protocol\PDO_Protocol.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CANopen\PDO\PDO_Internal\PDO_Internal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CANopen\PDO\PDO_User\PDO_User.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CANopen\SDO\SDO_Internal\SDO_Protocol\SDO_Protocol.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CANopen\SDO\SDO_Internal\SDO_Internal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CANopen\SDO\SDO_User\SDO_User.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CANopen\SYNC\SYNC_Internal\SYNC_Protocol\SYNC_Protocol.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CANopen\SYNC\SYNC_Internal\SYNC_Internal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CANopen\TIME\TIME_Internal\TIME_Protocol\TIME_Protocol.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CANopen\TIME\TIME_Internal\TIME_Internal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CANopen\CANopen_Internal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CANopen\CANopen_User.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Easy_CANopen\Easy_CANopen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Easy_CANopen\Easy_CANopen_Structs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Hardware\Hardware.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

@@ -6,38 +6,42 @@
 
 int main() {
 	/* Declare our structures */
-	CANopen slave_node_1 = {0};
-	CANopen slave_node_2 = {0}; /* Notice that ONLY one slave node can be connected to the CAN network */
+	CANopen master_node = { 0 };
+	CANopen slave_node = { 0 }; /* Notice that ONLY one slave node can be connected to the CAN network */
 
-	/* Set node ID for the slave */
-	slave_node_1.slave.this_node_ID = 50;
-	slave_node_2.slave.this_node_ID = 100;
+	/* Begin to activate node configuration so we can write our node ID */
+	Easy_CANopen_Other_Node_Activate_Node_Configuration(true);
 
-	/* To receive guard status messages, then producer heartbeat must be zero */
-	slave_node_1.od_communication.producer_heartbeat_time = 0;
-	slave_node_2.od_communication.producer_heartbeat_time = 0;
+	/* Reading process for the slave node */
+	Easy_CANopen_Thread_Listen_Messages(&slave_node);
 
-	/* Also set the guard time and life time factor */
-	slave_node_1.od_communication.guard_time = 100;
-	slave_node_1.od_communication.life_time_factor = 1;
+	/* Set identification to slave */
+	uint32_t vendor_ID = 10003;
+	uint32_t product_code = 65467;
+	uint32_t revision_number = 565;
+	uint32_t serial_number = 3234;
+	Easy_CANopen_Other_Node_Set_Vendor_ID_To_Node(&master_node, vendor_ID);
+	Easy_CANopen_Other_Node_Set_Product_Code_To_Node(&master_node, product_code);
+	Easy_CANopen_Other_Node_Set_Revision_Number_To_Node(&master_node, revision_number);
+	Easy_CANopen_Other_Node_Set_Serial_Number_To_Node(&master_node, serial_number);
 
-	/* Set the operational status */
-	slave_node_2.slave.nmt.this_node_status_operational = STATUS_OPERATIONAL_PRE_OPERATIONAL;
+	/* Reading process for the slave */
+	Easy_CANopen_Thread_Listen_Messages(&slave_node);
+	Easy_CANopen_Thread_Listen_Messages(&slave_node);
+	Easy_CANopen_Thread_Listen_Messages(&slave_node);
+	Easy_CANopen_Thread_Listen_Messages(&slave_node);
 
-	/* Send 10 heartbeat messages */
-	for(uint8_t i = 0; i < 10; i++){
+	/* Read the process for the master */
+	Easy_CANopen_Thread_Listen_Messages(&master_node);
 
-		/* Send guard request from slave node 1 to slave node 2 */
-		Easy_CANopen_This_Node_Transmit_Guard_Status_Request(&slave_node_1, slave_node_2.slave.this_node_ID);
+	/* Display the identifications for slave node */
+	printf("Vendor ID = %i\n", slave_node.od_communication.vendor_ID);
+	printf("Product code = %i\n", slave_node.od_communication.product_code);
+	printf("Revision number = %i\n", slave_node.od_communication.revision_number);
+	printf("Serial number = %i\n", slave_node.od_communication.serial_number);
 
-		/* Readning process for the slave nodes */
-		Easy_CANopen_Thread_Listen_Messages(&slave_node_2); /* Read request and send response */
-		Easy_CANopen_Thread_Listen_Messages(&slave_node_1); /* Read response */
-
-		/* Check the response from slave node 1 */
-		printf("Status operational for slave node 2: %i\n", slave_node_1.slave.nmt.from_node_status_operational);
-		printf("Toggle for slave node 2: %i\n", slave_node_1.slave.nmt.from_node_toggle);
-	}
+	/* Dispay the response from the slave */
+	printf("Response is set: %i\n", master_node.master.lss.selective_value_is_set);
 
 	return 0;
 }

@@ -29,7 +29,7 @@
 /* CiA 301: Communication parameter record for RPDO (0x1400 - 0x15FF) and TPDO (0x1800 - 0x19FF) */
 struct PDO_communication{
 	uint8_t highest_sub_index_supported;												/* Sub index 0x0 */
-	uint32_t COB_ID;																	/* Sub index 0x1 */
+	uint16_t COB_ID;																	/* Sub index 0x1 */
 	uint8_t transmission_type;															/* Sub index 0x2 */
 	uint16_t inhibit_time;																/* Sub index 0x3 */
 	uint8_t reserved;																	/* Sub index 0x4 */
@@ -168,7 +168,7 @@ struct Slave{
 /* This struct is the object used by the CANopen user */
 typedef struct {
 	/* Latest CAN message */
-	uint32_t COB_ID;													/* This is the CAN bus ID */
+	uint16_t COB_ID;													/* This is the CAN bus ID */
 	uint8_t data[8];													/* This is the CAN bus data */
 	bool COB_ID_and_data_is_updated;									/* This is a flag that going to be set to true for every time ID and data */
 

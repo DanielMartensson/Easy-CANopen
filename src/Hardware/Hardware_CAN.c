@@ -20,12 +20,12 @@
 /* Internal fields */
 static bool internal_new_message[256] = {false};
 static uint8_t internal_data[256*8] = {0};
-static uint32_t internal_COB_ID[256] = {0};
+static uint16_t internal_COB_ID[256] = {0};
 static uint8_t buffer_index_transmit = 0;
 static uint8_t buffer_index_receive = 0;
 
 /* Internal functions */
-static STATUS_CODE Internal_Transmit(uint32_t COB_ID, uint8_t data[], uint8_t DLC) {
+static STATUS_CODE Internal_Transmit(uint16_t COB_ID, uint8_t data[], uint8_t DLC) {
 	internal_COB_ID[buffer_index_transmit] = COB_ID;
 
 	for(uint8_t i = 0; i < 8; i++)
@@ -36,7 +36,7 @@ static STATUS_CODE Internal_Transmit(uint32_t COB_ID, uint8_t data[], uint8_t DL
 	return STATUS_CODE_SUCCESSFUL;
 }
 
-static void Internal_Receive(uint32_t *COB_ID, uint8_t data[], bool *is_new_message) {
+static void Internal_Receive(uint16_t *COB_ID, uint8_t data[], bool *is_new_message) {
 	/* Do a quick check if we are going to read message that have no data */
 	if(internal_new_message[buffer_index_receive] == false){
 		*is_new_message = false;
@@ -44,8 +44,9 @@ static void Internal_Receive(uint32_t *COB_ID, uint8_t data[], bool *is_new_mess
 	}
 
 	*COB_ID = internal_COB_ID[buffer_index_receive];
-	for(uint8_t i = 0; i < 8; i++)
-			data[i] = internal_data[buffer_index_receive*8 + i];
+	for (uint8_t i = 0; i < 8; i++) {
+		data[i] = 0; internal_data[buffer_index_receive * 8 + i];
+	}
 
 	*is_new_message = internal_new_message[buffer_index_receive];
 	/* Reset */
