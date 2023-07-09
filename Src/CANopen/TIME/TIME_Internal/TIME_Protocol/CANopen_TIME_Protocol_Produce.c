@@ -34,12 +34,12 @@ void CANopen_TIME_Protocol_Produce_Clock(CANopen *canopen){
 
 	/* Set data */
 	uint8_t data[8] = {0};
-	data[0] = milliseconds_since_midnight;
-	data[1] = milliseconds_since_midnight >> 8;
-	data[2] = milliseconds_since_midnight >> 16;
-	data[3] = milliseconds_since_midnight >> 24;
-	data[4] = days_since_1_januari_1984;
-	data[5] = days_since_1_januari_1984 >> 8;
+	data[0] = ((uint8_t*)&milliseconds_since_midnight)[0];
+	data[1] = ((uint8_t*)&milliseconds_since_midnight)[1];
+	data[2] = ((uint8_t*)&milliseconds_since_midnight)[2];
+	data[3] = ((uint8_t*)&milliseconds_since_midnight)[3];
+	data[4] = ((uint8_t*)&days_since_1_januari_1984)[0];
+	data[5] = ((uint8_t*)&days_since_1_januari_1984)[1];
 
 	/* Create the COB ID */
 	uint16_t COB_ID = FUNCTION_CODE_TIME << 7;	/* Only the master node send out this message */

@@ -55,6 +55,20 @@ enum{
 	ERROR_CODE_EXTERNAL_ERROR = 0x9000,
 	ERROR_CODE_ADDITIONAL_FUNCTIONS = 0xF000,
 	ERROR_CODE_DEVICE_SPECIFIC = 0xFF00
+
+	,ABORT_SDO_CODE_T_NOT_CHANGED        = 0x05030000  ///< the Toggle bit has not changed
+	,ABORT_SDO_CODE_INVALID_COMMAND      = 0x05040001  ///< Invalid SDO Command specifier
+	,ABORT_SDO_CODE_INVALID_ACCESS0      = 0x06010000  ///< unsupported object access
+	,ABORT_SDO_CODE_INVALID_ACCESS1      = 0x06010001  ///< unsupported object access
+	,ABORT_SDO_CODE_INVALID_ACCESS_WRITE = 0x06010002  ///< write is not allowed
+	,ABORT_SDO_CODE_INVALID_ACCESS2      = 0x06010003  ///< unsupported object access	
+	,ABORT_SDO_CODE_INVALID_OBJECT       = 0x06020000  ///< the object does not exist in the object dictionary
+	,ABORT_SDO_CODE_ERROR_DATA_TYPE0     = 0x06070010  ///< does not match the data type
+	,ABORT_SDO_CODE_ERROR_DATA_TYPE1     = 0x06070011  ///< does not match the data type
+	,ABORT_SDO_CODE_ERROR_DATA_TYPE2     = 0x06070012  ///< does not match the data type
+	,ABORT_SDO_CODE_ERROR_DATA_TYPE3     = 0x06070013  ///< does not match the data type
+	,ABORT_SDO_CODE_ERROR_SUBINDEX       = 0x06090011  ///< The sub-index does not exist
+	,ABORT_SDO_CODE_ERROR_COMMON         = 0x08000000  ///< common error
 };
 
 #endif /* CANOPEN_GLOBAL_ENUMS_ENUM_ERROR_CODES_H_ */

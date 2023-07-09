@@ -33,13 +33,13 @@ void CANopen_PDO_Protocol_Consume_Data(CANopen *canopen, struct PDO_mapping *pdo
 			break;
 		case 16:
 			value = data[position++];
-			value = data[position++] >> 8;
+			value |= data[position++] << 8;
 			break;
 		case 32:
 			value = data[position++];
-			value = data[position++] >> 8;
-			value = data[position++] >> 16;
-			value = data[position++] >> 24;
+			value |= data[position++] << 8;
+			value |= data[position++] << 16;
+			value |= data[position++] << 24;
 			break;
 		}
 

@@ -4,6 +4,9 @@
  *  Created on: 19 okt. 2021
  *      Author: Daniel Mårtensson
  */
+ 
+#include "../CANopen/CANopen_Internal.h" 
+#include "../CANopen/CANopen_User.h"
 
 #include "Easy_CANopen.h"
 

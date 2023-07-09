@@ -63,10 +63,10 @@ bool Easy_CANopen_Thread_Listen_Messages(CANopen *canopen) {
 			CANopen_Producer_PDO_Receive_Request(canopen, node_ID, data);
 			break;
 		case FUNCTION_CODE_SDO_TRANSMIT:
-			CANopen_Server_SDO_Receive_Request(canopen, node_ID, data);						/* Server -> Client */
+			CANopen_Client_SDO_Receive_Response(canopen, node_ID, data); /* Server -> Client */
 			break;
 		case FUNCTION_CODE_SDO_RECEIVE:
-			CANopen_Client_SDO_Receive_Response(canopen, node_ID, data);					/* Client -> Server */
+			CANopen_Server_SDO_Receive_Request(canopen, node_ID, data); /* Client -> Server */
 			break;
 		case FUNCTION_CODE_HEARTBEAT_GUARD:
 			CANopen_Consumer_HEARTBEAT_Receive_Status(canopen, node_ID, data);

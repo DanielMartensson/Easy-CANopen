@@ -17,6 +17,8 @@
 #elif PROCESSOR_CHOICE == QT_USB
 #include "CAN_to_USB/can_to_usb.h"
 #else
+#include <stdio.h>
+#define ENABLE_INTERNAL_CAN_DEBUG 1
 /* Internal fields */
 static bool internal_new_message[256] = {false};
 static uint8_t internal_data[256*8] = {0};
@@ -26,11 +28,20 @@ static uint8_t buffer_index_receive = 0;
 
 /* Internal functions */
 static STATUS_CODE Internal_Transmit(uint16_t COB_ID, uint8_t data[], uint8_t DLC) {
+#if ENABLE_INTERNAL_CAN_DEBUG
+	printf("->: %03x|    ", COB_ID);
+#endif
 	internal_COB_ID[buffer_index_transmit] = COB_ID;
 
-	for(uint8_t i = 0; i < 8; i++)
-		internal_data[buffer_index_transmit*8 + i] = data[i];
-
+	for (uint8_t i = 0; i < 8; i++) {
+		internal_data[buffer_index_transmit * 8 + i] = data[i];
+#if ENABLE_INTERNAL_CAN_DEBUG
+		printf("%02x ", internal_data[buffer_index_transmit * 8 + i]);
+#endif
+	}
+#if ENABLE_INTERNAL_CAN_DEBUG
+	printf("\n");
+#endif
 	internal_new_message[buffer_index_transmit] = true;
 	buffer_index_transmit++;									/* When this is 256, then it will be come 0 again */
 	return STATUS_CODE_SUCCESSFUL;
@@ -38,16 +49,24 @@ static STATUS_CODE Internal_Transmit(uint16_t COB_ID, uint8_t data[], uint8_t DL
 
 static void Internal_Receive(uint16_t *COB_ID, uint8_t data[], bool *is_new_message) {
 	/* Do a quick check if we are going to read message that have no data */
-	if(internal_new_message[buffer_index_receive] == false){
+	if (internal_new_message[buffer_index_receive] == false) {
 		*is_new_message = false;
 		return;
 	}
 
 	*COB_ID = internal_COB_ID[buffer_index_receive];
+#if ENABLE_INTERNAL_CAN_DEBUG
+	printf("<-: %03x|    ", *COB_ID);
+#endif
 	for (uint8_t i = 0; i < 8; i++) {
-		data[i] = 0; internal_data[buffer_index_receive * 8 + i];
+		data[i] = internal_data[buffer_index_receive * 8 + i];
+#if ENABLE_INTERNAL_CAN_DEBUG
+		printf("%02x ", data[i]);
+#endif
 	}
-
+#if ENABLE_INTERNAL_CAN_DEBUG
+	printf("\n");
+#endif
 	*is_new_message = internal_new_message[buffer_index_receive];
 	/* Reset */
 	internal_new_message[buffer_index_receive] = false;

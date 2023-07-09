@@ -15,10 +15,10 @@ typedef enum{
 }OD_ACCESS;
 
 typedef enum{
-	OD_DATA_TYPE_U8,
-	OD_DATA_TYPE_U16,
-	OD_DATA_TYPE_U32,
-	OD_DATA_TYPE_ARRAY,
+	OD_DATA_TYPE_U8 = sizeof(uint8_t),
+	OD_DATA_TYPE_U16 = sizeof(uint16_t),
+	OD_DATA_TYPE_U32 = sizeof(uint32_t),
+	OD_DATA_TYPE_ARRAY = 0x55,
 }OD_DATA_TYPE;
 
 typedef enum{

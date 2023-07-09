@@ -21,6 +21,9 @@ enum {
 	CS_SDO_SEGMENT_DOWNLOAD_REQUEST = 0x0,											/* Client transmit server with segment bytes */
 	CS_SDO_SEGMENT_DOWNLOAD_RESPONSE = 0x1,											/* Server request client for segment bytes */
 
+	/*Abort SDO Transfer (Client or Server)*/
+	CS_SDO_ABORT_SDO_TRANSFER = 0x4,
+
 	/* NMT commands */
 	CS_NMT_SERVICE_START_REMOTE_NODE = 0x1,
 	CS_NMT_SERVICE_STOP_REMOTE_NODE = 0x2,

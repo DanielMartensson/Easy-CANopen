@@ -15,8 +15,8 @@ void CANopen_SDO_Protocol_Transmit_Request_Initiate(CANopen *canopen, uint8_t cs
 
 	/* Default values */
 	uint8_t data[8] = {0};
-	data[1] = index;											/* LSB */
-	data[2] = index >> 8;										/* MSB */
+	data[1] = ((uint8_t*)&index)[0];    /* LSB */
+	data[2] = ((uint8_t*)&index)[1];	/* MSB */
 	data[3] = sub_index;
 
 	/* For the download request */
@@ -47,16 +47,10 @@ void CANopen_SDO_Protocol_Transmit_Request_Initiate(CANopen *canopen, uint8_t cs
 		canopen->slave.sdo.transceive_segment_total_byte = 0; /* Important to set this to 0 so we know that we are not sending segments after the response */
 		switch(data_type){
 		case OD_DATA_TYPE_U8:
-			/* Send 1 byte of expedited data to client  */
-			data[0] = (cs << 5) | ((4-byte_size) << 2) | (1 << 1) | 1; /* n = 3, e = 1, s = 1 */
-			break;
 		case OD_DATA_TYPE_U16:
-			/* Send 2 bytes of expedited data to client  */
-			data[0] = (cs << 5) | ((4-byte_size) << 2) | (1 << 1) | 1; /* n = 2, e = 1, s = 1 */
-			break;
 		case OD_DATA_TYPE_U32:
-			/* Send 4 bytes of expedited data to client  */
-			data[0] = (cs << 5) | ((4-byte_size) << 2) | (1 << 1) | 1; /* n = 0, e = 1, s = 1 */
+			/* Send 1, 2 or 4 bytes of expedited data to client  */
+			data[0] = (cs << 5) | ((4-byte_size) << 2) | (1 << 1) | 1; /* n = 4-byte_size, e = 1, s = 1 */
 			break;
 		case OD_DATA_TYPE_ARRAY:
 			/* Send byte size to client instead of value */
@@ -69,20 +63,15 @@ void CANopen_SDO_Protocol_Transmit_Request_Initiate(CANopen *canopen, uint8_t cs
 		}
 
 		/* Value can either be value or byte size of that value */
-		data[4] = value;									/* LSB */
-		data[5] = value >> 8;
-		data[6] = value >> 16;
-		data[7] = value >> 24;								/* MSB */
+		*(uint32_t*)&data[4] = value;
 	}
 
 	/* Create the COB ID */
 	uint16_t COB_ID = 0;
 	switch(cs){
 	case CS_SDO_INITIATE_DOWNLOAD_REQUEST:
-		COB_ID = FUNCTION_CODE_SDO_RECEIVE << 7 | node_ID;
-		break;
 	case CS_SDO_INITIATE_UPLOAD_REQUEST:
-		COB_ID = FUNCTION_CODE_SDO_TRANSMIT << 7 | node_ID;
+		COB_ID = FUNCTION_CODE_SDO_RECEIVE << 7 | node_ID;
 		break;
 	}
 
@@ -102,10 +91,8 @@ void CANopen_SDO_Protocol_Transmit_Request_Segment(CANopen *canopen, uint8_t cs_
 	uint16_t COB_ID;
 	switch(cs_response){
 	case CS_SDO_SEGMENT_DOWNLOAD_REQUEST:
-		COB_ID = FUNCTION_CODE_SDO_RECEIVE << 7 | node_ID;
-		break;
 	case CS_SDO_SEGMENT_UPLOAD_REQUEST:
-		COB_ID = FUNCTION_CODE_SDO_TRANSMIT << 7 | node_ID;
+		COB_ID = FUNCTION_CODE_SDO_RECEIVE << 7 | node_ID;
 		break;
 	}
 
