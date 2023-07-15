@@ -58,7 +58,7 @@ See the examples in `Examples` folder for more examples.
 
 # The structure of the project
 
-![a](https://github.com/DanielMartensson/Easy-CANopen/blob/main/src/Documentation/Pictures/Project%20structure.png)
+![a](https://raw.githubusercontent.com/DanielMartensson/Easy-CANopen/main/Src/Documentation/Pictures/Project%20structure.png)
 
 # Easy CANopen functionality
  
