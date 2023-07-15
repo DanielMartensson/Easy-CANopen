@@ -4,6 +4,8 @@
  *  Created on: 6 nov. 2021
  *      Author: Daniel Mårtensson
  */
+ 
+#include "../../../PDO/PDO_Internal/PDO_Internal.h"
 
 #include "SYNC_Protocol.h"
 

@@ -10,6 +10,7 @@
 
 /* Enums and structs */
 #include "Easy_CANopen_Structs.h"
+#include "../CANopen/SDO/SDO_User/SDO_User.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -30,7 +31,7 @@ void Easy_CANopen_Other_Node_Set_Revision_Number_To_Node(CANopen *canopen, uint3
 void Easy_CANopen_Other_Node_Set_Serial_Number_To_Node(CANopen *canopen, uint32_t serial_number);
 void Easy_CANopen_Other_Node_Set_Node_ID_To_Node(CANopen *canopen, uint8_t node_ID);
 void Easy_CANopen_Other_Node_Set_Baud_Rate_To_Node(CANopen *canopen, uint8_t table_index, uint16_t delay);
-void Easy_CANopen_Other_Node_Save_Node_ID_And_Baud_Rate_In_Node();
+void Easy_CANopen_Other_Node_Save_Node_ID_And_Baud_Rate_In_Node(CANopen *canopen);
 void Easy_CANopen_Other_Node_Get_Vendor_ID_From_Node(CANopen *canopen);
 void Easy_CANopen_Other_Node_Get_Product_Code_From_Node(CANopen *canopen);
 void Easy_CANopen_Other_Node_Get_Revision_Number_From_Node(CANopen *canopen);

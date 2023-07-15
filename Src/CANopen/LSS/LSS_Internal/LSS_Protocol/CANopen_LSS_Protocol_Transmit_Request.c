@@ -45,8 +45,8 @@ void CANopen_LSS_Protocol_Transmit_Request_Configure_Bit_Timing_Parameters(uint8
 void CANopen_LSS_Protocol_Transmit_Request_Active_Bit_Timing_Parameters(uint16_t delay){
 	uint8_t data[8] = {0};
 	data[0] = CS_LSS_ACTIVATE_BIT_TIMING_PARAMETERS;
-	data[1] = delay;														/* LSB */
-	data[2] = delay >> 8;													/* MSB */
+	data[1] = ((uint8_t*)&delay)[0];		/* LSB */
+	data[2] = ((uint8_t*)&delay)[1];		/* MSB */
 	Hardware_CAN_Send_Message(FUNCTION_CODE_LSS_TRANSMIT, data);
 }
 

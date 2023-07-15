@@ -26,8 +26,8 @@ void CANopen_EMCY_Protocol_Produce_Error(CANopen *canopen, uint16_t new_error_co
 
 	/* Set data */
 	uint8_t data[8];
-	data[0] = new_error_code;						/* LSB */
-	data[1] = new_error_code >> 8;					/* MSB */
+	data[0] = ((uint8_t*)&new_error_code)[0];						/* LSB */
+	data[1] = ((uint8_t*)&new_error_code)[1];					/* MSB */
 	data[2] = canopen->od_communication.error_register;
 	data[3] = vendor_specific_data[0];
 	data[4] = vendor_specific_data[1];

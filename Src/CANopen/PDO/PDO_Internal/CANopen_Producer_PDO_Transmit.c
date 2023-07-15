@@ -22,7 +22,7 @@ void CANopen_Producer_PDO_Transmit_Data(CANopen *canopen) {
 
 	for(uint8_t i = 0; i < PDO_LENGTH; i++){
 		/* Check if TPDO Communication parameter is valid */
-		uint8_t valid = canopen->od_communication.PDO_communication_transmit[i].COB_ID >> 31;
+		uint8_t valid = canopen->od_communication.PDO_communication_transmit[i].COB_ID >> 31; /// @todo I dont't understand
 		if(valid == 1)
 			continue; /* Just skip */
 
