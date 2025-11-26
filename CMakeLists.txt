@@ -2,13 +2,15 @@ cmake_minimum_required(VERSION 3.16.0)
 
 project(Easy-CANopen C)
 
-# Default value for Easy_CANopen_TARGET_PLATFORM if not set externally
-if(NOT DEFINED Easy_CANopen_TARGET_PLATFORM)
-    set(Easy_CANopen_TARGET_PLATFORM NO_PLATFORM)
+# Default value for EASY_CAN_OPEN_TARGET_PLATFORM if not set externally
+#set(EASY_CAN_OPEN_TARGET_PLATFORM INTERNAL_CALLBACK)
+if(NOT DEFINED EASY_CAN_OPEN_TARGET_PLATFORM)
+    set(EASY_CAN_OPEN_TARGET_PLATFORM NO_PLATFORM)
+    message(STATUS "EASY_CAN_OPEN_TARGET_PLATFORM = Using NO PLATFORM")
 endif()
 
 # Make it a compile definition
-add_compile_definitions(Easy_CANopen_TARGET_PLATFORM=${Easy_CANopen_TARGET_PLATFORM})
+add_compile_definitions(EASY_CAN_OPEN_TARGET_PLATFORM=${EASY_CAN_OPEN_TARGET_PLATFORM})
 
 # Collect sources
 file(GLOB_RECURSE ALL_SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/Src/*.c")

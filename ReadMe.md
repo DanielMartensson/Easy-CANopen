@@ -36,7 +36,7 @@ That's the debugging mode for internal CAN feedback.
 # How to use the project
 
  - Step 1: Download this repository
- - Step 2: Go to `Hardware -> Hardware.h` and select your processor, if it's not available, please write code for it and send me a pull request
+ - Step 2: Go to `Hardware -> Hardware.h` and select your processor, if it's not available, please write code for it and send me a pull request. You can specify what platform you're using in `CMakeLists.txt` as well.
  - Step 3: Copy over the `Src` folder to your project folder inside your IDE. Rename `Src` to for example `Easy CANopen`. That's a good name.
  - Step 4: Use the `Examples -> Startup.txt` example as your initial starting code for an Easy CANopen project.
  
@@ -47,10 +47,84 @@ That's the debugging mode for internal CAN feedback.
 /* Include Easy CANopen */
 #include "Easy_CANopen/Easy_CANopen.h"
 
+void Callback_Function_Send(uint32_t ID, uint8_t DLC, uint8_t data[]) {
+	/* Apply your transmit layer here, e.g:
+	 * uint32_t TxMailbox;
+	 * static CAN_HandleTypeDef can_handler;
+	 * This function transmit ID, DLC and data[] as the CAN-message.
+	 * HardWareLayerCAN_TX(&can_handler, ID, DLC, data, &TxMailbox);
+	 *
+	 * You can use TCP/IP, USB, CAN etc. as hardware layers for SAE J1939
+	 */
+}
+
+void Callback_Function_Read(uint32_t* ID, uint8_t data[], bool* is_new_data) {
+	/* Apply your receive layer here, e.g:
+	 * CAN_RxHeaderTypeDef rxHeader = {0};
+	 * static CAN_HandleTypeDef can_handler;
+	 * This function read CAN RX and give the data to ID and data[] as the CAN-message.
+	 * if (HardWareLayerCAN_RX(can_handler, &rxHeader, ID, data) == STATUS_OK){
+	 *	*is_new_data = true;
+	 * }
+	 *
+	 * You can use TCP/IP, USB, CAN etc. as hardware layers for SAE J1939
+	 */
+}
+
+/* This function reads the CAN traffic */
+void Callback_Function_Traffic(uint32_t ID, uint8_t DLC, uint8_t data[], bool is_TX) {
+	/* Print if it is TX or RX */
+	printf("%s\t", is_TX ? "TX" : "RX");
+
+	/* Print ID as hex */
+	printf("%08X\t", ID);
+
+	/* Print the data */
+	uint8_t i;
+	for (i = 0U; i < DLC; i++) {
+		printf("%X\t", data[i]);
+	}
+
+	/* Print the non-data */
+	for (i = DLC; i < 8U; i++) {
+		printf("%X\t", 0U);
+	}
+
+	/* New line */
+	printf("\n");
+}
+
+/* Apply your delay here */
+void Callback_Function_Delay(uint8_t delay){
+	/* Place your hardware delay here e.g HAL_Delay(delay); for STM32 */
+}
+
 int main() {
 
-	/* Code will update soon */
+	/* Declare master node */
+	CANopen master_node = { 0 };
 
+	/*
+	 * Callbacks can be used if you want to pass a specific CAN-function into the hardware layer.
+	 * All you need to do is to enable INTERNAL_CALLLBACK inside hardware.h
+	 * If you don't want to have the traffic callback, just set the argument as NULL.
+	 * If you don't want any callback at all, you can write your own hardware layer by selecting a specific processor choice at hardware.h
+	 */
+	Easy_CANopen_Hardware_Set_Callback_Functions(Callback_Function_Send, Callback_Function_Read, Callback_Function_Traffic, Callback_Function_Delay);
+
+	/* Begin to activate node configuration so we can write our node ID */
+	Easy_CANopen_Other_Node_Activate_Node_Configuration(true);
+
+	/* CANopen process */
+	bool run = true;
+	while (run) {
+		/* Read incoming messages */
+		Easy_CANopen_Thread_Listen_Messages(&master_node);
+
+		/* Your application code here */
+
+	}
+		
 	return 0;
 }
 ```
