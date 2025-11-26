@@ -12,6 +12,10 @@
 #include "Easy_CANopen_Structs.h"
 #include "../CANopen/SDO/SDO_User/SDO_User.h"
 
+/* Hardware */
+/* Layers */
+#include "../Hardware/Hardware.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif

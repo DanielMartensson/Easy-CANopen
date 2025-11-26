@@ -7,7 +7,7 @@
 
 #include "Hardware.h"
 
-uint32_t Hardware_Time_Get_Tick(){
+uint32_t Easy_CANopen_Hardware_Time_Get_Tick(){
 #if PROCESSOR_CHOICE == STM32
 	return HAL_GetTick();
 #elif PROCESSOR_CHOICE == ARDUINO
@@ -20,7 +20,7 @@ uint32_t Hardware_Time_Get_Tick(){
 	return 0;
 }
 
-void Hardware_Time_Get_RTC(uint8_t *date, uint8_t *month, uint16_t *year, uint8_t *hour, uint8_t *minute, uint8_t *second){
+void Easy_CANopen_Hardware_Time_Get_RTC(uint8_t *date, uint8_t *month, uint16_t *year, uint8_t *hour, uint8_t *minute, uint8_t *second){
 #if PROCESSOR_CHOICE == STM32
 	return HAL_GetTick();
 #elif PROCESSOR_CHOICE == ARDUINO

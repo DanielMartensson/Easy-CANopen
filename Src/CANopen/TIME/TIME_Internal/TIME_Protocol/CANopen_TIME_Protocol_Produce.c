@@ -14,7 +14,7 @@ void CANopen_TIME_Protocol_Produce_Clock(CANopen *canopen){
 	/* Get the real time clock */
 	uint8_t date, month, hour, minute, second;
 	uint16_t year;
-	Hardware_Time_Get_RTC(&date, &month, &year, &hour, &minute, &second);
+	Easy_CANopen_Hardware_Time_Get_RTC(&date, &month, &year, &hour, &minute, &second);
 
 	/* Compute total milliseconds since clock 00:00 */
 	uint32_t milliseconds_since_midnight = second*1000 + minute*60000 + hour*3600000;
@@ -45,5 +45,5 @@ void CANopen_TIME_Protocol_Produce_Clock(CANopen *canopen){
 	uint16_t COB_ID = FUNCTION_CODE_TIME << 7;	/* Only the master node send out this message */
 
 	/* Send the message to client */
-	Hardware_CAN_Send_Message(COB_ID, data);
+	Easy_CANopen_Hardware_CAN_Send_Message(COB_ID, data);
 }

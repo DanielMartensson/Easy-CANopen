@@ -49,11 +49,11 @@ void CANopen_PDO_Protocol_Produce_Data(CANopen *canopen, uint16_t CAN_ID, struct
 	}
 
 	/* Send the message to client */
-	Hardware_CAN_Send_Message(CAN_ID, data);
+	Easy_CANopen_Hardware_CAN_Send_Message(CAN_ID, data);
 }
 
 void CANopen_PDO_Protocol_Produce_Request(uint16_t CAN_ID){
 	/* PDO request has zero bytes */
 	uint8_t data[8] = {0};
-	Hardware_CAN_Send_Message(CAN_ID, data);
+	Easy_CANopen_Hardware_CAN_Send_Message(CAN_ID, data);
 }

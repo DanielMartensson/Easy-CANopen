@@ -15,7 +15,7 @@ void CANopen_GUARD_Protocol_Receive_Response_Status(CANopen *canopen, uint8_t no
 	/* Save the response */
 	canopen->slave.nmt.from_node_status_operational = data[0] & 0x7F;
 	canopen->slave.nmt.from_node_toggle = data[0] >> 7;
-	canopen->slave.nmt.from_node_count_tick = Hardware_Time_Get_Tick() - canopen->slave.nmt.from_node_count_tick;	/* Time difference from request to response */
+	canopen->slave.nmt.from_node_count_tick = Easy_CANopen_Hardware_Time_Get_Tick() - canopen->slave.nmt.from_node_count_tick;	/* Time difference from request to response */
 	canopen->slave.nmt.from_node_ID = node_ID;
 
 	/* If the time difference is too large, send out an EMCY */

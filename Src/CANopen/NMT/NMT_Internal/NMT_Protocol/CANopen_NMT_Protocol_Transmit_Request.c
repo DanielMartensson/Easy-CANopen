@@ -18,6 +18,6 @@ void CANopen_NMT_Protocol_Transmit_Request_State(CANopen *canopen, uint8_t cs, u
 	uint8_t data[8] = {0};
 	data[0] = cs;
 	data[1] = node_ID;
-	Hardware_CAN_Send_Message(COB_ID, data);
+	Easy_CANopen_Hardware_CAN_Send_Message(COB_ID, data);
 }
 

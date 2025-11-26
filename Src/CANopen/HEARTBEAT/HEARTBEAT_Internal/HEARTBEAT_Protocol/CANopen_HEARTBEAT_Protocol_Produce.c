@@ -18,7 +18,7 @@ void CANopen_HEARTBEAT_Protocol_Produce_Status(CANopen *canopen, uint8_t node_ID
 
 	/* Create the COB ID and send heartbeat to the node */
 	uint16_t COB_ID = FUNCTION_CODE_HEARTBEAT_GUARD << 7 | node_ID;
-	Hardware_CAN_Send_Message(COB_ID, data);
+	Easy_CANopen_Hardware_CAN_Send_Message(COB_ID, data);
 }
 
 void CANopen_HEARTBEAT_Protocol_Produce_Bootup_Mesage(CANopen *canopen, uint8_t node_ID){
@@ -27,5 +27,5 @@ void CANopen_HEARTBEAT_Protocol_Produce_Bootup_Mesage(CANopen *canopen, uint8_t 
 
 	/* Create the COB ID and send heartbeat to the node */
 	uint16_t COB_ID = FUNCTION_CODE_HEARTBEAT_GUARD << 7 | node_ID;
-	Hardware_CAN_Send_Message(COB_ID, data);
+	Easy_CANopen_Hardware_CAN_Send_Message(COB_ID, data);
 }

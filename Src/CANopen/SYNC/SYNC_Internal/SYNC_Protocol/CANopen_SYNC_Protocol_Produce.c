@@ -26,5 +26,5 @@ void CANopen_SYNC_Protocol_Produce_Synchronization(CANopen *canopen){
 	/* Send the data */
 	uint8_t data[8] = {0};
 	data[0] = canopen->master.sync.counter;
-	Hardware_CAN_Send_Message(COB_ID, data);
+	Easy_CANopen_Hardware_CAN_Send_Message(COB_ID, data);
 }

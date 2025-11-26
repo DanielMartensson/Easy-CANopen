@@ -39,6 +39,6 @@ void CANopen_EMCY_Protocol_Produce_Error(CANopen *canopen, uint16_t new_error_co
 	uint16_t COB_ID = FUNCTION_CODE_SYNC_EMCY << 7 | canopen->slave.this_node_ID;
 
 	/* Send the message to client */
-	Hardware_CAN_Send_Message(COB_ID, data);
+	Easy_CANopen_Hardware_CAN_Send_Message(COB_ID, data);
 
 }

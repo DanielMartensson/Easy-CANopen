@@ -76,7 +76,7 @@ void CANopen_SDO_Protocol_Transmit_Request_Initiate(CANopen *canopen, uint8_t cs
 	}
 
 	/* Send the message to the server */
-	Hardware_CAN_Send_Message(COB_ID, data);
+	Easy_CANopen_Hardware_CAN_Send_Message(COB_ID, data);
 }
 
 void CANopen_SDO_Protocol_Transmit_Request_Segment(CANopen *canopen, uint8_t cs_response, uint8_t node_ID, uint8_t data[]){
@@ -97,5 +97,5 @@ void CANopen_SDO_Protocol_Transmit_Request_Segment(CANopen *canopen, uint8_t cs_
 	}
 
 	/* Send the message to the server */
-	Hardware_CAN_Send_Message(COB_ID, data);
+	Easy_CANopen_Hardware_CAN_Send_Message(COB_ID, data);
 }

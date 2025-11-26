@@ -78,7 +78,7 @@ void CANopen_LSS_Protocol_Receive_Request_Activate_Bit_Timing_Parameters(CANopen
 		return;
 
 	/* Set the baud rate - No response back according to CiA standard */
-	CAN_Set_Baud_Rate(canopen->slave.this_node_table_index);
+	Easy_CANopen_CAN_Set_Baud_Rate(canopen->slave.this_node_table_index);
 }
 
 void CANopen_LSS_Protocol_Receive_Request_Store_Configuration(CANopen *canopen, uint8_t data[]){
@@ -88,7 +88,7 @@ void CANopen_LSS_Protocol_Receive_Request_Store_Configuration(CANopen *canopen, 
 
 	/* Save the bit timing table index and the node ID */
 	uint8_t node_ID_table_index[2] = {canopen->slave.this_node_ID, canopen->slave.this_node_table_index};
-	Hardware_Memory_Save_Bytes(node_ID_table_index, sizeof(node_ID_table_index), UINT8_T_ARRAY_NODE_ID_TABLE_INDEX);
+	Easy_CANopen_Hardware_Memory_Save_Bytes(node_ID_table_index, sizeof(node_ID_table_index), UINT8_T_ARRAY_NODE_ID_TABLE_INDEX);
 
 	/* Send OK response back */
 	CANopen_Slave_LSS_Transmit_Response_Status_Message(CS_LSS_STORE_CONFIGURATION_PROTOCOL, STATUS_CODE_SUCCESSFUL, 0x0);

@@ -7,7 +7,7 @@
 
 #include "Hardware.h"
 
-bool Hardware_Memory_Save_Bytes(uint8_t data[], uint32_t data_length, char file_name[]){
+bool Easy_CANopen_Hardware_Memory_Save_Bytes(uint8_t data[], uint32_t data_length, char file_name[]){
 #if PROCESSOR_CHOICE == STM32
 	/* Save it to SD card */
 	if(STM32_PLC_SD_Mont_Card() != FR_OK)
@@ -26,7 +26,7 @@ bool Hardware_Memory_Save_Bytes(uint8_t data[], uint32_t data_length, char file_
 	return true;
 }
 
-bool Hardware_Memory_Load_Bytes(uint8_t data[], uint32_t data_length, char file_name[]){
+bool Easy_CANopen_Hardware_Memory_Load_Bytes(uint8_t data[], uint32_t data_length, char file_name[]){
 #if PROCESSOR_CHOICE == STM32
 	/* Load it from SD card */
 	if(STM32_PLC_SD_Mont_Card() != FR_OK)
