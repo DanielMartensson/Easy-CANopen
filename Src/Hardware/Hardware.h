@@ -52,6 +52,7 @@ bool Easy_CANopen_Hardware_Memory_Load_Bytes(uint8_t data[], uint32_t data_lengt
 /* Time functions */
 uint32_t Easy_CANopen_Hardware_Time_Get_Tick();
 void Easy_CANopen_Hardware_Time_Get_RTC(uint8_t *date, uint8_t *month, uint16_t *year, uint8_t *hour, uint8_t *minute, uint8_t *second);
+void Easy_CANopen_Hardware_Delay(uint8_t milliseconds);
 
 /* Set the call back function */
 void Easy_CANopen_Hardware_Set_Callback_Functions(void (*Callback_Function_Send_)(uint32_t, uint8_t, uint8_t[]), void (*Callback_Function_Read_)(uint32_t*, uint8_t[], bool*), void (*Callback_Function_Traffic_)(uint32_t, uint8_t, uint8_t[], bool), void (*Callback_Function_Delay_ms_)(uint8_t));

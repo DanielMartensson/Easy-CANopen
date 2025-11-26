@@ -154,7 +154,7 @@ void Easy_CANopen_Hardware_Set_Callback_Functions(void (*Callback_Function_Send_
 	Callback_Function_Delay_ms = Callback_Function_Delay_ms_;
 }
 
-void CAN_Delay(uint8_t milliseconds) {
+void Easy_CANopen_Hardware_Delay(uint8_t milliseconds) {
 #if EASY_CAN_OPEN_TARGET_PLATFORM == STM32
 
 #elif EASY_CAN_OPEN_TARGET_PLATFORM == ARDUINO
