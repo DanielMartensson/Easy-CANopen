@@ -5,8 +5,8 @@
  *      Author: Daniel Mårtensson
  */
 
-#ifndef HARDWARE_HARDWARE_H_
-#define HARDWARE_HARDWARE_H_
+#ifndef EASY_CAN_OPEN_HARDWARE_HARDWARE_H_
+#define EASY_CAN_OPEN_HARDWARE_HARDWARE_H_
 
 /* Select your target platform here */
 #define NO_PLATFORM 0
@@ -17,8 +17,8 @@
 #define QT_USB 5
 #define INTERNAL_CALLBACK 6
 #define SOCKETCAN 7
-#ifndef OPENSAE_J1939_TARGET_PLATFORM
-#define OPENSAE_J1939_TARGET_PLATFORM NO_PLATFORM
+#ifndef EASY_CAN_OPEN_TARGET_PLATFORM
+#define EASY_CAN_OPEN_TARGET_PLATFORM NO_PLATFORM
 #endif
 
 /* What type of bit length is your CAN message */
@@ -61,4 +61,4 @@ void Easy_CANopen_Hardware_Set_Callback_Functions(void (*Callback_Function_Send_
 }
 #endif
 
-#endif /* HARDWARE_HARDWARE_H_ */
+#endif /* EASY_CAN_OPEN_HARDWARE_HARDWARE_H_ */
