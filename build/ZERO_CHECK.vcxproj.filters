@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\danie\Documents\GitHub\Easy-CANopen\build\CMakeFiles\18e4f546ff041df7e3cbe83996daa76c\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{EAF31D28-917B-35A8-9A1D-7059C0B25D09}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
