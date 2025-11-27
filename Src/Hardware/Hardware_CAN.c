@@ -9,9 +9,9 @@
 #include "Hardware.h"
 
 /* This is a call back function e.g listener, that will be called once SAE J1939 data is going to be sent */
-static void (*Callback_Function_Send)(uint32_t, uint8_t, uint8_t[]) = NULL;
-static void (*Callback_Function_Read)(uint32_t*, uint8_t[], bool*) = NULL;
-static void (*Callback_Function_Traffic)(uint32_t, uint8_t, uint8_t[], bool) = NULL;
+static void (*Callback_Function_Send)(uint16_t, uint8_t, uint8_t[]) = NULL;
+static void (*Callback_Function_Read)(uint16_t*, uint8_t[], bool*) = NULL;
+static void (*Callback_Function_Traffic)(uint16_t, uint8_t, uint8_t[], bool) = NULL;
 static void (*Callback_Function_Delay_ms)(uint8_t) = NULL;
 
 /* Platform independent library headers for CAN */
@@ -112,9 +112,12 @@ bool Easy_CANopen_Hardware_CAN_Read_Message(uint16_t *COB_ID, uint8_t data[]) {
     QT_USB_Get_ID_Data(ID, data, &is_new_message);
 #elif EASY_CAN_OPEN_TARGET_PLATFORM == INTERNAL_CALLBACK
 	Callback_Function_Read(COB_ID, data, &is_new_message);
+	printf("Callback_Function_Read\n");
 #else
 	/* If no processor are used, use internal feedback for debugging */
 	Internal_Receive(COB_ID, data, &is_new_message);
+	printf("Internal_Receive\n");
+
 #endif
 
 	/* Display traffic */
@@ -143,9 +146,9 @@ bool Easy_CANopen_CAN_Set_Baud_Rate(uint8_t table_index){
 	return is_set;
 }
 
-void Easy_CANopen_Hardware_Set_Callback_Functions(void (*Callback_Function_Send_)(uint32_t, uint8_t, uint8_t[]),
-	void (*Callback_Function_Read_)(uint32_t*, uint8_t[], bool*),
-	void (*Callback_Function_Traffic_)(uint32_t, uint8_t, uint8_t[], bool),
+void Easy_CANopen_Hardware_Set_Callback_Functions(void (*Callback_Function_Send_)(uint16_t, uint8_t, uint8_t[]),
+	void (*Callback_Function_Read_)(uint16_t*, uint8_t[], bool*),
+	void (*Callback_Function_Traffic_)(uint16_t, uint8_t, uint8_t[], bool),
 	void (*Callback_Function_Delay_ms_)(uint8_t)
 ) {
 	Callback_Function_Send = Callback_Function_Send_;

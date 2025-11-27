@@ -55,7 +55,7 @@ void Easy_CANopen_Hardware_Time_Get_RTC(uint8_t *date, uint8_t *month, uint16_t 
 void Easy_CANopen_Hardware_Delay(uint8_t milliseconds);
 
 /* Set the call back function */
-void Easy_CANopen_Hardware_Set_Callback_Functions(void (*Callback_Function_Send_)(uint32_t, uint8_t, uint8_t[]), void (*Callback_Function_Read_)(uint32_t*, uint8_t[], bool*), void (*Callback_Function_Traffic_)(uint32_t, uint8_t, uint8_t[], bool), void (*Callback_Function_Delay_ms_)(uint8_t));
+void Easy_CANopen_Hardware_Set_Callback_Functions(void (*Callback_Function_Send_)(uint16_t, uint8_t, uint8_t[]), void (*Callback_Function_Read_)(uint16_t*, uint8_t[], bool*), void (*Callback_Function_Traffic_)(uint16_t, uint8_t, uint8_t[], bool), void (*Callback_Function_Delay_ms_)(uint8_t));
 
 #ifdef __cplusplus
 }
