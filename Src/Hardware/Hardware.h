@@ -32,6 +32,7 @@
 /* C standard library */
 #include <stdint.h>
 #include <stdbool.h>
+#include <stddef.h>
 
 /* Enums */
 #include "../CANopen/Global_Enums/Enum_Status_Codes.h"

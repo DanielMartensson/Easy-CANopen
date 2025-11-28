@@ -5,7 +5,7 @@
 #include "Easy_CANopen/Easy_CANopen.h"
 
  /* Every time we want to send a CAN message, this function will be called */
-void Callback_Function_Send(uint32_t ID, uint8_t DLC, uint8_t data[]) {
+void Callback_Function_Send(uint16_t ID, uint8_t DLC, uint8_t data[]) {
 	printf("Callback_Function_Send called\n");
 	printf("ID = 0x%X\n", ID);
 	printf("DLC = %i\n", DLC);
@@ -16,7 +16,7 @@ void Callback_Function_Send(uint32_t ID, uint8_t DLC, uint8_t data[]) {
 }
 
 /* Every time we want to read a CAN message, this function will be called */
-void Callback_Function_Read(uint32_t* ID, uint8_t data[], bool* is_new_data) {
+void Callback_Function_Read(uint16_t* ID, uint8_t data[], bool* is_new_data) {
 	printf("Callback_Function_Read called\n");
 	*ID = 0xFF;
 	for (uint8_t i = 0; i < 8; i++) {
@@ -30,7 +30,7 @@ void Callback_Function_Delay(uint8_t delay){
 	/* Place your hardware delay here e.g HAL_Delay(delay); for STM32 */
 }
 
-void Callback_Function_Traffic(uint32_t ID, uint8_t DLC, uint8_t data[], bool is_TX) {	
+void Callback_Function_Traffic(uint16_t ID, uint8_t DLC, uint8_t data[], bool is_TX) {	
 	/* Print if it is TX or RX */
 	printf("%s\t", is_TX ? "TX" : "RX");
 
