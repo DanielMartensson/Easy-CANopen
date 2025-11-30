@@ -112,12 +112,9 @@ bool Easy_CANopen_Hardware_CAN_Read_Message(uint16_t *COB_ID, uint8_t data[]) {
     QT_USB_Get_ID_Data(ID, data, &is_new_message);
 #elif EASY_CAN_OPEN_TARGET_PLATFORM == INTERNAL_CALLBACK
 	Callback_Function_Read(COB_ID, data, &is_new_message);
-	printf("Callback_Function_Read\n");
 #else
 	/* If no processor are used, use internal feedback for debugging */
 	Internal_Receive(COB_ID, data, &is_new_message);
-	printf("Internal_Receive\n");
-
 #endif
 
 	/* Display traffic */
