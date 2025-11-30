@@ -50,6 +50,7 @@ void Easy_CANopen_Other_Node_Check_If_This_Serial_Number_Or_Higher_Exist_At_The_
 void Easy_CANopen_Other_Node_Check_If_There_Are_Any_Non_Configured_Nodes_At_The_CAN_Network(CANopen *canopen);
 void Easy_CANopen_Other_Node_Start_Remote_Node(CANopen *canopen, uint8_t node_ID);
 void Easy_CANopen_Other_Node_Stop_Remote_Node(CANopen *canopen, uint8_t node_ID);
+void Easy_CANopen_Other_Node_No_NMT_Stop_At_Communication_Error_Behaviour_EMCY(CANopen *canopen, uint8_t node_ID);
 
 /* Functions for this node */
 void Easy_CANopen_This_Node_Broadcast_Bootup_Message(CANopen *canopen);
