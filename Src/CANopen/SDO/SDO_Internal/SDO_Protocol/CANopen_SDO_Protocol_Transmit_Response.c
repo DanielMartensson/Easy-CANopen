@@ -35,9 +35,8 @@ void CANopen_SDO_Protocol_Transmit_Response_Segment(CANopen *canopen, uint8_t cs
 		t = ((data[0] >> 4) & 0x1) == 0 ? 1 : 0; 		/* Toggle value. If t == 0, then t should be 1 */
 
 	/* Check if this is the last segment */
-	uint8_t c = 0;
-	if(canopen->slave.sdo.transceive_segment_bytes_counter + 7 < canopen->slave.sdo.transceive_segment_total_byte)
-		c = 1;							/* No more segments uploaded */
+	uint8_t bytes_left = canopen->slave.sdo.transceive_segment_total_byte - canopen->slave.sdo.transceive_segment_bytes_counter;
+	uint8_t c = (bytes_left <= 7) ? 1 : 0;
 
 	/* Fill the data at index 1 to index 7 if it's possible. Meanwhile count bytes n */
 	uint8_t n = 0;
