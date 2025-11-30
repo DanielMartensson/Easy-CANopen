@@ -16,7 +16,7 @@ https://github.com/DanielMartensson/Open-SAE-J1939/
 There is a GUI logging software that can analyze CANopen messages ad even SAE J1939 messages as well.
 Head over to [GoobySoft](https://github.com/DanielMartensson/GoobySoft)
 
-![a](https://raw.githubusercontent.com/DanielMartensson/Easy-CANopen/refs/heads/master/pictures/GoobySoft.png)
+![a](https://raw.githubusercontent.com/DanielMartensson/Easy-CANopen/refs/heads/main/pictures/GoobySoft.png)
 
 # Status of the project
 
