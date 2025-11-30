@@ -22,7 +22,7 @@
 #define CONSUMER_HEARTBEAT_TIME_MAX_SUB_INDEX 128
 #define EMERGENCY_CONSUMER_MAX_SUB_INDEX 128
 #define VERIFY_CONFIGURATION_MAX_SUB_INDEX 3
-#define ERROR_BEHAVIOR_SUB_INDEX 2
+#define ERROR_BEHAVIOR_MAX_SUB_INDEX 3
 #define OD_STRING_LENGTH 20
 #define PDO_LENGTH 32
 
@@ -72,7 +72,7 @@ struct OD_Communication{
 	uint8_t synchronous_counter_overflow_value;											/* Index 0x1019 sub index 0x0 */
 	uint32_t verify_configuration[VERIFY_CONFIGURATION_MAX_SUB_INDEX];					/* Index 0x1020 sub index 0x0 -> 0x2 */
 	uint32_t emergency_consumer_object[EMERGENCY_CONSUMER_MAX_SUB_INDEX];				/* Index 0x1028 sub index 0x0 -> 0x7F */
-	uint8_t error_behavior_object[ERROR_BEHAVIOR_SUB_INDEX];							/* Index 0x1029 sub index 0x0 -> 0x1 */
+	uint8_t error_behavior_object[ERROR_BEHAVIOR_MAX_SUB_INDEX];						/* Index 0x1029 sub index 0x0 -> 0x2 */
 	struct PDO_communication PDO_communication_receive[PDO_LENGTH];						/* Index 0x1400 -> 0x1400 + PDO_LENGTH -1 */
 	struct PDO_communication PDO_communication_transmit[PDO_LENGTH];					/* Index 0x1800 -> 0x1800 + PDO_LENGTH -1 */
 	struct PDO_mapping PDO_mapping_receive[PDO_LENGTH];									/* Index 0x1600 -> 0x1600 + PDO_LENGTH -1 */
