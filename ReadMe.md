@@ -11,17 +11,16 @@ With this library, you can communicate with valves, engines, actuators, machiner
 Looking for SAE J1939 library?
 https://github.com/DanielMartensson/Open-SAE-J1939/
 
+# GUI version
+
+There is a GUI logging software that can analyze CANopen messages ad even SAE J1939 messages as well.
+Head over to [GoobySoft](https://github.com/DanielMartensson/GoobySoft)
+
+![a](https://raw.githubusercontent.com/DanielMartensson/Easy-CANopen/refs/heads/master/pictures/GoobySoft.png)
+
 # Status of the project
-2023-05-04
 
-New goals for the project
-
-- ANSI C (C89) standard must be applied. See Open-SAE-J1939 library
-- Work more on MISRA C compability 
-- Make a basic CANopen library with a manual how to add new own features and functionality 
-- Test for bugs. I have changed to Microsoft Visual Studio Community and notice that MSVC is more sensitive than GCC compiler.
-
-C coding help is appreciated.
+On going
 
 # Getting started
 
@@ -47,7 +46,7 @@ That's the debugging mode for internal CAN feedback.
 /* Include Easy CANopen */
 #include "Easy_CANopen/Easy_CANopen.h"
 
-void Callback_Function_Send(uint32_t ID, uint8_t DLC, uint8_t data[]) {
+void Callback_Function_Send(uint16_t ID, uint8_t DLC, uint8_t data[]) {
 	/* Apply your transmit layer here, e.g:
 	 * uint32_t TxMailbox;
 	 * static CAN_HandleTypeDef can_handler;
@@ -58,7 +57,7 @@ void Callback_Function_Send(uint32_t ID, uint8_t DLC, uint8_t data[]) {
 	 */
 }
 
-void Callback_Function_Read(uint32_t* ID, uint8_t data[], bool* is_new_data) {
+void Callback_Function_Read(uint16_t* ID, uint8_t data[], bool* is_new_data) {
 	/* Apply your receive layer here, e.g:
 	 * CAN_RxHeaderTypeDef rxHeader = {0};
 	 * static CAN_HandleTypeDef can_handler;
@@ -72,7 +71,7 @@ void Callback_Function_Read(uint32_t* ID, uint8_t data[], bool* is_new_data) {
 }
 
 /* This function reads the CAN traffic */
-void Callback_Function_Traffic(uint32_t ID, uint8_t DLC, uint8_t data[], bool is_TX) {
+void Callback_Function_Traffic(uint16_t ID, uint8_t DLC, uint8_t data[], bool is_TX) {
 	/* Print if it is TX or RX */
 	printf("%s\t", is_TX ? "TX" : "RX");
 
