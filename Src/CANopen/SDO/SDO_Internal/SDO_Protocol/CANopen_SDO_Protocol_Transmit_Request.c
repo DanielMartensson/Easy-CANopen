@@ -15,8 +15,8 @@ void CANopen_SDO_Protocol_Transmit_Request_Initiate(CANopen *canopen, uint8_t cs
 
 	/* Default values */
 	uint8_t data[8] = {0};
-	data[1] = ((uint8_t*)&index)[0];    /* LSB */
-	data[2] = ((uint8_t*)&index)[1];	/* MSB */
+	data[1] = index & 0xFF;       // LSB
+	data[2] = (index >> 8) & 0xFF; // MSB
 	data[3] = sub_index;
 
 	/* For the download request */
@@ -63,7 +63,11 @@ void CANopen_SDO_Protocol_Transmit_Request_Initiate(CANopen *canopen, uint8_t cs
 		}
 
 		/* Value can either be value or byte size of that value */
-		*(uint32_t*)&data[4] = value;
+		data[4] = value & 0xFF;
+		data[5] = (value >> 8) & 0xFF;
+		data[6] = (value >> 16) & 0xFF;
+		data[7] = (value >> 24) & 0xFF;
+		break;
 	}
 
 	/* Create the COB ID */
