@@ -242,3 +242,15 @@ void Easy_CANopen_Other_Node_Stop_Remote_Node(CANopen *canopen, uint8_t node_ID)
 	CANopen_Master_NMT_Transmit_Operation_State(canopen, CS_NMT_SERVICE_STOP_REMOTE_NODE, node_ID);
 }
 
+/*
+ * Deactivate the NMT stop when EMCY communication error behaviour occurs.
+ *
+ * Requirement: The node must support the Error Behavior Object (CiA 301). 
+ *              The node must be in a state where SDO downloads are allowed.
+ *
+ * Responses: No immediate response from the node is expected. 
+ *            The new configuration will take effect immediately for future EMCY events.
+ */
+void Easy_CANopen_Other_Node_No_NMT_Stop_At_Communication_Error_Behaviour_EMCY(CANopen *canopen, uint8_t node_ID){
+	CANopen_Client_SDO_Transmit_Request(canopen, CS_SDO_INITIATE_DOWNLOAD_REQUEST, node_ID, OD_INDEX_ERROR_BEHAVIOR_OBJECT, SUB_INDEX_ERROR_BEHAVIOUR_OBJECT_COMMUNICATON_ERROR, SUB_INDEX_VALUE_ERROR_BEHAVIOUR_OBJECT_NO_STOP);
+}
