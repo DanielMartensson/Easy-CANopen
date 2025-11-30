@@ -244,7 +244,7 @@ OD_STATUS CANopen_OD_Bank(CANopen *canopen, uint16_t index, uint8_t sub_index, b
 		byte_pointer = (uint8_t*) communication->emergency_consumer_object;
 		*access = OD_ACCESS_READ_WRITE;
 		return read_or_write(value, &communication->emergency_consumer_object[sub_index], set, *access, *data_type);
-	}else if(index == OD_INDEX_ERROR_BEHAVIOR_OBJECT && sub_index < ERROR_BEHAVIOR_SUB_INDEX){
+	}else if(index == OD_INDEX_ERROR_BEHAVIOR_OBJECT && sub_index < ERROR_BEHAVIOR_MAX_SUB_INDEX){
 		*byte_size = sizeof(communication->error_behavior_object);
 		*data_type = OD_DATA_TYPE_ARRAY;
 		byte_pointer = (uint8_t*) communication->error_behavior_object;
