@@ -29,13 +29,13 @@ static void (*Callback_Function_Delay_ms)(uint8_t) = NULL;
 /* Internal fields */
 static bool internal_new_message[256] = {false};
 static uint8_t internal_data[256*8] = {0};
-static uint16_t internal_COB_ID[256] = {0};
+static uint16_t internal_CAN_ID[256] = {0};
 static uint8_t buffer_index_transmit = 0;
 static uint8_t buffer_index_receive = 0;
 
 /* Internal functions */
-static STATUS_CODE Internal_Transmit(uint16_t COB_ID, uint8_t data[], uint8_t DLC) {
-	internal_COB_ID[buffer_index_transmit] = COB_ID;
+static STATUS_CODE Internal_Transmit(uint16_t CAN_ID, uint8_t data[], uint8_t DLC) {
+	internal_CAN_ID[buffer_index_transmit] = CAN_ID;
 	for (uint8_t i = 0; i < 8; i++) {
 		internal_data[buffer_index_transmit * 8 + i] = data[i];
 	}
@@ -44,13 +44,13 @@ static STATUS_CODE Internal_Transmit(uint16_t COB_ID, uint8_t data[], uint8_t DL
 	return STATUS_CODE_SUCCESSFUL;
 }
 
-static void Internal_Receive(uint16_t *COB_ID, uint8_t data[], bool *is_new_message) {
+static void Internal_Receive(uint16_t *CAN_ID, uint8_t data[], bool *is_new_message) {
 	/* Do a quick check if we are going to read message that have no data */
 	if (internal_new_message[buffer_index_receive] == false) {
 		*is_new_message = false;
 		return;
 	}
-	*COB_ID = internal_COB_ID[buffer_index_receive];
+	*CAN_ID = internal_CAN_ID[buffer_index_receive];
 	for (uint8_t i = 0; i < 8; i++) {
 		data[i] = internal_data[buffer_index_receive * 8 + i];
 	}
@@ -61,7 +61,7 @@ static void Internal_Receive(uint16_t *COB_ID, uint8_t data[], bool *is_new_mess
 }
 #endif
 
-STATUS_CODE Easy_CANopen_Hardware_CAN_Send_Message(uint16_t COB_ID, uint8_t data[]) {
+STATUS_CODE Easy_CANopen_Hardware_CAN_Send_Message(uint16_t CAN_ID, uint8_t data[]) {
 	STATUS_CODE status;
 #if PROCESSOR_CHOICE == STM32
 	CAN_TxHeaderTypeDef TxHeader;
@@ -82,23 +82,23 @@ STATUS_CODE Easy_CANopen_Hardware_CAN_Send_Message(uint16_t COB_ID, uint8_t data
     status = QT_USB_Transmit(ID, data, 8);
 #elif EASY_CAN_OPEN_TARGET_PLATFORM == INTERNAL_CALLBACK
 	/* Call our callback function */
-	Callback_Function_Send(COB_ID, 8, data);
+	Callback_Function_Send(CAN_ID, 8, data);
 	status = STATUS_CODE_SUCCESSFUL;
 #else
 	/* If no processor are used, use internal feedback for debugging */
-	status = Internal_Transmit(COB_ID, data, 8);
+	status = Internal_Transmit(CAN_ID, data, 8);
 #endif
 
 	/* Display traffic */
 	if (Callback_Function_Traffic != NULL) {
-		Callback_Function_Traffic(COB_ID, 8, data, true); /* ID, 8 bytes of data, data array, TX = true */
+		Callback_Function_Traffic(CAN_ID, 8, data, true); /* ID, 8 bytes of data, data array, TX = true */
 	}
 
 	return status;
 }
 
 /* Read the current CAN-bus message. Returning false if the message has been read before, else true */
-bool Easy_CANopen_Hardware_CAN_Read_Message(uint16_t *COB_ID, uint8_t data[]) {
+bool Easy_CANopen_Hardware_CAN_Read_Message(uint16_t *CAN_ID, uint8_t data[]) {
 	bool is_new_message;
 	#if PROCESSOR_CHOICE == STM32
 	STM32_PLC_CAN_Get_ID_Data(ID, data, &is_new_message);
@@ -111,15 +111,15 @@ bool Easy_CANopen_Hardware_CAN_Read_Message(uint16_t *COB_ID, uint8_t data[]) {
 #elif PROCESSOR_CHOICE == QT_USB
     QT_USB_Get_ID_Data(ID, data, &is_new_message);
 #elif EASY_CAN_OPEN_TARGET_PLATFORM == INTERNAL_CALLBACK
-	Callback_Function_Read(COB_ID, data, &is_new_message);
+	Callback_Function_Read(CAN_ID, data, &is_new_message);
 #else
 	/* If no processor are used, use internal feedback for debugging */
-	Internal_Receive(COB_ID, data, &is_new_message);
+	Internal_Receive(CAN_ID, data, &is_new_message);
 #endif
 
 	/* Display traffic */
 	if (Callback_Function_Traffic != NULL && is_new_message) {
-		Callback_Function_Traffic(*COB_ID, 8, data, false); /* ID, 8 bytes of data, data array, TX = false */
+		Callback_Function_Traffic(*CAN_ID, 8, data, false); /* ID, 8 bytes of data, data array, TX = false */
 	}
 
 	return is_new_message;

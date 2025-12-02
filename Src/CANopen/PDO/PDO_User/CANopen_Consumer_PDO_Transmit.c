@@ -15,13 +15,15 @@ void CANopen_Consumer_PDO_Transmit_Request(CANopen *canopen, uint8_t node_ID){
 	if(canopen->slave.nmt.this_node_status_operational != STATUS_OPERATIONAL_OPERATIONAL)
 		return; /* NMT is not in operational mode. PDO service is disabled */
 
-	/* Get CAN ID */
-	uint8_t index;
-	for(index = 0; index < PDO_LENGTH; index++)
-		if((canopen->od_communication.PDO_communication_receive[index].COB_ID & 0x7F) == node_ID)
-			break; /* Now we got the index number */
+	/* Get CAN_ID */
+	uint16_t CAN_ID = 0;
+	for(uint8_t i = 0; i < PDO_LENGTH; i++){
+		if((canopen->od_communication.PDO_communication_receive[i].COB_ID & 0x7F) == node_ID){
+			CAN_ID = canopen->od_communication.PDO_communication_receive[i].COB_ID;
+			break;
+		}
+	}
 
 	/* Transmit request */
-	uint16_t CAN_ID = canopen->od_communication.PDO_communication_receive[index].COB_ID & 0x7F;
 	CANopen_PDO_Protocol_Produce_Request(CAN_ID);
 }

@@ -10,15 +10,15 @@
 /* Layers */
 #include "../../../OD/OD.h"
 
-void CANopen_PDO_Protocol_Consume_Data(CANopen *canopen, struct PDO_mapping *pdo_mapping, uint8_t data[]) {
+void CANopen_PDO_Protocol_Consume_Data(CANopen *canopen, PDO_mapping* PDO_mapping_receive, uint8_t data[]) {
 	/* Collect data and save */
 	uint8_t position = 0;
-	for(uint8_t i = 0; i < pdo_mapping->number_of_mapped_objects_in_PDO; i++){
+	for(uint8_t i = 0; i < PDO_mapping_receive->number_of_mapped_objects_in_PDO; i++){
 
 		/* Get the mapping parameters of PDO */
-		uint16_t index = pdo_mapping->object_to_be_mapped[i] >> 16;
-		uint8_t sub_index = pdo_mapping->object_to_be_mapped[i] >> 8;
-		uint8_t length = pdo_mapping->object_to_be_mapped[i];
+		uint16_t index = (PDO_mapping_receive->object_to_be_mapped[i] >> 16) & 0xFFFF;
+		uint8_t sub_index = (PDO_mapping_receive->object_to_be_mapped[i] >> 8) & 0xFF;
+		uint8_t length = PDO_mapping_receive->object_to_be_mapped[i] & 0xFF;
 		uint8_t length_in_bytes = length / 8;
 
 		/* Quick check if the data array is full */
@@ -32,14 +32,14 @@ void CANopen_PDO_Protocol_Consume_Data(CANopen *canopen, struct PDO_mapping *pdo
 			value = data[position++];
 			break;
 		case 16:
-			value = data[position++];
-			value |= data[position++] << 8;
+			value = data[position++] << 8;
+			value |= data[position++];
 			break;
 		case 32:
-			value = data[position++];
-			value |= data[position++] << 8;
+			value = data[position++] << 24;
 			value |= data[position++] << 16;
-			value |= data[position++] << 24;
+			value |= data[position++] << 8;
+			value |= data[position++];
 			break;
 		}
 

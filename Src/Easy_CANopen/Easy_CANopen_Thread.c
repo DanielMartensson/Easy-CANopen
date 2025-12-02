@@ -13,18 +13,18 @@
 
 /* Call this function for every 1 millisecond */
 bool Easy_CANopen_Thread_Listen_Messages(CANopen *canopen) {
-	uint16_t COB_ID = 0;
+	uint16_t CAN_ID = 0;
 	uint8_t data[8] = { 0 };
-	bool is_new_message = Easy_CANopen_Hardware_CAN_Read_Message(&COB_ID, data);
+	bool is_new_message = Easy_CANopen_Hardware_CAN_Read_Message(&CAN_ID, data);
 	if (is_new_message) {
 		/* Save latest */
-		canopen->COB_ID = COB_ID;
+		canopen->CAN_ID = CAN_ID;
 		memcpy(canopen->data, data, 8);
-		canopen->COB_ID_and_data_is_updated = true;
+		canopen->CAN_ID_and_data_is_updated = true;
 
 		/* Read the COB ID. Node ID == 0 is master node address. */
-		uint8_t function_code = COB_ID >> 7;
-		uint8_t node_ID = 0x7F & COB_ID;
+		uint8_t function_code = CAN_ID >> 7;
+		uint8_t node_ID = 0x7F & CAN_ID;
 
 		/* Communication services */
 		switch(function_code){
@@ -76,7 +76,7 @@ bool Easy_CANopen_Thread_Listen_Messages(CANopen *canopen) {
 		}
 
 		/* Administration services */
-		switch(COB_ID){
+		switch(CAN_ID){
 		case FUNCTION_CODE_LSS_TRANSMIT:
 			CANopen_Slave_LSS_Receive_Request(canopen, node_ID, data);						/* Master -> Slave */
 			break;

@@ -12,7 +12,7 @@
 
 /* 7.5.2 and 7.2.2 in CiA 305 1.1.1 */
 void CANopen_PDO_Protocol_Produce_Request(uint16_t CAN_ID);
-void CANopen_PDO_Protocol_Produce_Data(CANopen *canopen, uint16_t CAN_ID, struct PDO_mapping *pdo_mapping);
-void CANopen_PDO_Protocol_Consume_Data(CANopen *canopen, struct PDO_mapping *pdo_mapping, uint8_t data[]);
+void CANopen_PDO_Protocol_Produce_Data(CANopen *canopen, PDO_mapping* PDO_mapping_transmit, uint16_t COB_ID);
+void CANopen_PDO_Protocol_Consume_Data(CANopen *canopen, PDO_mapping* PDO_mapping_receive, uint8_t data[]);
 
 #endif /* CANOPEN_PDO_PDO_INTERNAL_PDO_PROTOCOL_PDO_PROTOCOL_H_ */

@@ -31,7 +31,7 @@ void CANopen_NMT_Protocol_Receive_Request_Node_Reset(CANopen *canopen){
 
 void CANopen_NMT_Protocol_Receive_Request_Restore_Communication_Parameters(CANopen *canopen){
 	/* Clear the OD communication parameters */
-	memset(&canopen->od_communication, 0, sizeof(struct OD_Communication));
+	memset(&canopen->od_communication, 0, sizeof(OD_Communication));
 	canopen->od_communication.store_parameters[0] = 0x3;
 	canopen->od_communication.restore_default_parameters[0] = 0x3;
 	canopen->od_communication.error_behavior_object[0] = 0x1;

@@ -37,6 +37,6 @@ void CANopen_Producer_PDO_Receive_Request(CANopen *canopen, uint8_t node_ID, uin
 		return; /* Nope */
 
 	/* Transmit */
-	uint16_t CAN_ID = canopen->od_communication.PDO_communication_transmit[index].COB_ID & 0x7FF;
-	CANopen_PDO_Protocol_Produce_Data(canopen, CAN_ID, &canopen->od_communication.PDO_mapping_transmit[index]);
+	uint16_t CAN_ID = canopen->od_communication.PDO_communication_transmit[index].COB_ID & 0x7F;
+	CANopen_PDO_Protocol_Produce_Data(canopen, &canopen->od_communication.PDO_mapping_transmit[index], CAN_ID);
 }

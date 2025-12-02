@@ -59,3 +59,18 @@ void Easy_CANopen_This_Node_Empty_Error_Messages(CANopen *canopen){
 	canopen->od_communication.error_register = 0;
 	memset(canopen->od_communication.pre_defined_error_field, 0, sizeof(canopen->od_communication.pre_defined_error_field)/sizeof(canopen->od_communication.pre_defined_error_field[0]));
 }
+
+void Easy_CANopen_This_Node_Create_PDO_Communication_Transmit(CANopen *canopen, uint8_t index, uint16_t COB_ID, uint16_t event_timer, uint8_t highest_sub_index_supported, uint16_t inhibit_time, uint8_t sync_start_value, uint8_t transmission_type){
+	canopen->od_communication.PDO_communication_transmit[index].COB_ID = COB_ID;
+	canopen->od_communication.PDO_communication_transmit[index].event_timer = event_timer;
+	canopen->od_communication.PDO_communication_transmit[index].highest_sub_index_supported = highest_sub_index_supported;
+	canopen->od_communication.PDO_communication_transmit[index].inhibit_time = inhibit_time;
+	canopen->od_communication.PDO_communication_transmit[index].sync_start_value = sync_start_value;
+	canopen->od_communication.PDO_communication_transmit[index].transmission_type = transmission_type;
+	canopen->od_communication.PDO_communication_transmit[index].reserved = 0;
+}
+
+void Easy_CANopen_This_Node_Create_PDO_Mapping_Transmit(CANopen *canopen, uint8_t index, uint8_t sub_index, uint8_t number_of_mapped_objects_in_PDO, uint32_t value){
+	canopen->od_communication.PDO_mapping_transmit[index].number_of_mapped_objects_in_PDO;
+	canopen->od_communication.PDO_mapping_transmit[index].object_to_be_mapped[sub_index] = value;
+}

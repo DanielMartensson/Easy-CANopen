@@ -81,7 +81,7 @@ OD_STATUS CANopen_OD_Set_Value(CANopen *canopen, uint16_t index, uint8_t sub_ind
 }
 
 OD_STATUS CANopen_OD_Bank(CANopen *canopen, uint16_t index, uint8_t sub_index, bool set, uint32_t *value, uint32_t *byte_size, OD_DATA_TYPE *data_type, uint8_t *byte_pointer, OD_ACCESS *access){
-	struct OD_Communication *communication = &canopen->od_communication;
+	OD_Communication *communication = &canopen->od_communication;
 	if(index == OD_INDEX_DEVICE_TYPE && sub_index == 0){
 		*byte_size = sizeof(communication->device_type);
 		*data_type = sizeof(communication->device_type);

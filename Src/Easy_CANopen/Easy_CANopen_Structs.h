@@ -27,24 +27,24 @@
 #define PDO_LENGTH 32
 
 /* CiA 301: Communication parameter record for RPDO (0x1400 - 0x15FF) and TPDO (0x1800 - 0x19FF) */
-struct PDO_communication{
+typedef struct{
 	uint8_t highest_sub_index_supported;												/* Sub index 0x0 */
-	uint16_t COB_ID;																	/* Sub index 0x1 */
+	uint32_t COB_ID;																	/* Sub index 0x1 */
 	uint8_t transmission_type;															/* Sub index 0x2 */
 	uint16_t inhibit_time;																/* Sub index 0x3 */
 	uint8_t reserved;																	/* Sub index 0x4 */
 	uint16_t event_timer;																/* Sub index 0x5 */
 	uint8_t sync_start_value;															/* Sub index 0x6 */
-};
+}PDO_communication;
 
 /* CiA 301: Mapping parameter record for RPDO (0x1600 - 0x17FF) and TPDO (0x1A00 - 0x1BFF) */
-struct PDO_mapping{
+typedef struct{
 	uint8_t number_of_mapped_objects_in_PDO;											/* Sub index 0x0 */
 	uint32_t object_to_be_mapped[8];													/* Sub index 0x1 -> 0x8 */
-};
+}PDO_mapping;
 
 /* CiA 301: Object dictionary for communication parameter area 0x1000 -> 0x1FFF */
-struct OD_Communication{
+typedef struct{
 	uint32_t device_type;																/* Index 0x1000 sub index 0x0 - OK */
 	uint8_t error_register;																/* Index 0x1001 sub index 0x0 - OK*/
 	uint32_t manufacturer_status_register;												/* Index 0x1002 sub index 0x0 - OK */
@@ -73,15 +73,14 @@ struct OD_Communication{
 	uint32_t verify_configuration[VERIFY_CONFIGURATION_MAX_SUB_INDEX];					/* Index 0x1020 sub index 0x0 -> 0x2 */
 	uint32_t emergency_consumer_object[EMERGENCY_CONSUMER_MAX_SUB_INDEX];				/* Index 0x1028 sub index 0x0 -> 0x7F */
 	uint8_t error_behavior_object[ERROR_BEHAVIOR_MAX_SUB_INDEX];						/* Index 0x1029 sub index 0x0 -> 0x2 */
-	struct PDO_communication PDO_communication_receive[PDO_LENGTH];						/* Index 0x1400 -> 0x1400 + PDO_LENGTH -1 */
-	struct PDO_communication PDO_communication_transmit[PDO_LENGTH];					/* Index 0x1800 -> 0x1800 + PDO_LENGTH -1 */
-	struct PDO_mapping PDO_mapping_receive[PDO_LENGTH];									/* Index 0x1600 -> 0x1600 + PDO_LENGTH -1 */
-	struct PDO_mapping PDO_mapping_transmit[PDO_LENGTH];								/* Index 0x1A00 -> 0x1A00 + PDO_LENGTH -1 */
-
-};
+	PDO_communication PDO_communication_receive[PDO_LENGTH];						    /* Index 0x1400 -> 0x1400 + PDO_LENGTH -1 */
+	PDO_communication PDO_communication_transmit[PDO_LENGTH];					        /* Index 0x1800 -> 0x1800 + PDO_LENGTH -1 */
+	PDO_mapping PDO_mapping_receive[PDO_LENGTH];									    /* Index 0x1600 -> 0x1600 + PDO_LENGTH -1 */
+	PDO_mapping PDO_mapping_transmit[PDO_LENGTH];								        /* Index 0x1A00 -> 0x1A00 + PDO_LENGTH -1 */
+}OD_Communication;
 
 /* CiA 305: Layer setting services */
-struct LSS{
+typedef struct{
 	uint8_t switch_mode_global_protocol;								/* Disable or enable the LSS service */
 	uint8_t status_code;												/* Status code */
 	uint8_t status_code_specific;										/* Status code specific */
@@ -94,10 +93,10 @@ struct LSS{
 	uint8_t node_ID;													/* Node ID */
 	bool identity_found;												/* If vendor ID, product code, revision number or serial number has been found */
 	bool non_configured_node_ID_found;									/* If the node ID is at the error address 0xFF */
-};
+}LSS;
 
 /* CiA 301: Network management */
-struct NMT{
+typedef struct{
 	uint8_t this_node_status_operational;								/* Operational status of this node */
 	uint8_t from_node_status_operational;								/* Operational status of other node */
 	uint8_t this_node_toggle;											/* Toggle of this node */
@@ -105,10 +104,10 @@ struct NMT{
 	uint32_t this_node_count_tick;										/* Counter in milliseconds of this node */
 	uint32_t from_node_count_tick;										/* Counter in milliseconds of other node */
 	uint8_t from_node_ID;												/* From node ID */
-};
+}NMT;
 
 /* CiA 301: Service Dictionary Objects */
-struct SDO{
+typedef struct{
 	uint32_t expedited_byte;											/* Expedited data or byte size that are going to be sent */
 	uint8_t expedited_byte_size;										/* Expedited data size */
 	uint32_t transceive_segment_total_byte;								/* Total bytes that are going to be transmitted or received */
@@ -118,64 +117,63 @@ struct SDO{
 	uint16_t index;														/* At what index did we read or write */
 	uint8_t sub_index;													/* At what sub index did we read or write */
 	uint8_t from_node_ID;												/* From node ID */
-};
+}SDO;
 
-struct PDO{
+typedef struct{
 	uint8_t sync_counter_value;											/* Counter sync value for PDO */
 	bool start_counting_sync;											/* This is true when sync_start_value above is equal or greater as sync */
 	uint8_t event_timer_counter;										/* Event timer counter for PDO */
-};
+}PDO;
 
 /* CiA 301: Synchronization */
-struct SYNC{
+typedef struct{
 	uint8_t counter;													/* This is for the PDO sync */
-};
+}SYNC;
 
 /* CiA 301: Time */
-struct TIME{
+typedef struct{
 	uint16_t days_since_1_janunary_1984;								/* Days since 1 January 1984 */
 	uint32_t milliseconds_since_midnight;								/* Milliseconds since clock 00:00 */
-};
+}TIME;
 
 /* CiA 301: Emergency */
-struct EMCY{
+typedef struct{
 	uint16_t error_code;												/* The error code from a node */
 	uint8_t error_register;												/* The error register from anode */
 	uint8_t from_node_ID;												/* Where the emergency message came from  */
-};
+}EMCY;
 
 /**************************************************************************************************/
 
-struct Master{
-	struct NMT nmt;
-	struct LSS lss;
-	struct SYNC sync;
-};
+typedef struct{
+	NMT nmt;
+	LSS lss;
+	SYNC sync;
+}Master;
 
-struct Slave{
-	struct NMT nmt;
-	struct LSS lss;
-	struct SYNC sync;
-	struct TIME time;
-	struct SDO sdo;
-	struct PDO pdo[PDO_LENGTH];											/* Only for TPDO */
-	struct EMCY emcy;
+typedef struct{
+	NMT nmt;
+	LSS lss;
+	SYNC sync;
+	TIME time;
+	SDO sdo;
+	PDO pdo[PDO_LENGTH];											/* Only for TPDO */
+	EMCY emcy;
 	uint8_t this_node_ID;												/* This node ID of this slave */
 	uint8_t this_node_table_index;										/* Baud rate table index of this slave */
-};
-
+}Slave;
 
 /* This struct is the object used by the CANopen user */
 typedef struct {
 	/* Latest CAN message */
-	uint16_t COB_ID;													/* This is the CAN bus ID */
+	uint16_t CAN_ID;													/* This is the CAN bus ID */
 	uint8_t data[8];													/* This is the CAN bus data */
-	bool COB_ID_and_data_is_updated;									/* This is a flag that going to be set to true for every time ID and data */
+	bool CAN_ID_and_data_is_updated;									/* This is a flag that going to be set to true for every time ID and data */
 
 	/* CANopen services */
-	struct OD_Communication od_communication;							/* Communication objects */
-	struct Master master;												/* The node with address 0 */
-	struct Slave slave;													/* The nodes with address 1 to 127 */
-} CANopen;
+	OD_Communication od_communication;							        /* Communication objects */
+	Master master;												        /* The node with address 0 */
+	Slave slave;													    /* The nodes with address 1 to 127 */
+}CANopen;
 
 #endif /* EASY_CANOPEN_EASY_CANOPEN_STRUCTS_H_ */

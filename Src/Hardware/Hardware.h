@@ -42,8 +42,8 @@ extern "C" {
 #endif
 
 /* Transmit & Receive */
-STATUS_CODE Easy_CANopen_Hardware_CAN_Send_Message(uint16_t COB_ID, uint8_t data[]);
-bool Easy_CANopen_Hardware_CAN_Read_Message(uint16_t *ID, uint8_t data[]);
+STATUS_CODE Easy_CANopen_Hardware_CAN_Send_Message(uint16_t CAN_ID, uint8_t data[]);
+bool Easy_CANopen_Hardware_CAN_Read_Message(uint16_t *CAN_ID, uint8_t data[]);
 bool Easy_CANopen_CAN_Set_Baud_Rate(uint8_t table_index);
 
 /* Save and load data */

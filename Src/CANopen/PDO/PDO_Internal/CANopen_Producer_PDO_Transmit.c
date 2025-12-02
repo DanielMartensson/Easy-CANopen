@@ -22,7 +22,7 @@ void CANopen_Producer_PDO_Transmit_Data(CANopen *canopen) {
 
 	for(uint8_t i = 0; i < PDO_LENGTH; i++){
 		/* Check if TPDO Communication parameter is valid */
-		uint8_t valid = canopen->od_communication.PDO_communication_transmit[i].COB_ID >> 15; // Get valid bit
+		uint8_t valid = canopen->od_communication.PDO_communication_transmit[i].COB_ID >> 31; // Get valid bit
 		if(valid == 1)
 			continue; /* Just skip */
 
@@ -32,14 +32,13 @@ void CANopen_Producer_PDO_Transmit_Data(CANopen *canopen) {
 		/* Check transmission type */
 		if(canopen->od_communication.PDO_communication_transmit[i].transmission_type == 0xFF) {
 			/* event-driven (device profile and application profile specific) */
-			if(canopen->slave.pdo[i].event_timer_counter >= canopen->od_communication.PDO_communication_transmit[i].event_timer)
+			if(canopen->slave.pdo[i].event_timer_counter >= canopen->od_communication.PDO_communication_transmit[i].event_timer){
 				execute_transmission = true;
-
-			/* Count +1 or reset to 0 if counter is event_timer */
-			if(canopen->slave.pdo[i].event_timer_counter == canopen->od_communication.PDO_communication_transmit[i].event_timer)
 				canopen->slave.pdo[i].event_timer_counter = 0;
-			else
+			}else{
+				/* Count +1 or reset to 0 if counter is event_timer */
 				canopen->slave.pdo[i].event_timer_counter++;
+			}
 		}else if(canopen->od_communication.PDO_communication_transmit[i].transmission_type >= 0x1 && canopen->od_communication.PDO_communication_transmit[i].transmission_type <= 0xF0){
 			/* This is a starting threshold */
 			if(canopen->slave.sync.counter >= canopen->od_communication.PDO_communication_transmit[i].sync_start_value)
@@ -54,7 +53,6 @@ void CANopen_Producer_PDO_Transmit_Data(CANopen *canopen) {
 					/* If we exceeded */
 					if(canopen->slave.pdo[i].sync_counter_value == canopen->od_communication.PDO_communication_transmit[i].transmission_type)
 						execute_transmission = true;
-
 				}else{
 					canopen->slave.pdo[i].sync_counter_value = 0;
 				}
@@ -64,16 +62,15 @@ void CANopen_Producer_PDO_Transmit_Data(CANopen *canopen) {
 			canopen->slave.pdo[i].event_timer_counter = 0;
 			canopen->slave.pdo[i].start_counting_sync = false;
 			canopen->slave.pdo[i].sync_counter_value = 0;
-			return; /* Only synchronous and event-driven transmission is supported */
+			return; /* Only synchronous and event-driven transmission are supported */
 		}
-
 
 		/* Check if it's true to send the transmission */
 		if(!execute_transmission)
-			return; /* Nope */
+			continue; /* Nope */
 
 		/* Transmit */
-		uint16_t CAN_ID = canopen->od_communication.PDO_communication_transmit[i].COB_ID & 0x7FF;
-		CANopen_PDO_Protocol_Produce_Data(canopen, CAN_ID, &canopen->od_communication.PDO_mapping_transmit[i]);
+		uint16_t CAN_ID = canopen->od_communication.PDO_communication_transmit[i].COB_ID & 0x7F;
+		CANopen_PDO_Protocol_Produce_Data(canopen, &canopen->od_communication.PDO_mapping_transmit[i], CAN_ID);
 	}
 }
