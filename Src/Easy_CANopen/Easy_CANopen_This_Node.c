@@ -60,7 +60,7 @@ void Easy_CANopen_This_Node_Empty_Error_Messages(CANopen *canopen){
 	memset(canopen->od_communication.pre_defined_error_field, 0, sizeof(canopen->od_communication.pre_defined_error_field)/sizeof(canopen->od_communication.pre_defined_error_field[0]));
 }
 
-void Easy_CANopen_This_Node_Create_PDO_Communication_Transmit(CANopen *canopen, uint8_t index, uint16_t COB_ID, uint16_t event_timer, uint8_t highest_sub_index_supported, uint16_t inhibit_time, uint8_t sync_start_value, uint8_t transmission_type){
+void Easy_CANopen_This_Node_Create_PDO_Communication_Transmit(CANopen *canopen, uint8_t index, uint32_t COB_ID, uint16_t event_timer, uint8_t highest_sub_index_supported, uint16_t inhibit_time, uint8_t sync_start_value, uint8_t transmission_type){
 	canopen->od_communication.PDO_communication_transmit[index].COB_ID = COB_ID;
 	canopen->od_communication.PDO_communication_transmit[index].event_timer = event_timer;
 	canopen->od_communication.PDO_communication_transmit[index].highest_sub_index_supported = highest_sub_index_supported;
