@@ -20,7 +20,8 @@ Head over to [GoobySoft](https://github.com/DanielMartensson/GoobySoft)
 
 # Status of the project
 
-On going
+This project is on idle because I need more testers and I don't have the time and hardware to test my code onto that hardware.
+Please, if you want to send me a PR for tested code or even develop on this project. That would be very grateful!
 
 # Getting started
 
