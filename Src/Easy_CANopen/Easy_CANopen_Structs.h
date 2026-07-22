@@ -132,8 +132,8 @@ typedef struct{
 
 /* CiA 301: Time */
 typedef struct{
-	uint16_t days_since_1_janunary_1984;								/* Days since 1 January 1984 */
-	uint32_t milliseconds_since_midnight;								/* Milliseconds since clock 00:00 */
+	uint16_t days;														/* Days since 1 January 1984 */
+	uint32_t milliseconds;												/* Milliseconds since clock 00:00 */
 }TIME;
 
 /* CiA 301: Emergency */
