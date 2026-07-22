@@ -21,6 +21,7 @@ add_library(easycanopen STATIC ${ALL_SOURCE_FILES})
 target_include_directories(easycanopen PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/Src")
 
 # Executable
-add_executable(easycanopenmain ${MAIN_SRC})
+add_executable(easycanopenmain ${MAIN_SRC}
+    Src/Utilities/CANopen_TIME/co_time_conversion.c)
 target_link_libraries(easycanopenmain PRIVATE easycanopen)
 target_include_directories(easycanopenmain PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/Src")
