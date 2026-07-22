@@ -1,2 +1,4 @@
-.git
 /build
+
+# Add VS Code related folders
+/.vscode/
