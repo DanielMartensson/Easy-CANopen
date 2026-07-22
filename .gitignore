@@ -1,4 +1,6 @@
-/build
-
 # Add VS Code related folders
 /.vscode/
+
+# ignore Cmake folders
+.cache/
+/build
