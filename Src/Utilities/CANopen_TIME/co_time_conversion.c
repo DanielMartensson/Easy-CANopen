@@ -76,9 +76,9 @@ bool co_time_dt_to_cotime(const datetime_t * const dt, TIME * const co_to)
         uint16_t    y;
         uint8_t     m;
 
-        co_to->milliseconds_since_midnight = ((uint32_t)dt->hour   * CF_HOUR_TO_MS) +
-                                            ((uint32_t)dt->minute  * CF_MIN_TO_MS) +
-                                            ((uint32_t)dt->second  * CF_SEC_TO_MS);
+        co_to->milliseconds = ((uint32_t)dt->hour   * CF_HOUR_TO_MS) +
+                            ((uint32_t)dt->minute  * CF_MIN_TO_MS) +
+                            ((uint32_t)dt->second  * CF_SEC_TO_MS);
 
         /* Calculate total days since 1984 epoch year */
         for (y = REF_YEAR_CO_TIME; y < dt->year; y++)
@@ -93,7 +93,7 @@ bool co_time_dt_to_cotime(const datetime_t * const dt, TIME * const co_to)
 
         total_days += (uint32_t)dt->day - 1UL;
 
-        co_to->days_since_1_janunary_1984 = (uint16_t) total_days;
+        co_to->days = (uint16_t) total_days;
         success = true;
     }
 

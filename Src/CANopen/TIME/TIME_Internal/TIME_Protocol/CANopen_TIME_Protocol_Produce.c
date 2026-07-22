@@ -29,13 +29,13 @@ void CANopen_TIME_Protocol_Produce_Clock(CANopen *canopen){
 		uint8_t data[8] = {0};
 
 		// TODO(fali.unsal): Should we check the endianness of the target device here?
-		data[0] = (uint8_t)(CO_Time.milliseconds_since_midnight & 0xFFU);
-		data[1] = (uint8_t)((CO_Time.milliseconds_since_midnight >> 8U) & 0xFFU);
-		data[2] = (uint8_t)((CO_Time.milliseconds_since_midnight >> 16U) & 0xFFU);
-		data[3] = (uint8_t)((CO_Time.milliseconds_since_midnight >> 24U) & 0xFFU);
+		data[0] = (uint8_t)(CO_Time.milliseconds & 0xFFU);
+		data[1] = (uint8_t)((CO_Time.milliseconds >> 8U) & 0xFFU);
+		data[2] = (uint8_t)((CO_Time.milliseconds >> 16U) & 0xFFU);
+		data[3] = (uint8_t)((CO_Time.milliseconds >> 24U) & 0xFFU);
 
-		data[4] = (uint8_t)(CO_Time.days_since_1_janunary_1984 & 0xFFU);
-		data[5] = (uint8_t)((CO_Time.days_since_1_janunary_1984 >> 8U) & 0xFFU);
+		data[4] = (uint8_t)(CO_Time.days & 0xFFU);
+		data[5] = (uint8_t)((CO_Time.days >> 8U) & 0xFFU);
 	
 		/* Create the COB ID */
 		uint16_t COB_ID = FUNCTION_CODE_TIME << 7U;	/* Only the master node send out this message */
